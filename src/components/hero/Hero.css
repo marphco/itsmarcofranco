@@ -65,7 +65,7 @@
 @media (max-width: 767px) {
   .hero-word {
     font-size: 40vw;
-    top: 25vh;
+    top: 22vh;
     transform: translateX(-50.5%);
   }
 
