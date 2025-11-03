@@ -1,0 +1,137 @@
+/* Contenitore hero */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #010101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Parola “MARCO”: ancorata in alto (10vh) e centrata orizzontalmente */
+.hero-word {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  font-size: 38vw;            /* ampiezza proporzionale alla larghezza */
+  font-weight: 600;           /* Teko semibold */
+  font-family: 'Teko', sans-serif;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 1;
+  letter-spacing: -0.02em;
+  pointer-events: none;
+}
+
+/* Ritratto: posizionato più in basso rispetto alla parola e scalato */
+.hero-overlay-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  /* Centra l’immagine orizzontalmente, ancorandola al fondo */
+  transform: translateX(-50%);
+  height: 80vh;
+  width: auto;
+  max-height: 90vh;
+  z-index: 2;
+  object-fit: contain;
+  pointer-events: none;
+  transition: filter 0.3s linear;
+}
+
+/* Animazione di ingresso per le singole lettere */
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: letterFade 1s ease forwards;
+  animation-delay: calc(var(--i) * 50ms);
+}
+
+@keyframes letterFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive per schermi stretti */
+@media (max-width: 767px) {
+  .hero-word {
+    font-size: 40vw;
+    top: 25vh;
+    transform: translateX(-50.5%);
+  }
+
+  .hero-overlay-image {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 65vh;
+    width: auto;
+    max-height: 75vh;
+  }
+
+  .hero-section {
+  height: 100vh;
+  }
+}
+
+
+/* Mini bio styling */
+.hero-message {
+  position: absolute;
+  bottom: 6vh;
+  left: 5vw;
+  z-index: 3;
+  color: #ffffff;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 320px;
+  opacity: 0.9;
+  cursor: pointer;    /* rende l’intero blocco cliccabile */
+}
+
+.hero-message p {
+  margin: 0 0 0.5rem 0;
+}
+
+.hero-button {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* il click è gestito dal parent */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.hero-button:hover {
+  background-color: #ffffff;
+  color: #0d0d0d;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .hero-message {
+    bottom: 10vh;
+    left: 5vw;
+    right: 5vw;
+    font-size: 1rem;
+    max-width: 90vw;
+  }
+  .hero-button {
+    font-size: 0.75rem;
+  }
+}
+

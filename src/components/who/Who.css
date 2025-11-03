@@ -1,0 +1,144 @@
+.who-wrap {
+  position: relative;
+  width: 100%;
+  background: #0d0d0d;
+  color: #fff;
+}
+
+/* sticky = il “pin” senza pin-spacer */
+.who-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* lista orizzontale */
+.who-track {
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  will-change: transform;
+}
+
+/* pannelli 100vw × 100vh */
+.panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  padding: 0 var(--who-pad);
+}
+.hero {
+  background: transparent;
+}
+
+.panel.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.who-text {
+  font-family: 'Teko', sans-serif;
+  /* font-optical-sizing: auto; */
+  /* font-weight: 900; */
+  /* font-style: normal; */
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  font-size: clamp(5rem, 18vw, 22rem);
+  transform: scaleY(1); /* viene aggiornato via JS */
+  pointer-events: none;
+  transform-origin: 50% 0%;
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden; /* evita AA che salta in 3D */
+  transform: translateZ(0); /* promuove subito il layer */
+}
+
+.panel-txt {
+  margin: 0;
+  font-size: clamp(1.2rem, 3.6vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  padding: 16vw;
+}
+
+/* altezza impostata da JS = durata orizzontale */
+.who-after-spacer {
+  height: 0;
+}
+
+.who-svg {
+  width: min(92vw, 1200px);
+  height: auto;
+  display: block;
+  color: #fff;
+}
+.who-svg text {
+  text-rendering: geometricPrecision;
+}
+.who-g {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  will-change: transform;
+}
+
+.panel-copy {
+  display: grid;
+  gap: clamp(12px, 2.5vw, 24px);
+  max-width: var(--who-maxw);
+  text-align: center;
+  padding: 16vw;               /* più editoriale rispetto al center */
+}
+
+/* ===== Headline (Teko) ===== */
+.panel-hl {
+  margin: 0;
+  font-family: "Teko", system-ui, sans-serif;
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  /* scala fluida: mobile -> desktop */
+  font-size: clamp(28px, 5.2vw, 64px);
+}
+
+/* ===== Subline (Space Grotesk) ===== */
+.panel-sl {
+  margin: 0;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-size: clamp(16px, 2.4vw, 24px);
+  opacity: 0.96;                  /* un filo più soft della HL */
+}
+
+/* evidenzia il brand xAI senza urlare */
+.panel-sl .brand {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ===== Responsive fine-tuning ===== */
+@media (min-width: 900px) {
+  .panel-copy {
+    max-width: 40ch;              /* più respiro su desktop */
+  }
+}
+
+/* se vuoi centrare verticalmente i blocchi di testo nell’area del pannello */
+.panel {
+  display: grid;
+  place-items: center;
+}
