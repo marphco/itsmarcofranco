@@ -155,7 +155,8 @@
   height: 30vh;
   pointer-events: none;
   z-index: 1;
-  contain: layout paint; /* <— importante */
+  contain: layout; /* niente paint */
+  overflow: visible;
   backface-visibility: hidden; /* <— evita blur su GPU */
 }
 .p2 .stickers {
@@ -193,8 +194,11 @@
 /* P2: icone sopra al testo, non allineate su una riga */
 .p2 .stickers {
   position: absolute;
-  inset: clamp(12vh, 14vh, 18vh) 0 auto 0; /* top, niente bottom */
-  height: 50vh; /* spazio per muoversi */
+  inset: clamp(12vh,14vh,18vh) 0 auto 0; /* top fisso */
+  height: auto;               /* lascia che si adatti */
+  min-height: 56vh;           /* playground sufficiente */
+  overflow: visible;
+  contain: layout;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto;
@@ -203,7 +207,6 @@
   gap: clamp(18px, 6vw, 80px);
   pointer-events: none;
   z-index: 1; /* testo sopra: leggibile */
-  contain: layout paint;
   backface-visibility: hidden;
 }
 
@@ -254,48 +257,77 @@
   margin-top: clamp(24px, 7vh, 88px);
 }
 
+@media (max-width: 768px){
+  .p2 .sticker.s3{ width: min(46vw, 280px); }
+}
+
 /* evita che la cornice del pannello tagli gli sticker */
-.panel.p2{ overflow: visible; }
+.panel.p2 {
+  overflow: visible;
+}
 
 /* P2: più spazio verticale su desktop */
-@media (min-width: 1024px){
-  .p2 .stickers{
+@media (min-width: 1024px) {
+  .p2 .stickers {
     /* prima: inset: clamp(12vh, 14vh, 18vh) 0 auto 0; height: 50vh; */
-    inset: clamp(8vh, 10vh, 12vh) 0 auto 0;   /* leggermente più in alto */
+    inset: clamp(8vh, 10vh, 12vh) 0 auto 0; /* leggermente più in alto */
     min-height: 100vh;
   }
 }
 
-
 /* P3: pannello a piena altezza e senza tagli */
-.panel.p3{ overflow: visible; min-height: 100vh; }
+.panel.p3 {
+  overflow: visible;
+  min-height: 100vh;
+}
 
 /* Arena sticker P3: prende tutta l’altezza dall’alto */
-.p3 .stickers{
+.p3 .stickers {
   position: absolute;
-  inset: 0;                 /* top/right/bottom/left */
+  inset: 0; /* top/right/bottom/left */
   min-height: 100vh;
   height: auto;
   pointer-events: none;
 }
 
 /* Gli sticker del P3 sono posizionati assoluti */
-.p3 .sticker{ position:absolute; will-change:transform; }
+.p3 .sticker {
+  position: absolute;
+  will-change: transform;
+}
 
 /* Posizioni richieste */
-.p3 .sticker.s1{             /* Pizza: leggermente più a destra */
-  left: 16vw; bottom: 10vh; width: min(40vw, 240px);
+.p3 .sticker.s1 {
+  /* Pizza: leggermente più a destra */
+  left: 16vw;
+  bottom: 10vh;
+  width: min(40vw, 240px);
 }
-.p3 .sticker.s2{             /* Pasta: in alto quasi al centro, sopra al testo */
-  left: 52vw; top: 12vh; width: min(22vw, 220px);
+.p3 .sticker.s2 {
+  /* Pasta: in alto quasi al centro, sopra al testo */
+  left: 52vw;
+  top: 12vh;
+  width: min(22vw, 220px);
 }
-.p3 .sticker.s3{             /* Statua: più in basso a destra */
-  right: 6vw; bottom: 8vh; width: min(34vw, 220px);
+.p3 .sticker.s3 {
+  /* Statua: più in basso a destra */
+  right: 6vw;
+  bottom: 8vh;
+  width: min(34vw, 220px);
 }
 
 /* Piccoli aggiustamenti su mobile */
-@media (max-width: 768px){
-  .p3 .sticker.s1{ left: 10vw; }
-  .p3 .sticker.s2{ left: 44vw; top: 10vh; width: min(34vw, 200px); }
-  .p3 .sticker.s3{ right: 5vw; bottom: 6vh; }
+@media (max-width: 768px) {
+  .p3 .sticker.s1 {
+    left: 10vw;
+  }
+  .p3 .sticker.s2 {
+    left: 44vw;
+    top: 10vh;
+    width: min(34vw, 200px);
+  }
+  .p3 .sticker.s3 {
+    right: 5vw;
+    bottom: 6vh;
+  }
 }
