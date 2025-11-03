@@ -148,29 +148,17 @@ export default function Who() {
     }
 
     // ====== STICKER ANIMATIONS ======
-    // NB: niente transform in CSS sugli sticker (evitiamo conflitti)
-    // gsap.set(".p2 .s2", { xPercent: -50 });
-
     const mm = gsap.matchMedia();
 
-    // Intensità diversa mobile/desktop
     mm.add(
-      {
-        isMobile: "(max-width: 768px)",
-        isDesktop: "(min-width: 769px)",
-      },
-      (ctx) => {
-        const { isMobile } = ctx.conditions;
-        // fattori di amplificazione: un po’ meno su mobile
+      { isMobile: "(max-width: 768px)", isDesktop: "(min-width: 769px)" },
+      (mq) => {
+        const { isMobile } = mq.conditions;
         const AMP = isMobile ? 1.4 : 2.0;
 
-        const common = {
-          ease: "none",
-          force3D: true,
-          // NB: containerAnimation = tweenH mantiene lo scrolling orizzontale
-        };
+        const common = { ease: "none", force3D: true };
 
-        // -------- P1: dx -> sx (più ampiezza + rotazione/scale leggeri)
+        // -------- P1 (orizzontale)
         gsap.fromTo(
           ".p1 .s1",
           { xPercent: 40 * AMP, rotation: -6, scale: 0.98 },
@@ -206,16 +194,13 @@ export default function Who() {
           }
         );
 
-        // P2: già in movimento prima di entrare
+        // -------- P2 (orizzontale)
         const P2_START = "left 120%";
         const P2_END = "right -8%";
-
-        // Assicura rotazioni fluide
         gsap.set([".p2 .s1", ".p2 .s2", ".p2 .s3"], {
           transformOrigin: "50% 50%",
         });
 
-        /* REACT (s1): scende + sway orizzontale + più rotazione/scale */
         gsap.fromTo(
           ".p2 .s1",
           { yPercent: -12 * AMP, xPercent: -14, rotation: -16, scale: 0.93 },
@@ -234,8 +219,6 @@ export default function Who() {
             },
           }
         );
-
-        /* VITE (s2): SALE, ruota e va a DESTRA per non coprire il testo */
         gsap.fromTo(
           ".p2 .s2",
           { yPercent: 42 * AMP, xPercent: -10, rotation: -18, scale: 0.96 },
@@ -254,8 +237,6 @@ export default function Who() {
             },
           }
         );
-
-        /* OPENAI (s3): più in basso di base, scende e si sposta a SINISTRA */
         gsap.fromTo(
           ".p2 .s3",
           { yPercent: 4 * AMP, xPercent: 16, rotation: -12, scale: 0.97 },
@@ -275,16 +256,13 @@ export default function Who() {
           }
         );
 
-        // ----- P3
+        // -------- P3 (orizzontale)
         const P3_H_START = "left 92%";
         const P3_H_END = "right 8%";
-
-        // Render pulito delle rotazioni
         gsap.set([".p3 .s1", ".p3 .s2", ".p3 .s3"], {
           transformOrigin: "50% 50%",
         });
 
-        /* Pizza: come prima */
         gsap.fromTo(
           ".p3 .s1",
           { rotation: 0, xPercent: 0 },
@@ -302,7 +280,6 @@ export default function Who() {
           }
         );
 
-        /* PASTA — molto più movimento verso SINISTRA in traiettoria a “C” */
         const tlPastaH = gsap.timeline({
           scrollTrigger: {
             trigger: ".p3",
@@ -313,39 +290,26 @@ export default function Who() {
           },
           defaults: { ease: "none" },
         });
-        // primo arco (accenna a sinistra e un filo in giù)
-        tlPastaH.to(
-          ".p3 .s2",
-          {
-            xPercent: -32 * AMP,
-            yPercent: 6 * AMP,
-            rotation: 6,
-            force3D: true,
-          },
-          0
-        );
-        // completa l’arco (ancora più a sinistra, un po’ più in basso)
-        tlPastaH.to(
-          ".p3 .s2",
-          {
-            xPercent: -84 * AMP,
-            yPercent: 18 * AMP,
-            rotation: 12,
-            force3D: true,
-          },
-          0.45
-        );
+        tlPastaH
+          .to(
+            ".p3 .s2",
+            { xPercent: -32 * AMP, yPercent: 6 * AMP, rotation: 6 },
+            0
+          )
+          .to(
+            ".p3 .s2",
+            { xPercent: -84 * AMP, yPercent: 18 * AMP, rotation: 12 },
+            0.45
+          );
 
-        /* STATUA — sale e va a DESTRA con leggera rotazione oraria */
         gsap.fromTo(
           ".p3 .s3",
           { yPercent: 6 * AMP, xPercent: 0, rotation: -2 },
           {
-            yPercent: -28 * AMP, // più in alto
-            xPercent: 34, // più a destra
-            rotation: 14, // leggera rotazione oraria
+            yPercent: -28 * AMP,
+            xPercent: 34,
+            rotation: 14,
             ease: "none",
-            force3D: true,
             scrollTrigger: {
               trigger: ".p3",
               containerAnimation: tweenH,
@@ -355,61 +319,57 @@ export default function Who() {
             },
           }
         );
+
+        // ====== P3 — fase VERTICALE (mettila NELLO STESSO matchMedia) ======
+        const vertStart = () => tweenH.scrollTrigger?.end || 0;
+        const vertEnd = () => vertStart() + window.innerHeight * 1.5;
+        const F = isMobile ? 1.2 : 1.0; // fattore leggermente diverso su mobile
+
+        gsap.to(".p3 .s1", {
+          rotation: "+=160",
+          xPercent: "+=10",
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            id: "p3-vertical-pizza",
+            start: vertStart,
+            end: vertEnd,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        gsap.to(".p3 .s2", {
+          xPercent: () => `-=${28 * F}`,
+          yPercent: () => `+=${10 * F}`,
+          rotation: "+=8",
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            id: "p3-vertical-pasta",
+            start: vertStart,
+            end: vertEnd,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        gsap.to(".p3 .s3", {
+          xPercent: "+=30",
+          yPercent: "-=24",
+          rotation: "+=18",
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            id: "p3-vertical-liberty",
+            start: vertStart,
+            end: vertEnd,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
       }
     );
-
-    // === FASE 2: continuano in VERTICALE dopo l'orizzontale ===
-// start numerico = fine dello scorrimento orizzontale
-const vertStart = () => tweenH.scrollTrigger?.end || 0;
-const vertEnd   = () => vertStart() + window.innerHeight * 1.5; // ~finché escono
-
-// Pizza: continua a ruotare e scivola appena a destra
-gsap.to(".p3 .s1", {
-  rotation: "+=160",
-  xPercent: "+=10",
-  ease: "none",
-  immediateRender: false,
-  scrollTrigger: {
-    id: "p3-vertical-pizza",
-    start: vertStart,
-    end: vertEnd,
-    scrub: true,
-    invalidateOnRefresh: true
-  }
-});
-
-// Pasta: continua verso SINISTRA e leggermente in giù (resta sopra al testo)
-gsap.to(".p3 .s2", {
-  xPercent: () => "-=" + 28 * (ctx.conditions?.isMobile ? 1.2 : 1.0), // ancora più a sinistra
-  yPercent: () => "+=" + 10 * (ctx.conditions?.isMobile ? 1.2 : 1.0),
-  rotation: "+=8",
-  ease: "none",
-  immediateRender: false,
-  scrollTrigger: {
-    id: "p3-vertical-pasta",
-    start: vertStart,
-    end: vertEnd,
-    scrub: true,
-    invalidateOnRefresh: true
-  }
-});
-
-// Statua: sale e va a DESTRA ruotando in orario
-gsap.to(".p3 .s3", {
-  xPercent: "+=30",
-  yPercent: "-=24",
-  rotation: "+=18",
-  ease: "none",
-  immediateRender: false,
-  scrollTrigger: {
-    id: "p3-vertical-liberty",
-    start: vertStart,
-    end: vertEnd,
-    scrub: true,
-    invalidateOnRefresh: true
-  }
-});
-
 
     // Forza un refresh quando TUTTE le immagini (stickers) hanno caricato
     const imgs = Array.from(track.querySelectorAll("img.sticker"));
@@ -450,7 +410,11 @@ gsap.to(".p3 .s3", {
     return () => {
       stIntro.kill();
       tweenH.scrollTrigger?.kill();
+      ScrollTrigger.getById("p3-vertical-pizza")?.kill();
+      ScrollTrigger.getById("p3-vertical-pasta")?.kill();
+      ScrollTrigger.getById("p3-vertical-liberty")?.kill();
       ro.disconnect();
+      mm.revert();
     };
   }, []);
 
