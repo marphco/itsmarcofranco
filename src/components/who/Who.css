@@ -4,6 +4,7 @@
   width: 100%;
   background: #0d0d0d;
   color: #fff;
+  overscroll-behavior-y: contain;
 }
 .who-sticky {
   position: sticky;

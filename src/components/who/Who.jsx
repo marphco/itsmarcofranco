@@ -12,6 +12,9 @@ import vite from "../../assets/vite.png";
 import liberty from "../../assets/liberty.svg";
 
 gsap.registerPlugin(ScrollTrigger);
+if (ScrollTrigger.isTouch) {
+  ScrollTrigger.config({ ignoreMobileResize: true });
+}
 
 export default function Who() {
   const wrapRef = useRef(null);
