@@ -150,6 +150,48 @@ export default function Who() {
       );
     }
 
+ // --- Smooth handoff Who -> Portfolio (#010101)
+const portfolio = document.querySelector(".portfolio");
+
+if (portfolio) {
+  // Portfolio: entra “matchando” il colore corrente di Who e sfuma a #010101
+  gsap.fromTo(
+    portfolio,
+    { backgroundColor: () => getComputedStyle(wrap).backgroundColor },
+    {
+      backgroundColor: "#010101",
+      ease: "none",
+      immediateRender: false,
+      scrollTrigger: {
+        trigger: portfolio,
+        start: "top bottom", // appena il portfolio è sotto il viewport
+        end: "top 40%",      // sfuma mentre sale
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    }
+  );
+
+  // Who: mentre esce, sfuma allo stesso #010101 (così i bordi coincidono)
+  gsap.fromTo(
+    wrap,
+    { backgroundColor: () => getComputedStyle(wrap).backgroundColor },
+    {
+      backgroundColor: "#010101",
+      ease: "none",
+      immediateRender: false,
+      scrollTrigger: {
+        trigger: portfolio,
+        start: "top bottom",
+        end: "top 40%",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    }
+  );
+}
+
+
     // ====== STICKER ANIMATIONS ======
     const mm = gsap.matchMedia();
 

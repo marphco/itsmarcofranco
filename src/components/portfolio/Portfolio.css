@@ -1,22 +1,21 @@
-.portfolio{
+.portfolio {
   position: relative;
   min-height: 100vh;
-  background: #f7f2e9;
+  background: #010101;
   overflow: visible;
 }
 
-/* Isoliamo lo stacking context del palco: evita “perdite” di z-index col pin wrapper */
-.pf-stage{
+.pf-stage {
   position: relative;
   height: 100vh;
   display: grid;
   place-items: center;
   perspective: 1400px;
-  isolation: isolate;        /* <- chiave per pin + stacking pulito */
+  isolation: isolate;
   z-index: 0;
 }
 
-.pf-card{
+.pf-card {
   --radius: 18px;
   position: absolute;
   width: min(1080px, 86vw);
@@ -25,60 +24,108 @@
   color: #fff;
   border-radius: var(--radius);
   padding: clamp(20px, 3.5vw, 40px);
-  box-shadow: 0 22px 60px rgba(0,0,0,.18);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
   transform-style: preserve-3d;
-  backface-visibility: hidden;  /* riduce flicker in reverse */
+  backface-visibility: hidden;
   will-change: transform;
+  pointer-events: none;
+}
+
+.pf-card.is-front {
+  pointer-events: auto;
+}
+
+/* assicura che le CTA stiano sopra a eventuali overlay */
+.pf-actions,
+.pf-btn {
+  position: relative;
+  z-index: 5;
 }
 
 /* Header */
-.pf-header{
+.pf-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
 }
-.pf-title{
+.pf-title {
   margin: 0;
   font-size: clamp(24px, 4.8vw, 44px);
-  line-height: .98;
+  line-height: 0.98;
   letter-spacing: -0.015em;
   font-weight: 800;
 }
-.pf-index{
-  opacity: .7;
-  font-weight: 700;
-  font-size: clamp(16px, 2.6vw, 22px);
-}
 
-.pf-copy{
+/* (rimosso) .pf-index */
+
+/* Body */
+.pf-copy {
   margin: 18px 0 24px 0;
   max-width: 62ch;
   font-size: clamp(16px, 2.2vw, 18px);
   line-height: 1.45;
-  opacity: .96;
+  opacity: 0.96;
+}
+
+/* CTA */
+.pf-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+.pf-btn {
+  --btn-bg: rgba(255, 255, 255, 0.14);
+  --btn-fg: #fff;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.15s ease;
+}
+.pf-btn:hover {
+  transform: translateY(-1px);
+}
+.pf-btn--ghost {
+  --btn-bg: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.35);
 }
 
 /* Placeholder thumbs */
-.pf-strip{
+.pf-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(10px, 1.4vw, 16px);
   margin-top: clamp(10px, 1.6vw, 18px);
 }
-.pf-thumb{
+.pf-thumb {
   aspect-ratio: 4/3;
   border-radius: 12px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.06));
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.06)
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
-@media (max-width: 767px){
-  .pf-card{ min-height: 52vh; }
-  .pf-strip{ grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 767px) {
+  .pf-card {
+    min-height: 52vh;
+  }
+  .pf-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-@media (prefers-reduced-motion: reduce){
-  .pf-card{ transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .pf-card {
+    transform: none !important;
+  }
 }
