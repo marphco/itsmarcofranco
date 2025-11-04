@@ -68,6 +68,29 @@ export default function Portfolio() {
     if (!root || !stage) return;
 
     const gctx = gsap.context(() => {
+      // --- INTRO fade-out mentre lo stage entra in pin ---
+      const introEl = stage.querySelector(".pf-intro");
+      if (introEl) {
+        gsap.fromTo(
+          introEl,
+          { y: 0, opacity: 1 },
+          {
+            y: -40,
+            opacity: 0,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: root,
+              start: "top top",
+              end: () => "+=" + window.innerHeight * 0.25, // sparisce presto
+              scrub: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
+
+      // --- ANIMAZIONI CARDS (immutate) ---
       const cardsEls = gsap.utils.toArray(".pf-card");
       const cards = cardsEls.filter(el => el instanceof HTMLElement);
       const linksByCard = cards.map(el => Array.from(el.querySelectorAll("a")));
@@ -94,11 +117,7 @@ export default function Portfolio() {
 
       const mm = gsap.matchMedia();
       mm.add(
-        {
-          desktop: "(min-width: 768px)",
-          mobile: "(max-width: 767px)",
-          reduce:  "(prefers-reduced-motion: reduce)",
-        },
+        { desktop: "(min-width: 768px)", mobile: "(max-width: 767px)", reduce: "(prefers-reduced-motion: reduce)" },
         (mq) => {
           const ROTX = mq.conditions.reduce ? 0 : (mq.conditions.desktop ? ROT_X_DESK : ROT_X_MOB);
 
@@ -130,7 +149,7 @@ export default function Portfolio() {
               pin: stage,
               pinReparent: true,
               start: "top top",
-              end: () => "+=" + (cards.length - 1) * window.innerHeight *  PIN_FACTOR,
+              end: () => "+=" + (cards.length - 1) * window.innerHeight * PIN_FACTOR,
               scrub: true,
               anticipatePin: 1,
               invalidateOnRefresh: true,
@@ -181,6 +200,15 @@ export default function Portfolio() {
   return (
     <section className="portfolio" ref={rootRef} aria-label="Portfolio">
       <div className="pf-stage" ref={stageRef}>
+
+        {/* --- INTRO sovrapposta, vicina alle card --- */}
+        <div className="pf-intro" aria-hidden="true">
+          <h2 className="pf-ih">Selected builds.</h2>
+          <p className="pf-id">
+            A small slice of shipped work—production-first, privacy-safe, continuously evolving.
+          </p>
+        </div>
+
         {PROJECTS.map((p) => (
           <article className="pf-card" key={p.id} style={{ "--accent": p.color }}>
             <header className="pf-header">
@@ -191,34 +219,19 @@ export default function Portfolio() {
 
             <div className="pf-actions">
               {p.repo && (
-                <a
-                  className="pf-btn pf-btn--repo"
-                  href={p.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${p.title} repository`}
-                >
+                <a className="pf-btn pf-btn--repo" href={p.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} repository`}>
                   <RepoIcon /><span>Repo</span>
                 </a>
               )}
               {p.demo && (
-                <a
-                  className="pf-btn pf-btn--live"
-                  href={p.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${p.title} live site`}
-                >
+                <a className="pf-btn pf-btn--live" href={p.demo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} live site`}>
                   <LiveIcon /><span>Live</span>
                 </a>
               )}
             </div>
 
             <div className="pf-strip">
-              <div className="pf-thumb" />
-              <div className="pf-thumb" />
-              <div className="pf-thumb" />
-              <div className="pf-thumb" />
+              <div className="pf-thumb" /><div className="pf-thumb" /><div className="pf-thumb" /><div className="pf-thumb" />
             </div>
           </article>
         ))}

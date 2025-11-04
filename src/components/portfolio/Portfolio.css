@@ -5,6 +5,70 @@
   overflow: visible;
 }
 
+/* ---- INTRO sovrapposta ---- */
+.pf-intro {
+  position: absolute;
+  top: clamp(
+    24px,
+    8vh,
+    96px
+  ); /* vicino alle card, senza attaccarsi al panel precedente */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1080px, 86vw);
+  color: #fff;
+  pointer-events: none; /* non blocca i link delle card sotto */
+  z-index: 5;
+}
+.pf-ih {
+  margin: 0 0 clamp(8px, 1.2vw, 12px);
+  font-weight: 900;
+  letter-spacing: -0.012em;
+  line-height: 0.92;
+  font-size: clamp(28px, 6.2vw, 56px);
+}
+.pf-id {
+  margin: 0;
+  max-width: 72ch;
+  line-height: 1.35;
+  font-size: clamp(14px, 2.1vw, 18px);
+  opacity: 0.9;
+}
+
+/* ---- STAGE (immutato) ---- */
+.pf-stage {
+  position: relative;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  perspective: 1400px;
+  isolation: isolate;
+  z-index: 0;
+}
+
+/* ---- CARD ---- */
+.pf-card {
+  --radius: 18px;
+  position: absolute;
+  /* Respiro dal fondo: evita che tocchino il bordo inferiore della viewport */
+  bottom: clamp(24px, 12vh, 120px);
+
+  width: min(1080px, 86vw);
+  min-height: 56vh;
+  background: var(--accent, #222);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: clamp(20px, 3.5vw, 40px);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  pointer-events: none;
+}
+.pf-card.is-front {
+  pointer-events: auto;
+}
+
 .pf-stage {
   position: relative;
   height: 100vh;
@@ -75,42 +139,50 @@
   margin-top: 6px;
   margin-bottom: 8px;
 }
-.pf-btn{
-  --btn-bg: rgba(255,255,255,0.14);
+.pf-btn {
+  --btn-bg: rgba(255, 255, 255, 0.14);
   --btn-fg: #fff;
-  display:inline-flex;           /* icona + testo */
-  align-items:center;
-  gap:8px;                       /* spazio tra icona e testo */
-  padding:8px 12px;
-  border-radius:10px;
-  font-weight:700;
-  font-size:14px;
-  line-height:1;
-  color:var(--btn-fg);
-  background:var(--btn-bg);
-  text-decoration:none;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
-  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+  display: inline-flex; /* icona + testo */
+  align-items: center;
+  gap: 8px; /* spazio tra icona e testo */
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
-.pf-btn svg{ width:16px; height:16px; opacity:.95; }
+.pf-btn svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.95;
+}
 
-.pf-btn:hover{ transform: translateY(-1px); }
-.pf-btn:focus-visible{
+.pf-btn:hover {
+  transform: translateY(-1px);
+}
+.pf-btn:focus-visible {
   outline: none;
-  box-shadow:
-    0 0 0 2px rgba(255,255,255,.65),
-    0 0 0 4px rgba(255,255,255,.25),
-    inset 0 0 0 1px rgba(255,255,255,.18);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
+    0 0 0 4px rgba(255, 255, 255, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
 /* Varianti */
-.pf-btn--repo{ --btn-bg: rgba(255,255,255,0.16); }
-.pf-btn--live{
-  --btn-bg: transparent;
-  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35);
+.pf-btn--repo {
+  --btn-bg: rgba(255, 255, 255, 0.16);
 }
-.pf-btn--live:hover{
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.55);
+.pf-btn--live {
+  --btn-bg: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.35);
+}
+.pf-btn--live:hover {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.55);
 }
 .pf-btn--ghost {
   --btn-bg: transparent;
