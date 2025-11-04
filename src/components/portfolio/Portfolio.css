@@ -75,22 +75,42 @@
   margin-top: 6px;
   margin-bottom: 8px;
 }
-.pf-btn {
-  --btn-bg: rgba(255, 255, 255, 0.14);
+.pf-btn{
+  --btn-bg: rgba(255,255,255,0.14);
   --btn-fg: #fff;
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--btn-fg);
-  background: var(--btn-bg);
-  text-decoration: none;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-  transition: transform 0.15s ease;
+  display:inline-flex;           /* icona + testo */
+  align-items:center;
+  gap:8px;                       /* spazio tra icona e testo */
+  padding:8px 12px;
+  border-radius:10px;
+  font-weight:700;
+  font-size:14px;
+  line-height:1;
+  color:var(--btn-fg);
+  background:var(--btn-bg);
+  text-decoration:none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
-.pf-btn:hover {
-  transform: translateY(-1px);
+.pf-btn svg{ width:16px; height:16px; opacity:.95; }
+
+.pf-btn:hover{ transform: translateY(-1px); }
+.pf-btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.65),
+    0 0 0 4px rgba(255,255,255,.25),
+    inset 0 0 0 1px rgba(255,255,255,.18);
+}
+
+/* Varianti */
+.pf-btn--repo{ --btn-bg: rgba(255,255,255,0.16); }
+.pf-btn--live{
+  --btn-bg: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35);
+}
+.pf-btn--live:hover{
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.55);
 }
 .pf-btn--ghost {
   --btn-bg: transparent;
