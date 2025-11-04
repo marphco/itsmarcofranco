@@ -57,11 +57,12 @@ const PROJECTS = [
   {
     id: 2,
     title: "RL Question Generator",
-    copy: "LLM-based question generator for client onboarding. Improves over time with human feedback (RL). UI in Vite/React, API in Express.",
+    copy: "Drafts tailored onboarding questions for new clients and gets better with feedback. Starts from a brief and product docs, proposes a structured set grouped by topic/priority, then updates a reward model from thumbs-up/down so the next batch is clearer, less redundant, and better scoped.",
     color: "#ff6a00",
     repo: "https://github.com/marphco/rl-question-generator",
     demo: null,
   },
+
   {
     id: 3,
     title: "Costvista",
@@ -128,12 +129,11 @@ export default function Portfolio() {
         );
       }
 
-      function setupBasicLoop(card) {
-        const demo = card.querySelector(".pf-demo--basic");
+      function setupAutoLoop(card, selector) {
+        const demo = card.querySelector(selector);
         const track = demo?.querySelector(".bd-track");
         if (!demo || !track) return () => {};
 
-        // Duplica una sola volta (A B C A' B' C')
         if (!track.dataset.duped) {
           const originals = Array.from(track.children);
           originals.forEach((n) => track.appendChild(n.cloneNode(true)));
@@ -146,13 +146,9 @@ export default function Portfolio() {
         const build = () => {
           anim && anim.kill();
           gsap.set(track, { x: 0 });
-
-          // Metà contenuto (perché abbiamo duplicato)
           const dist = track.scrollWidth / 2;
-          const speed = +(demo.dataset.speed || 80); // px/s
+          const speed = +(demo.dataset.speed || 80);
           const dur = Math.max(2, dist / speed);
-
-          // Driver numerico + modulo → zero drift, nessun “gradino”
           const driver = { t: 0 };
           anim = gsap.to(driver, {
             t: dist,
@@ -160,19 +156,23 @@ export default function Portfolio() {
             ease: "none",
             repeat: -1,
             onUpdate() {
-              setX(-(driver.t % dist)); // wrap continuo
+              setX(-(driver.t % dist));
             },
           });
         };
 
-        // Aspetta che le immagini siano misurate davvero, poi costruisci
-        waitForAssets(track).then(build);
+        const imgsReady = Array.from(track.querySelectorAll("img")).map((img) =>
+          img.complete
+            ? Promise.resolve()
+            : new Promise((r) =>
+                img.addEventListener("load", r, { once: true })
+              )
+        );
+        Promise.all(imgsReady).then(build);
 
-        // Ricostruisci quando cambia la misura
         ro = new ResizeObserver(build);
         ro.observe(track);
 
-        // Pausa in tab nascosta (gratis performance)
         const onVis = () => anim && anim.paused(document.hidden);
         document.addEventListener("visibilitychange", onVis);
 
@@ -187,11 +187,13 @@ export default function Portfolio() {
       const cardsEls = gsap.utils.toArray(".pf-card");
       const cards = cardsEls.filter((el) => el instanceof HTMLElement);
 
-      // avvia SEMPRE la micro-demo della prima card (BASIC), senza pause su scroll
       const cleanups = [];
-      cards.forEach((card, i) => {
+      cards.forEach((card) => {
         if (card.querySelector('[data-demo="basic"]')) {
-          cleanups.push(setupBasicLoop(card));
+          cleanups.push(setupAutoLoop(card, ".pf-demo--basic"));
+        }
+        if (card.querySelector('[data-demo="rl"]')) {
+          cleanups.push(setupAutoLoop(card, ".pf-demo--rl"));
         }
       });
 
@@ -412,6 +414,78 @@ export default function Portfolio() {
                 </div>
               </div>
             )}
+            {p.id === 2 && (
+  <div className="pf-demo pf-demo--rl" data-demo="rl" data-speed="85">
+    <div className="bd-track">
+      {/* Panel 1 — Brief -> Topics */}
+      <div className="bd-panel rl-brief">
+        <div className="rl-card">
+          <h4>Brief</h4>
+          <p>“B2B SaaS onboarding; need discovery & scope in 20m.”</p>
+          <div className="rl-chips">
+            <span className="chip">Goal: discovery</span>
+            <span className="chip">Audience: admins</span>
+            <span className="chip">Scope: v1</span>
+          </div>
+          <button className="rl-cta">Generate</button>
+        </div>
+        <div className="rl-card">
+          <h4>Topics</h4>
+          <ul className="rl-topics">
+            <li>Context & constraints</li>
+            <li>Users & permissions</li>
+            <li>Success metrics</li>
+            <li>Risks & blockers</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Panel 2 — Draft + feedback */}
+      <div className="bd-panel rl-feedback">
+        <div className="rl-list">
+          <h4>Draft questions</h4>
+          <ul>
+            <li>
+              <span>What problem are we solving right now?</span>
+              <div className="thumbs">
+                <button className="up" aria-label="thumb up">👍</button>
+                <button aria-label="thumb down">👎</button>
+              </div>
+            </li>
+            <li>
+              <span>Who signs off & what’s the deadline?</span>
+              <div className="thumbs">
+                <button className="up" aria-label="thumb up">👍</button>
+                <button aria-label="thumb down">👎</button>
+              </div>
+            </li>
+            <li>
+              <span>Any PII/PHI or compliance limits?</span>
+              <div className="thumbs">
+                <button className="up" aria-label="thumb up">👍</button>
+                <button aria-label="thumb down">👎</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div className="rl-toast">Feedback saved ✓</div>
+      </div>
+
+      {/* Panel 3 — Metrics */}
+      <div className="bd-panel rl-metrics">
+        <div className="rl-graph">
+          <svg viewBox="0 0 120 64" preserveAspectRatio="none" aria-hidden="true">
+            <polyline className="line" points="0,58 15,56 30,52 45,49 60,44 75,36 90,28 105,20 120,14"/>
+            <line x1="0" y1="58" x2="120" y2="58" className="axis"/>
+            <line x1="0" y1="6" x2="0" y2="58" className="axis"/>
+          </svg>
+          <div className="legend"><span className="dot"></span>Reward</div>
+        </div>
+        <p className="rl-caption">Reward ↑ · redundancy ↓ across batches.</p>
+      </div>
+    </div>
+  </div>
+)}
           </article>
         ))}
       </div>

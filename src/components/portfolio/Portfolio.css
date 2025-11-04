@@ -301,3 +301,120 @@
   opacity:0; transform: translateY(10px) scale(.96);
   background:#b7ffcf; /* “ok” */
 }
+
+
+/* ---- RL micro-demo (HTML no images) ---- */
+.pf-demo--rl .bd-panel{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:767px){ .pf-demo--rl .bd-panel{ grid-template-columns:1fr; } }
+
+.rl-card{
+  background: rgba(13,13,15,.80);
+  border-radius:12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+  padding:12px;
+  color:#fff;
+}
+.rl-card h4{ margin:0 0 6px; font-weight:800; font-size:14px; letter-spacing:.02em; }
+.rl-card p{ margin:0 0 10px; font-size:12px; opacity:.9; }
+.rl-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{
+  font-size:11px; padding:4px 8px; border-radius:999px;
+  background:rgba(255,255,255,.1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.rl-cta{ margin-top:8px; font-weight:800; font-size:12px; padding:6px 10px; border-radius:10px; color:#05040e; background:#fff; border:0; }
+
+.rl-topics{ margin:0; padding-left:16px; font-size:12px; line-height:1.35; opacity:.95; }
+
+.rl-list ul{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+.rl-list li{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:10px; border-radius:10px;
+  background:rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  font-size:12px;
+}
+.thumbs button{ border:0; background:transparent; font-size:16px; line-height:1; cursor:default; opacity:.75; }
+.thumbs .up{ animation:pulse 1.8s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+
+.rl-toast{
+  position:absolute; right:14px; bottom:14px;
+  padding:6px 10px; background:#b7ffcf; color:#05040e;
+  border-radius:10px; font-weight:800; font-size:12px;
+  opacity:0; animation:toast 2.8s ease 1.2s infinite;
+}
+@keyframes toast{
+  0%{opacity:0; transform:translateY(6px)}
+  10%,70%{opacity:1; transform:translateY(0)}
+  100%{opacity:0; transform:translateY(6px)}
+}
+
+.rl-graph{
+  position:relative; height:100%; display:grid; place-items:center;
+  background:rgba(255,255,255,.04); border-radius:12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); padding:10px;
+}
+.rl-graph svg{ width:100%; height:100%; }
+.rl-graph .axis{ stroke:rgba(255,255,255,.25); stroke-width:1; }
+.rl-graph .line{
+  fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round;
+  stroke-dasharray:300; stroke-dashoffset:300; animation:draw 3.6s linear infinite;
+}
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+.rl-graph .legend{ position:absolute; top:8px; right:10px; font-size:11px; display:flex; align-items:center; gap:6px; opacity:.85; }
+.rl-graph .legend .dot{ width:8px; height:8px; border-radius:50%; background:#fff; box-shadow:0 0 0 2px rgba(255,255,255,.25) inset; }
+.rl-caption{ margin:8px 0 0; font-size:12px; opacity:.85; }
+
+
+
+
+
+
+
+
+
+/* ---- Track & panel: applica le stesse regole anche alla RL ---- */
+.pf-demo--basic .bd-track,
+.pf-demo--rl .bd-track{
+  position: absolute;
+  inset: 12px;                 /* margine interno coerente */
+  display: flex;
+  gap: 12px;
+  padding: 0;
+  will-change: transform;
+}
+
+.pf-demo--basic .bd-panel,
+.pf-demo--rl .bd-panel{
+  flex: 0 0 auto;
+  height: 100%;
+  aspect-ratio: var(--pf-shot-ratio);
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;      /* padding NON aumenta l'altezza */
+  background:
+    radial-gradient(120% 140% at -10% -20%, rgba(255,255,255,.20), transparent 45%),
+    linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.06));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+}
+
+/* ---- RL: layout interno dei pannelli (sovrascrive sopra, ma resta incassato) ---- */
+.pf-demo--rl .bd-panel{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+@media (max-width: 767px){
+  .pf-demo--rl .bd-panel{ grid-template-columns: 1fr; }
+}
+
+/* Panel metrico: grafico che riempie, caption in basso */
+.pf-demo--rl .rl-metrics{
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  align-items: stretch;
+  min-height: 0; /* evita overflow nei grid items */
+}
+
+/* Il resto delle regole RL può rimanere identico */
