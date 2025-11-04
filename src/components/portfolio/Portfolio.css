@@ -417,4 +417,71 @@
   min-height: 0; /* evita overflow nei grid items */
 }
 
-/* Il resto delle regole RL può rimanere identico */
+/* Track incassato per tutte */
+.pf-demo--basic .bd-track,
+.pf-demo--rl .bd-track,
+.pf-demo--cost .bd-track{
+  position:absolute; inset:12px; display:flex; gap:12px; padding:0; will-change:transform;
+}
+
+/* Pannelli coerenti (misura fissa in rapporto, con bordi e bg) */
+.pf-demo--basic .bd-panel,
+.pf-demo--rl .bd-panel,
+.pf-demo--cost .bd-panel{
+  flex:0 0 auto; height:100%; aspect-ratio:var(--pf-shot-ratio);
+  border-radius:12px; overflow:hidden; box-sizing:border-box;
+  background:
+    radial-gradient(120% 140% at -10% -20%, rgba(255,255,255,.20), transparent 45%),
+    linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.06));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+}
+
+/* COSTVISTA layout */
+.pf-demo--cost .bd-panel{ display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px; }
+@media (max-width:767px){ .pf-demo--cost .bd-panel{ grid-template-columns:1fr; } }
+
+/* Cards / form / chips */
+.cv-card{ background:rgba(13,13,15,.82); border-radius:12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); padding:12px; color:#fff; }
+.cv-card h4{ margin:0 0 6px; font-weight:800; font-size:14px; letter-spacing:.02em; }
+.cv-card .sub{ margin:0 0 10px; font-size:12px; opacity:.85; }
+.dropzone{ display:grid; place-items:center; height:88px; border-radius:10px; background:rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); font-size:12px; }
+.cv-chips{ margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.10); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
+.chip.ok{ background:#b7ffcf; color:#05040e; font-weight:800; box-shadow:none; }
+
+.bullets{ margin:6px 0 0; padding-left:16px; font-size:12px; line-height:1.35; opacity:.95; }
+
+/* Search */
+.cv-form{ background:rgba(13,13,15,.82); border-radius:12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); padding:12px; color:#fff; }
+.cv-form .row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; }
+@media (max-width:767px){ .cv-form .row{ grid-template-columns:1fr; } }
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{ font-size:11px; opacity:.8; }
+.field input, .field select{
+  background:rgba(255,255,255,.06); color:#fff; border:0; border-radius:10px; padding:8px 10px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); font-size:12px;
+}
+.cv-cta{ margin-top:10px; font-weight:800; font-size:12px; padding:8px 12px; border-radius:10px; color:#05040e; background:#fff; border:0; }
+
+/* KPI */
+.kpis{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+@media (max-width:767px){ .kpis{ grid-template-columns:1fr 1fr; } }
+.kpi{ background:rgba(255,255,255,.06); border-radius:10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); padding:10px; display:flex; flex-direction:column; gap:4px; }
+.kpi .lab{ font-size:11px; opacity:.8; }
+.kpi .val{ font-size:14px; font-weight:800; }
+
+/* Table compare */
+.cv-table{ display:grid; grid-template-rows:auto 1fr; gap:8px; background:rgba(13,13,15,.82); border-radius:12px; padding:12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+.cv-table .thead, .cv-table .trow{ display:grid; grid-template-columns: 1.2fr .6fr .6fr .6fr; align-items:center; gap:10px; font-size:12px; }
+.cv-table .thead{ opacity:.8; }
+.cv-table .trow{ background:rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); border-radius:10px; padding:8px 10px; }
+.cv-table .spark svg{ width:100%; height:20px; }
+.cv-table .spark polyline{ fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-dasharray:120; stroke-dashoffset:120; animation:draw 3.4s linear infinite; }
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+
+/* Footer */
+.cv-footer{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:8px; }
+.cv-ghost{ --btn-bg:transparent; color:#fff; background:transparent; border-radius:10px; padding:8px 12px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35); font-weight:800; font-size:12px; }
+.cv-ghost:hover{ box-shadow: inset 0 0 0 2px rgba(255,255,255,.55); }
+.note{ font-size:11px; opacity:.85; }
+

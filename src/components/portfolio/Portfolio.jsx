@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Portfolio.css";
 import basicLogo from "../../assets/basic.svg";
+import costvistaLogo from "../../assets/costvista.svg";
 import basic1 from "../../assets/basic1.png";
 import basic2 from "../../assets/basic2.png";
 import basic3 from "../../assets/basic3.png";
@@ -65,8 +66,11 @@ const PROJECTS = [
 
   {
     id: 3,
-    title: "Costvista",
-    copy: "Healthcare price-transparency viewer: turns payer files into readable comparisons with search by procedure, summary stats, and export. No PHI.",
+    title: "CostVista",
+    brand: costvistaLogo, 
+    brandAlt: "CostVista",
+    brandAsTitle: false,
+    copy: "Turns CMS payer files into readable comparisons. Search by CPT/HCPCS, filter by payer/plan, see medians & ranges, and export clean CSVs. No PHI.",
     color: "#ff3b30",
     repo: "https://github.com/marphco/costvista",
     demo: "https://www.costvista.com",
@@ -75,7 +79,7 @@ const PROJECTS = [
     id: 4,
     title: "Panorama — Virtual Art Gallery",
     copy: "Immersive 3D gallery to explore high-resolution artworks from major museums (The Met, the Uffizi, and more).",
-    color: "#111111",
+    color: "#494949ff",
     repo: "https://github.com/marphco/virtual-art-gallery",
     demo: "https://panorama-virtual.vercel.app/",
   },
@@ -194,6 +198,10 @@ export default function Portfolio() {
         }
         if (card.querySelector('[data-demo="rl"]')) {
           cleanups.push(setupAutoLoop(card, ".pf-demo--rl"));
+        }
+        // NEW: costvista
+        if (card.querySelector('[data-demo="cost"]')) {
+          cleanups.push(setupAutoLoop(card, ".pf-demo--cost"));
         }
       });
 
@@ -415,77 +423,243 @@ export default function Portfolio() {
               </div>
             )}
             {p.id === 2 && (
-  <div className="pf-demo pf-demo--rl" data-demo="rl" data-speed="85">
-    <div className="bd-track">
-      {/* Panel 1 — Brief -> Topics */}
-      <div className="bd-panel rl-brief">
-        <div className="rl-card">
-          <h4>Brief</h4>
-          <p>“B2B SaaS onboarding; need discovery & scope in 20m.”</p>
-          <div className="rl-chips">
-            <span className="chip">Goal: discovery</span>
-            <span className="chip">Audience: admins</span>
-            <span className="chip">Scope: v1</span>
-          </div>
-          <button className="rl-cta">Generate</button>
-        </div>
-        <div className="rl-card">
-          <h4>Topics</h4>
-          <ul className="rl-topics">
-            <li>Context & constraints</li>
-            <li>Users & permissions</li>
-            <li>Success metrics</li>
-            <li>Risks & blockers</li>
-          </ul>
-        </div>
-      </div>
+              <div
+                className="pf-demo pf-demo--rl"
+                data-demo="rl"
+                data-speed="85"
+              >
+                <div className="bd-track">
+                  {/* Panel 1 — Brief -> Topics */}
+                  <div className="bd-panel rl-brief">
+                    <div className="rl-card">
+                      <h4>Brief</h4>
+                      <p>
+                        “B2B SaaS onboarding; need discovery & scope in 20m.”
+                      </p>
+                      <div className="rl-chips">
+                        <span className="chip">Goal: discovery</span>
+                        <span className="chip">Audience: admins</span>
+                        <span className="chip">Scope: v1</span>
+                      </div>
+                      <button className="rl-cta">Generate</button>
+                    </div>
+                    <div className="rl-card">
+                      <h4>Topics</h4>
+                      <ul className="rl-topics">
+                        <li>Context & constraints</li>
+                        <li>Users & permissions</li>
+                        <li>Success metrics</li>
+                        <li>Risks & blockers</li>
+                      </ul>
+                    </div>
+                  </div>
 
-      {/* Panel 2 — Draft + feedback */}
-      <div className="bd-panel rl-feedback">
-        <div className="rl-list">
-          <h4>Draft questions</h4>
-          <ul>
-            <li>
-              <span>What problem are we solving right now?</span>
-              <div className="thumbs">
-                <button className="up" aria-label="thumb up">👍</button>
-                <button aria-label="thumb down">👎</button>
-              </div>
-            </li>
-            <li>
-              <span>Who signs off & what’s the deadline?</span>
-              <div className="thumbs">
-                <button className="up" aria-label="thumb up">👍</button>
-                <button aria-label="thumb down">👎</button>
-              </div>
-            </li>
-            <li>
-              <span>Any PII/PHI or compliance limits?</span>
-              <div className="thumbs">
-                <button className="up" aria-label="thumb up">👍</button>
-                <button aria-label="thumb down">👎</button>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className="rl-toast">Feedback saved ✓</div>
-      </div>
+                  {/* Panel 2 — Draft + feedback */}
+                  <div className="bd-panel rl-feedback">
+                    <div className="rl-list">
+                      <h4>Draft questions</h4>
+                      <ul>
+                        <li>
+                          <span>What problem are we solving right now?</span>
+                          <div className="thumbs">
+                            <button className="up" aria-label="thumb up">
+                              👍
+                            </button>
+                            <button aria-label="thumb down">👎</button>
+                          </div>
+                        </li>
+                        <li>
+                          <span>Who signs off & what’s the deadline?</span>
+                          <div className="thumbs">
+                            <button className="up" aria-label="thumb up">
+                              👍
+                            </button>
+                            <button aria-label="thumb down">👎</button>
+                          </div>
+                        </li>
+                        <li>
+                          <span>Any PII/PHI or compliance limits?</span>
+                          <div className="thumbs">
+                            <button className="up" aria-label="thumb up">
+                              👍
+                            </button>
+                            <button aria-label="thumb down">👎</button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="rl-toast">Feedback saved ✓</div>
+                  </div>
 
-      {/* Panel 3 — Metrics */}
-      <div className="bd-panel rl-metrics">
-        <div className="rl-graph">
-          <svg viewBox="0 0 120 64" preserveAspectRatio="none" aria-hidden="true">
-            <polyline className="line" points="0,58 15,56 30,52 45,49 60,44 75,36 90,28 105,20 120,14"/>
-            <line x1="0" y1="58" x2="120" y2="58" className="axis"/>
-            <line x1="0" y1="6" x2="0" y2="58" className="axis"/>
-          </svg>
-          <div className="legend"><span className="dot"></span>Reward</div>
-        </div>
-        <p className="rl-caption">Reward ↑ · redundancy ↓ across batches.</p>
-      </div>
-    </div>
-  </div>
-)}
+                  {/* Panel 3 — Metrics */}
+                  <div className="bd-panel rl-metrics">
+                    <div className="rl-graph">
+                      <svg
+                        viewBox="0 0 120 64"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                      >
+                        <polyline
+                          className="line"
+                          points="0,58 15,56 30,52 45,49 60,44 75,36 90,28 105,20 120,14"
+                        />
+                        <line
+                          x1="0"
+                          y1="58"
+                          x2="120"
+                          y2="58"
+                          className="axis"
+                        />
+                        <line x1="0" y1="6" x2="0" y2="58" className="axis" />
+                      </svg>
+                      <div className="legend">
+                        <span className="dot"></span>Reward
+                      </div>
+                    </div>
+                    <p className="rl-caption">
+                      Reward ↑ · redundancy ↓ across batches.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {p.id === 3 && (
+              <div
+                className="pf-demo pf-demo--cost"
+                data-demo="cost"
+                data-speed="82"
+              >
+                <div className="bd-track">
+                  {/* Panel 1 — Ingest */}
+                  <div className="bd-panel cv-ingest">
+                    <div className="cv-card">
+                      <h4>Import payer files</h4>
+                      <p className="sub">
+                        .jsonl / .csv — CMS price transparency
+                      </p>
+                      <div className="dropzone">Drop files here</div>
+                      <div className="cv-chips">
+                        <span className="chip ok">Validated ✓</span>
+                        <span className="chip">3 payers</span>
+                        <span className="chip">12 plans</span>
+                      </div>
+                    </div>
+                    <div className="cv-card">
+                      <h4>Normalize</h4>
+                      <ul className="bullets">
+                        <li>Map fields (payer → unified schema)</li>
+                        <li>De-duplicate procedures</li>
+                        <li>Aggregate by provider</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Panel 2 — Search & filters */}
+                  <div className="bd-panel cv-search">
+                    <div className="cv-form">
+                      <div className="field">
+                        <label>Procedure</label>
+                        <input defaultValue="CPT 29888 — Knee arthroscopy" />
+                      </div>
+                      <div className="row">
+                        <div className="field">
+                          <label>Payer</label>
+                          <select defaultValue="Aetna">
+                            <option>Aetna</option>
+                            <option>BCBS</option>
+                            <option>United</option>
+                          </select>
+                        </div>
+                        <div className="field">
+                          <label>Plan</label>
+                          <select defaultValue="PPO Silver">
+                            <option>PPO Silver</option>
+                            <option>HMO Bronze</option>
+                            <option>EPO Gold</option>
+                          </select>
+                        </div>
+                        <div className="field">
+                          <label>Type</label>
+                          <select defaultValue="Negotiated">
+                            <option>Negotiated</option>
+                            <option>Cash</option>
+                          </select>
+                        </div>
+                      </div>
+                      <button className="cv-cta">Compare</button>
+                    </div>
+
+                    <div className="kpis">
+                      <div className="kpi">
+                        <span className="lab">Median</span>
+                        <span className="val">$2,940</span>
+                      </div>
+                      <div className="kpi">
+                        <span className="lab">P25–P75</span>
+                        <span className="val">$2,210–$3,560</span>
+                      </div>
+                      <div className="kpi">
+                        <span className="lab">Providers</span>
+                        <span className="val">18</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Panel 3 — Compare & export */}
+                  <div className="bd-panel cv-compare">
+                    <div className="cv-table">
+                      <div className="thead">
+                        <span>Provider</span>
+                        <span>Negotiated</span>
+                        <span>Cash</span>
+                        <span>Range</span>
+                      </div>
+                      <div className="trow">
+                        <span>Riverside Med Center</span>
+                        <span>$2,880</span>
+                        <span>$2,400</span>
+                        <span className="spark">
+                          <svg
+                            viewBox="0 0 100 24"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <polyline points="0,20 20,18 40,14 60,10 80,8 100,6" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div className="trow">
+                        <span>Northside Ortho</span>
+                        <span>$3,120</span>
+                        <span>$2,650</span>
+                        <span className="spark">
+                          <svg viewBox="0 0 100 24">
+                            <polyline points="0,16 20,17 40,13 60,12 80,9 100,8" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div className="trow">
+                        <span>Mercy General</span>
+                        <span>$2,740</span>
+                        <span>$2,200</span>
+                        <span className="spark">
+                          <svg viewBox="0 0 100 24">
+                            <polyline points="0,22 20,19 40,17 60,14 80,12 100,9" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="cv-footer">
+                      <button className="cv-ghost">Export CSV</button>
+                      <span className="note">
+                        No PHI · CMS public files only
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </article>
         ))}
       </div>
