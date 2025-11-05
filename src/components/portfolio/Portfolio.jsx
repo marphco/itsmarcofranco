@@ -324,9 +324,20 @@ export default function Portfolio() {
               );
 
               // 🔔 metà segmento: passa il "front" alla card successiva
-              tl.call(() => setFront(i + 1), null, t(i) + SEG * 0.5);
             }
           });
+let currentFront = 0;
+tl.eventCallback("onUpdate", () => {
+  // ogni segmento dura SEG (1): arrotondiamo il tempo alla card più vicina
+  const newFront = Math.min(
+    cards.length - 1,
+    Math.max(0, Math.round(tl.time() / SEG))
+  );
+  if (newFront !== currentFront) {
+    setFront(newFront);
+    currentFront = newFront;
+  }
+});
 
           return () => tl.kill();
         }
