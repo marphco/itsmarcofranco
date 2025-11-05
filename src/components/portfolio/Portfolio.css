@@ -693,13 +693,25 @@
   opacity: 0.85;
 }
 
+/* ===== DESKTOP: più spazio sopra, meno sotto ===== */
+@media (min-width: 768px) {
+  :root {
+    /* prima: --pf-intro-top: clamp(28px, 8vh, 96px) */
+    --pf-intro-top: clamp(68px, 16vh, 160px); /* più “aria” sopra l’intro */
+
+    /* prima: --pf-intro-bottom: clamp(4px, 3vh, 28px) */
+    --pf-intro-bottom: clamp(4px, 1.6vh, 16px); /* riduce il gap con le card */
+  }
+}
+
+
 /* =========================
    MOBILE
    ========================= */
 @media (max-width: 767px) {
   :root {
-    /* alza un filo lo stack ma meno invasivo */
-    --pf-card-bottom: clamp(96px, 16vh, 108px);
+    /* già c'è --pf-card-bottom; aggiungi anche: */
+    --pf-intro-bottom: clamp(20px, 12vh, 80px); /* spazio tra intro e card */
   }
 
   /* card più corta: entra tutta a schermo */
@@ -719,6 +731,8 @@
 
   .pf-brand { width: 34px; }
   .pf-strip { grid-template-columns: repeat(3, 1fr); }
+
+  .pf-stage { margin-top: 6vh !important; }
 }
 
 
