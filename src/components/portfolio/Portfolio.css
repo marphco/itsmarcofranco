@@ -95,7 +95,7 @@
   background: var(--accent, #222);
   color: #fff;
   border-radius: var(--radius);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
+  /* box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18); */
 
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -103,6 +103,7 @@
 
   pointer-events: none;
 }
+
 @supports not (height: 100svh) {
   .pf-card {
     height: min(var(--pf-card-h), calc(100vh - var(--pf-card-bottom)));

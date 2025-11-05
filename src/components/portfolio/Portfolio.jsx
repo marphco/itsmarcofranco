@@ -175,7 +175,8 @@ export default function Portfolio() {
             ease: "none",
             repeat: -1,
             onUpdate() {
-              setX(-(driver.t % dist));
+              const v = -(driver.t % dist);
+              setX(Math.round(v)); // invece di setX(v)
             },
           });
           // applica subito lo stato desiderato (pausa/play)
@@ -292,7 +293,7 @@ export default function Portfolio() {
               pinReparent: true,
               start: "top top",
               end: () => "+=" + (cards.length - 1) * H() * PIN_FACTOR,
-              scrub: true,
+              scrub: mq.conditions.mobile ? 0.25 : true,
               anticipatePin: mq.conditions.mobile ? 2 : 1,
               invalidateOnRefresh: true,
             },
@@ -319,11 +320,14 @@ export default function Portfolio() {
                   y: i * LAYER - stepIn(),
                   rotateX: ROTX,
                   rotateZ: i % 2 ? -ROT_Z : ROT_Z,
-                  boxShadow: "0 40px 120px rgba(0,0,0,.22)",
+                  // boxShadow: "0 40px 120px rgba(0,0,0,.22)",
                   duration: SEG * 0.45,
                 },
                 t(i)
               );
+
+              tl.to(card, { '--shadow-o': 1, duration: SEG * 0.45 }, t(i));
+
               tl.to(
                 card,
                 {
@@ -710,42 +714,41 @@ export default function Portfolio() {
               </div>
             )}
             {p.id === 4 && (
-          <div
-            className="pf-demo pf-demo--pano"
-            data-demo="pano"
-            data-speed="86"
-          >
-            <div className="bd-track">
-              <div className="bd-panel">
-                <img
-                  src={panorama1}
-                  alt="Gallery room — wall of artworks"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <div
+                className="pf-demo pf-demo--pano"
+                data-demo="pano"
+                data-speed="86"
+              >
+                <div className="bd-track">
+                  <div className="bd-panel">
+                    <img
+                      src={panorama1}
+                      alt="Gallery room — wall of artworks"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="bd-panel">
+                    <img
+                      src={panorama2}
+                      alt="Artwork detail — zoom & metadata overlay"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="bd-panel">
+                    <img
+                      src={panorama3}
+                      alt="Minimap and room navigation"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="bd-panel">
-                <img
-                  src={panorama2}
-                  alt="Artwork detail — zoom & metadata overlay"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="bd-panel">
-                <img
-                  src={panorama3}
-                  alt="Minimap and room navigation"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-          </div>
-        )}
+            )}
           </article>
         ))}
-        
       </div>
     </section>
   );
