@@ -145,6 +145,13 @@ export default function Portfolio() {
         }
 
         let anim, ro;
+        let desiredPaused = !card.classList.contains("is-front"); // pausa se non-front all’avvio
+        // _setPaused disponibile da subito
+        demo._setPaused = (p) => {
+          desiredPaused = !!p;
+          if (anim) anim.paused(desiredPaused);
+        };
+
         const setX = gsap.quickSetter(track, "x", "px");
 
         const build = () => {
@@ -163,6 +170,8 @@ export default function Portfolio() {
               setX(-(driver.t % dist));
             },
           });
+          // applica subito lo stato desiderato (pausa/play)
+          anim.paused(desiredPaused);
         };
 
         const imgsReady = Array.from(track.querySelectorAll("img")).map((img) =>
@@ -184,6 +193,7 @@ export default function Portfolio() {
           document.removeEventListener("visibilitychange", onVis);
           ro && ro.disconnect();
           anim && anim.kill();
+          demo._setPaused = null;
         };
       }
 
@@ -228,10 +238,12 @@ export default function Portfolio() {
             : mq.conditions.desktop
             ? ROT_X_DESK
             : ROT_X_MOB;
+          const LAYER = mq.conditions.mobile ? 18 : LAYER_OFFSET;
 
+          // init carte
           cards.forEach((card, i) => {
             gsap.set(card, {
-              y: i * LAYER_OFFSET,
+              y: i * LAYER,
               scale: 1 - i * SCALE_STEP,
               zIndex: cards.length - i,
               rotateX: 0,
@@ -243,20 +255,31 @@ export default function Portfolio() {
             });
           });
 
+          // funzioni usate nella timeline (ti erano sparite)
           const stepIn = () =>
             window.innerHeight * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
           const stepOut = () =>
             window.innerHeight * (mq.conditions.mobile ? 0.72 : LIFT_OUT_VH);
-          const SEG = 1,
-            t = (i) => i * SEG;
+          const SEG = 1;
+          const t = (i) => i * SEG;
 
+          // *** UNICA definizione, PRIMA dell'uso ***
+          function setFront(idx) {
+            cards.forEach((card, i) => {
+              card.classList.toggle("is-front", i === idx);
+              card.querySelector(".pf-demo")?._setPaused?.(i !== idx); // pausa le demo non-front
+            });
+          }
+          setFront(0); // stato iniziale
+
+          // timeline
           const tl = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {
-              trigger: stage, // <— prima era root
+              trigger: stage,
               pin: stage,
               pinReparent: true,
-              start: "top top", // pin quando LO STAGE tocca il top
+              start: "top top",
               end: () =>
                 "+=" + (cards.length - 1) * window.innerHeight * PIN_FACTOR,
               scrub: true,
@@ -270,7 +293,7 @@ export default function Portfolio() {
               tl.to(
                 card,
                 {
-                  y: (i - 1) * (LAYER_OFFSET * 0.35),
+                  y: (i - 1) * (LAYER * 0.35),
                   scale: 1,
                   rotateX: 0,
                   rotateZ: 0,
@@ -283,7 +306,7 @@ export default function Portfolio() {
               tl.to(
                 card,
                 {
-                  y: i * LAYER_OFFSET - stepIn(),
+                  y: i * LAYER - stepIn(),
                   rotateX: ROTX,
                   rotateZ: i % 2 ? -ROT_Z : ROT_Z,
                   boxShadow: "0 40px 120px rgba(0,0,0,.22)",
@@ -294,12 +317,15 @@ export default function Portfolio() {
               tl.to(
                 card,
                 {
-                  y: i * LAYER_OFFSET - (stepIn() + stepOut()),
+                  y: i * LAYER - (stepIn() + stepOut()),
                   opacity: 0.98,
                   duration: SEG * 0.55,
                 },
                 t(i) + SEG * 0.45
               );
+
+              // 🔔 metà segmento: passa il "front" alla card successiva
+              tl.call(() => setFront(i + 1), null, t(i) + SEG * 0.5);
             }
           });
 

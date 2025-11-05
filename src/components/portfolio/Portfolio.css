@@ -8,11 +8,16 @@
   --pf-intro-top: clamp(28px, 8vh, 96px);
   --pf-intro-bottom: clamp(4px, 3vh, 28px);
 
-  /* posizionamento/altezza card */
+  /* card height più bassa */
   --pf-card-bottom: clamp(24px, 10vh, 128px);
-  --pf-card-h: clamp(460px, 64vh, 720px);
+  --pf-card-h: clamp(400px, 56vh, 640px);
 
-  /* safe area iOS */
+  /* altezza demo parametrica */
+  --pf-demo-h: clamp(260px, 34vh, 420px);
+
+  /* maschera: porzione alta delle card dietro da rendere trasparente */
+  --pf-mask-cut: clamp(90px, 20vh, 200px);
+
   --pf-safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
@@ -693,22 +698,29 @@
    ========================= */
 @media (max-width: 767px) {
   :root {
-    --pf-card-bottom: clamp(100px, 18vh, 110px);
+    /* alza un filo lo stack ma meno invasivo */
+    --pf-card-bottom: clamp(96px, 16vh, 108px);
   }
+
+  /* card più corta: entra tutta a schermo */
   .pf-card {
     height: auto;
-    min-height: 58svh;
+    min-height: 52svh; /* prima 58svh */
   }
+
+  /* demo più bassa: evita scroll mentale e “coperture” */
   .pf-demo {
-    min-height: min(48vh, 380px);
+    min-height: min(36vh, 300px); /* prima min(48vh, 380px) */
   }
-  .pf-brand {
-    width: 34px;
-  }
-  .pf-strip {
-    grid-template-columns: repeat(3, 1fr);
-  }
+
+  /* micro-compattazione */
+  .pf-copy { margin: 12px 0 14px; }          /* prima 18px 0 24px */
+  .pf-demo .bd-track { inset: 10px; gap: 10px; } /* prima 12px / 12px */
+
+  .pf-brand { width: 34px; }
+  .pf-strip { grid-template-columns: repeat(3, 1fr); }
 }
+
 
 /* =========================
    ANIMATIONS (CENTRALIZZATE)
