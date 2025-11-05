@@ -710,7 +710,7 @@
 @media (max-width: 767px) {
   :root {
     /* alza un filo lo stack ma meno invasivo */
-    --pf-card-bottom: clamp(96px, 16vh, 108px);
+    --pf-card-bottom: clamp(66px, 13vh, 78px);
     --pf-intro-bottom: clamp(20px, 12svh, 80px);
   }
 
