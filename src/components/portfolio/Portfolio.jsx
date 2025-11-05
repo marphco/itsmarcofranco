@@ -10,6 +10,7 @@ import basic3 from "../../assets/basic3.png";
 import basic4 from "../../assets/basic4.png";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /* ---------- ICONS ---------- */
 const RepoIcon = () => (
@@ -233,6 +234,7 @@ export default function Portfolio() {
           reduce: "(prefers-reduced-motion: reduce)",
         },
         (mq) => {
+          const H = () => stage.clientHeight; // 100svh “stabile”
           const ROTX = mq.conditions.reduce
             ? 0
             : mq.conditions.desktop
@@ -256,10 +258,8 @@ export default function Portfolio() {
           });
 
           // funzioni usate nella timeline (ti erano sparite)
-          const stepIn = () =>
-            window.innerHeight * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
-          const stepOut = () =>
-            window.innerHeight * (mq.conditions.mobile ? 0.72 : LIFT_OUT_VH);
+          const stepIn  = () => H() * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
+ const stepOut = () => H() * (mq.conditions.mobile ? 0.68 : LIFT_OUT_VH); // leggermente meno aggressivo
           const SEG = 1;
           const t = (i) => i * SEG;
 
@@ -280,10 +280,9 @@ export default function Portfolio() {
               pin: stage,
               pinReparent: true,
               start: "top top",
-              end: () =>
-                "+=" + (cards.length - 1) * window.innerHeight * PIN_FACTOR,
+              end: () => "+=" + (cards.length - 1) * H() * PIN_FACTOR,
               scrub: true,
-              anticipatePin: 1,
+              anticipatePin: mq.conditions.mobile ? 2 : 1,
               invalidateOnRefresh: true,
             },
           });
