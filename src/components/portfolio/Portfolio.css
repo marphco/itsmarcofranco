@@ -259,9 +259,11 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
-/* BASIC: immagini/video */
+/* BASIC e PANORAMA: immagini/video */
 .pf-demo--basic .bd-panel > img,
-.pf-demo--basic .bd-panel > video {
+.pf-demo--basic .bd-panel > video,
+.pf-demo--pano .bd-panel > img,
+.pf-demo--pano .bd-panel > video {
   width: 100%;
   height: 100%;
   object-fit: contain;

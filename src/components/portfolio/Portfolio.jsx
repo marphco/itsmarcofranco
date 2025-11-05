@@ -4,10 +4,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Portfolio.css";
 import basicLogo from "../../assets/basic.svg";
 import costvistaLogo from "../../assets/costvista.svg";
+import panoramaLogo from "../../assets/panorama.svg";
 import basic1 from "../../assets/basic1.png";
 import basic2 from "../../assets/basic2.png";
 import basic3 from "../../assets/basic3.png";
 import basic4 from "../../assets/basic4.png";
+import panorama1 from "../../assets/panorama1.png";
+import panorama2 from "../../assets/panorama2.png";
+import panorama3 from "../../assets/panorama3.png";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -78,8 +82,11 @@ const PROJECTS = [
   },
   {
     id: 4,
-    title: "Panorama — Virtual Art Gallery",
-    copy: "Immersive 3D gallery to explore high-resolution artworks from major museums (The Met, the Uffizi, and more).",
+    title: "Panorama",
+    brand: panoramaLogo,
+    brandAlt: "Panorama",
+    brandAsTitle: false,
+    copy: "Immersive 3D gallery to wander high-res masterpieces from The Met, the Uffizi & more. Smooth room-to-room nav, object-level zoom, and clean metadata overlays.",
     color: "#494949ff",
     repo: "https://github.com/marphco/virtual-art-gallery",
     demo: "https://panorama-virtual.vercel.app/",
@@ -214,6 +221,9 @@ export default function Portfolio() {
         if (card.querySelector('[data-demo="cost"]')) {
           cleanups.push(setupAutoLoop(card, ".pf-demo--cost"));
         }
+        if (card.querySelector('[data-demo="pano"]')) {
+          cleanups.push(setupAutoLoop(card, ".pf-demo--pano"));
+        }
       });
 
       // ... (matchMedia + timeline delle card resta uguale, ma TOGLI la parte che faceva play/pause)
@@ -258,8 +268,9 @@ export default function Portfolio() {
           });
 
           // funzioni usate nella timeline (ti erano sparite)
-          const stepIn  = () => H() * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
- const stepOut = () => H() * (mq.conditions.mobile ? 0.78 : LIFT_OUT_VH); // leggermente meno aggressivo
+          const stepIn = () => H() * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
+          const stepOut = () =>
+            H() * (mq.conditions.mobile ? 0.78 : LIFT_OUT_VH); // leggermente meno aggressivo
           const SEG = 1;
           const t = (i) => i * SEG;
 
@@ -326,18 +337,18 @@ export default function Portfolio() {
               // 🔔 metà segmento: passa il "front" alla card successiva
             }
           });
-let currentFront = 0;
-tl.eventCallback("onUpdate", () => {
-  // ogni segmento dura SEG (1): arrotondiamo il tempo alla card più vicina
-  const newFront = Math.min(
-    cards.length - 1,
-    Math.max(0, Math.round(tl.time() / SEG))
-  );
-  if (newFront !== currentFront) {
-    setFront(newFront);
-    currentFront = newFront;
-  }
-});
+          let currentFront = 0;
+          tl.eventCallback("onUpdate", () => {
+            // ogni segmento dura SEG (1): arrotondiamo il tempo alla card più vicina
+            const newFront = Math.min(
+              cards.length - 1,
+              Math.max(0, Math.round(tl.time() / SEG))
+            );
+            if (newFront !== currentFront) {
+              setFront(newFront);
+              currentFront = newFront;
+            }
+          });
 
           return () => tl.kill();
         }
@@ -698,8 +709,43 @@ tl.eventCallback("onUpdate", () => {
                 </div>
               </div>
             )}
+            {p.id === 4 && (
+          <div
+            className="pf-demo pf-demo--pano"
+            data-demo="pano"
+            data-speed="86"
+          >
+            <div className="bd-track">
+              <div className="bd-panel">
+                <img
+                  src={panorama1}
+                  alt="Gallery room — wall of artworks"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="bd-panel">
+                <img
+                  src={panorama2}
+                  alt="Artwork detail — zoom & metadata overlay"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="bd-panel">
+                <img
+                  src={panorama3}
+                  alt="Minimap and room navigation"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+        )}
           </article>
         ))}
+        
       </div>
     </section>
   );
