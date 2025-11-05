@@ -1,7 +1,7 @@
-import Hero from './components/hero/Hero';
+import Hero from "./components/hero/Hero";
 import Who from "./components/who/Who";
-import Portfolio from './components/portfolio/Portfolio';
-import Footer from './components/footer/Footer';
+import Portfolio from "./components/portfolio/Portfolio";
+import Footer from "./components/footer/Footer";
 
 /**
  * Top‑level component orchestrating the portfolio layout.
@@ -13,7 +13,9 @@ export default function App() {
       <Hero />
       <Who />
       <Portfolio />
-      <Footer />
+      <section className="footer-reveal">
+        <Footer />
+      </section>
     </>
   );
 }

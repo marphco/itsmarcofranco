@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   color: #0d0d0d;
   background-color: #fafafa;
@@ -74,4 +74,8 @@ button {
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.footer-reveal {
+  height: 100svh;
 }
