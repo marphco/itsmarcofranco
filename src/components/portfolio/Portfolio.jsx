@@ -259,7 +259,7 @@ export default function Portfolio() {
 
           // funzioni usate nella timeline (ti erano sparite)
           const stepIn  = () => H() * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
- const stepOut = () => H() * (mq.conditions.mobile ? 0.68 : LIFT_OUT_VH); // leggermente meno aggressivo
+ const stepOut = () => H() * (mq.conditions.mobile ? 0.78 : LIFT_OUT_VH); // leggermente meno aggressivo
           const SEG = 1;
           const t = (i) => i * SEG;
 
