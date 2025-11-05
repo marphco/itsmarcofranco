@@ -67,7 +67,7 @@ const PROJECTS = [
   {
     id: 3,
     title: "CostVista",
-    brand: costvistaLogo, 
+    brand: costvistaLogo,
     brandAlt: "CostVista",
     brandAsTitle: false,
     copy: "Turns CMS payer files into readable comparisons. Search by CPT/HCPCS, filter by payer/plan, see medians & ranges, and export clean CSVs. No PHI.",
@@ -243,8 +243,10 @@ export default function Portfolio() {
             });
           });
 
-          const stepIn = () => window.innerHeight * LIFT_IN_VH;
-          const stepOut = () => window.innerHeight * LIFT_OUT_VH;
+          const stepIn = () =>
+            window.innerHeight * (mq.conditions.mobile ? 0.14 : LIFT_IN_VH);
+          const stepOut = () =>
+            window.innerHeight * (mq.conditions.mobile ? 0.72 : LIFT_OUT_VH);
           const SEG = 1,
             t = (i) => i * SEG;
 
