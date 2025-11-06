@@ -14,7 +14,6 @@ function useNYTime() {
       new Intl.DateTimeFormat("en-US", {
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
         hour12: true,
         timeZone: "America/New_York",
       }),
@@ -49,7 +48,8 @@ function Eyes() {
     };
 
     const moveTo = (cx, cy, setX, setY, tx, ty) => {
-      const dx = tx - cx, dy = ty - cy;
+      const dx = tx - cx,
+        dy = ty - cy;
       const ang = Math.atan2(dy, dx);
       const dist = Math.min(max, Math.hypot(dx, dy) * 0.15);
       setX(Math.cos(ang) * dist);
@@ -57,14 +57,30 @@ function Eyes() {
       return Math.cos(ang) * dist;
     };
 
-    let rafId = 0, lastEvt = null, idleTl;
+    let rafId = 0,
+      lastEvt = null,
+      idleTl;
 
     const tick = () => {
       if (!lastEvt) return;
       const cL = centerOf(L.current.parentElement);
       const cR = centerOf(R.current.parentElement);
-      const lx = moveTo(cL.x, cL.y, setLx, setLy, lastEvt.clientX, lastEvt.clientY);
-      const rx = moveTo(cR.x, cR.y, setRx, setRy, lastEvt.clientX, lastEvt.clientY);
+      const lx = moveTo(
+        cL.x,
+        cL.y,
+        setLx,
+        setLy,
+        lastEvt.clientX,
+        lastEvt.clientY
+      );
+      const rx = moveTo(
+        cR.x,
+        cR.y,
+        setRx,
+        setRy,
+        lastEvt.clientX,
+        lastEvt.clientY
+      );
       const cross = lx > max * 0.6 && rx < -max * 0.6;
       setMsg(cross ? "You're making me cross-eyed." : "I'm watching you.");
       rafId = requestAnimationFrame(tick);
@@ -77,7 +93,12 @@ function Eyes() {
 
     const onLeave = () => {
       setMsg("Where did you go?");
-      gsap.to([L.current, R.current], { x: 0, y: 0, duration: 0.3, ease: "power2.out" });
+      gsap.to([L.current, R.current], {
+        x: 0,
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      });
       cancelAnimationFrame(rafId);
       rafId = 0;
       lastEvt = null;
@@ -89,9 +110,20 @@ function Eyes() {
       window.addEventListener("pointerleave", onLeave);
     } else {
       // Mobile: vagano + tap per guardare il dito per 1s
-      idleTl = gsap.timeline({ repeat: -1, yoyo: true, defaults: { ease: "sine.inOut", duration: 1.6 }})
-        .to([L.current, R.current], { x: gsap.utils.random(-max, max), y: gsap.utils.random(-max, max) })
-        .to([L.current, R.current], { x: gsap.utils.random(-max, max), y: gsap.utils.random(-max, max) });
+      idleTl = gsap
+        .timeline({
+          repeat: -1,
+          yoyo: true,
+          defaults: { ease: "sine.inOut", duration: 1.6 },
+        })
+        .to([L.current, R.current], {
+          x: gsap.utils.random(-max, max),
+          y: gsap.utils.random(-max, max),
+        })
+        .to([L.current, R.current], {
+          x: gsap.utils.random(-max, max),
+          y: gsap.utils.random(-max, max),
+        });
       const onTap = (e) => {
         idleTl.pause();
         lastEvt = e;
@@ -125,8 +157,12 @@ function Eyes() {
   return (
     <div className="eyes-wrap" ref={rootRef} aria-live="polite">
       <div className="eyes">
-        <div className="eye"><div className="pupil" ref={L} /></div>
-        <div className="eye"><div className="pupil" ref={R} /></div>
+        <div className="eye">
+          <div className="pupil" ref={L} />
+        </div>
+        <div className="eye">
+          <div className="pupil" ref={R} />
+        </div>
       </div>
       <p className="eyes-caption">{msg}</p>
     </div>
@@ -138,12 +174,42 @@ export default function Footer() {
   const nyTime = useNYTime();
   const year = new Date().getFullYear();
 
+  useEffect(() => {
+    const footer = document.getElementById("site-footer");
+    if (!footer) return;
+
+    const CLICK_VH = 30; // quando >= 30vh rivelati, i link diventano cliccabili
+
+    const update = () => {
+      const doc = document.documentElement;
+      const vh = window.innerHeight;
+
+      // quanto manca al fondo
+      const remaining = doc.scrollHeight - (window.scrollY + vh);
+
+      // quanta parte del footer rivelare (0 → 100vh)
+      const revealVH = Math.max(0, Math.min(100, 100 - (remaining / vh) * 100));
+
+      footer.style.setProperty("--reveal", `${revealVH}vh`);
+      footer.classList.toggle("is-active", revealVH >= CLICK_VH);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   return (
     <footer className="site-footer" id="site-footer">
       <div className="footer-inner container">
         <div className="cta-left">
           <h2 className="cta-title">
-            Let’s make your next thing <span className="underline">unskippable</span>.
+            Let’s make your next thing{" "}
+            <span className="underline">unskippable</span>.
           </h2>
           <p className="meta">Based in New York — Working worldwide</p>
         </div>
@@ -153,7 +219,7 @@ export default function Footer() {
             className="email-cta"
             href="mailto:hello@itsmarcofranco.com?subject=Let%27s%20build%20something%20great"
           >
-            <span className="arrow">→</span> Send a brief
+            <span className="arrow">→</span> Pitch your idea
           </a>
           <div className="time">
             <span className="lab">Local time</span>
@@ -163,11 +229,17 @@ export default function Footer() {
 
         <div className="divider" aria-hidden="true" />
 
-        <Eyes />
-
         <nav className="links">
-          <a href="https://www.linkedin.com/in/marco-franco/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/marphco" target="_blank" rel="noreferrer">GitHub</a>
+          <a
+            href="https://www.linkedin.com/in/marco-franco/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="https://github.com/marphco" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
         </nav>
 
         <div className="legal">
@@ -175,6 +247,7 @@ export default function Footer() {
           <span>·</span>
           <span>No cookies. No trackers.</span>
         </div>
+        <Eyes />
       </div>
     </footer>
   );

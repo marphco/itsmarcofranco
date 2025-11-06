@@ -1,26 +1,91 @@
 /* Container helpers */
-.container { width: min(1240px, 90vw); margin-inline: auto; }
+.container {
+  width: min(1240px, 90vw);
+  margin-inline: auto;
+}
 
 /* Fullscreen, dark slab */
-.site-footer{
-  --bg:#0e0e10;
-  --fg:#f2f2f3;
-  --muted:#a0a0a8;
-  --line:#26262b;
-  --accent:#ffffff;
+.site-footer {
+  --bg: #0e0e10;
+  --fg: #f2f2f3;
+  --muted: #a0a0a8;
+  --line: #26262b;
+  --accent: #ffffff;
+  --cta: #bf5b00;
+  --cta-hi: #e97d1e;
+  --orange: #e97d1e;
+
+  /* 💥 palette “Hyper-Violet” (default) */
+  /* --pop1: #ff2aa1;
+  --pop2: #b52cff; */
+
   position: fixed;
+  inset: auto 0 0 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  min-height: 100svh;
-  background: radial-gradient(120% 100% at 50% 120%, #0b0b0d 0, var(--bg) 60%);
-  color: var(--fg);
+  height: 100svh;
+  inline-size: 100%;
+  max-inline-size: 100%;
+
+  overflow-x: hidden; /* fallback Safari vecchi */
+
+  contain: layout paint;
+
+  /* 👇 sempre sopra: niente salti di stacking */
+  z-index: 9;
+
+  /* 👇 rivelazione progressiva dal basso */
+  --reveal: 0vh; /* lo aggiorniamo via JS */
+  clip-path: inset(calc(100% - var(--reveal)) 0 0 0);
+  /* in alternativa (Safari vecchi): -webkit-mask-image: linear-gradient(#000 0 0); e cambiare mask-size */
+
+  background: #461194;
+
   display: grid;
-  align-items: center;
-  z-index: -1;
-  width: 100vw;
+  align-items: end;
+
+  /* 👇 non blocca i click sul contenuto quando è “piccolo” */
+  pointer-events: none;
+
+  /* perf: scroll-driven */
+  will-change: clip-path;
+  color: white;
+
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+.site-footer.is-active {
+  /* 👇 abilita i click SOLO quando rivelato a sufficienza */
+  pointer-events: auto;
+}
+
+.site-footer .container {
+  width: min(1240px, 100%);
+}
+
+/* Se supportati, usa i nuovi viewport 'vi/dvi' che non sforano su iOS */
+@supports (width: 100vi) {
+  .site-footer {
+    inline-size: 100vi;
+  }
+  .site-footer .container {
+    width: min(1240px, 92vi);
+  } /* equivalente del tuo 90vw senza overflow */
+}
+@supports (width: 100dvi) {
+  .site-footer {
+    inline-size: 100dvi;
+  }
+  .site-footer .container {
+    width: min(1240px, 92dvi);
+  }
 }
 
 /* Grid main */
-.footer-inner{
+.footer-inner {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: clamp(24px, 6vw, 80px);
@@ -28,50 +93,101 @@
 }
 
 /* Big headline */
-.cta-title{
+.cta-title {
   margin: 0 0 14px;
   font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: .92;
+  letter-spacing: -0.015em;
+  line-height: 0.92;
   font-size: clamp(34px, 7vw, 84px);
 }
-.underline{
-  background:
-    linear-gradient(transparent 75%, rgba(255,255,255,.12) 0) no-repeat 0 0/100% 100%;
+.underline {
+  background: linear-gradient(transparent 75%, rgb(233, 125, 30) 0) no-repeat 0
+    0/100% 100%;
 }
-.meta{
-  margin: 0;
-  color: var(--muted);
-  font: 600 clamp(12px, 1.7vw, 14px)/1.4 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+.meta {
+  margin-top: 5vh;
+  color: color-mix(in srgb, var(--muted) 92%, transparent);
+  /* più sottile, monospaziata, tracking più ampio */
+  font: 500 clamp(11px, 1.4vw, 13px) / 1.5 var(--mono);
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.1em;
 }
 
 /* Right column */
 .email-cta{
+  /* same layout props */
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
   border-radius: 12px;
-  font: 800 clamp(16px, 2.2vw, 24px)/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  color: var(--fg);
-  text-decoration: none;
-  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.22);
-  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
-}
-.email-cta:hover{ transform: translateY(-1px); box-shadow: inset 0 0 0 2px rgba(255,255,255,.36); }
-.arrow{ font-size: 1.15em; transform: translateY(-.02em); }
 
-.time{
-  display: flex; align-items: baseline; gap: 8px;
-  margin-top: 14px; color: var(--muted);
-  font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  /* testo un filo meno “pesante” se vuoi alleggerirlo */
+  font-weight: 700;
+
+  /* >>> colore & fondo */
+  color: #fff;
+  background: linear-gradient(180deg,
+              color-mix(in srgb, var(--cta) 92%, black) 0%,
+              var(--cta) 70%);
+  border: 0;
+  box-shadow:
+    0 6px 14px color-mix(in srgb, var(--cta) 35%, transparent),
+    inset 0 0 0 1px rgba(255,255,255,.10);
+
+  transition:
+    transform .12s ease,
+    box-shadow .12s ease,
+    background-color .12s ease,
+    filter .12s ease;
 }
-.time .val{ color: var(--fg); font-weight: 800; letter-spacing:.02em; }
+
+/* Hover → un tocco verso l’arancio “underline” + leggera lift */
+.email-cta:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg,
+              color-mix(in srgb, var(--cta-hi) 85%, black) 0%,
+              var(--cta-hi) 70%);
+}
+
+/* Active */
+.email-cta:active{ transform: translateY(0); filter: brightness(.96); }
+
+/* Focus (tastiera) */
+.email-cta:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--cta) 45%, transparent),
+    0 0 0 5px rgba(255,255,255,.20);
+}
+
+/* Icona che “scivola” un pelo a dx in hover */
+.email-cta .arrow{
+  transition: transform .2s ease;
+}
+.email-cta:hover .arrow{
+  transform: translateX(4px);
+}
+
+.time {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 16px;
+  color: color-mix(in srgb, var(--muted) 92%, transparent);
+  font: 500 clamp(11px, 1.4vw, 13px) / 1.5 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.time .val {
+  /* orario un filo più marcato ma sempre “fine” */
+  color: var(--fg);
+  font: 600 clamp(14px, 1.9vw, 18px) / 1 var(--mono);
+  letter-spacing: 0.06em;
+}
 
 /* Divider line */
-.divider{
+.divider {
   grid-column: 1/-1;
   margin: clamp(18px, 5vh, 40px) 0 clamp(6px, 2vh, 14px);
   height: 1px;
@@ -79,61 +195,136 @@
 }
 
 /* Eyes */
-.eyes-wrap{
+.eyes-wrap {
   grid-column: 1/-1;
   display: grid;
   place-items: center;
   gap: 6px;
-  padding: 8px 0 10px;
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,.25));
+  padding: 8px 0 clamp(12px, 3vh, 22px);
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.25));
 }
-.eyes{ display:flex; align-items:center; gap:14px; }
-.eye{
-  --eye: 22px; --pupil: 8px;
-  position:relative; width:var(--eye); height:var(--eye);
-  border-radius:50%; background:#fff; overflow:hidden;
+.eyes {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-.pupil{
-  position:absolute; left:50%; top:50%;
-  width:var(--pupil); height:var(--pupil); border-radius:50%;
-  background:#0c0c0f radial-gradient(circle at 35% 35%, #222 0 40%, transparent 41%);
+.eye {
+  --eye: 22px;
+  --pupil: 8px;
+  position: relative;
+  width: var(--eye);
+  height: var(--eye);
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+}
+.pupil {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--pupil);
+  height: var(--pupil);
+  border-radius: 50%;
+  background: #0c0c0f
+    radial-gradient(circle at 35% 35%, #222 0 40%, transparent 41%);
   transform: translate(-50%, -50%);
   will-change: transform;
 }
-.eye::before,.eye::after{
-  content:""; position:absolute; left:0; right:0; height:50%;
-  background: var(--bg); transform: translateY(-100%); pointer-events:none;
+.eye::before,
+.eye::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--bg);
+  transform: translateY(-100%);
+  pointer-events: none;
 }
-.eye::after{ top:auto; bottom:0; transform: translateY(100%); }
-@keyframes blinkTop{50%{transform: translateY(0);} }
-@keyframes blinkBot{50%{transform: translateY(0);} }
-.blink .eye::before{ animation: blinkTop .11s linear; }
-.blink .eye::after { animation: blinkBot .11s linear; }
-.eyes-caption{ margin:0; font-size:11px; color:var(--muted); }
+.eye::after {
+  top: auto;
+  bottom: 0;
+  transform: translateY(100%);
+}
+@keyframes blinkTop {
+  50% {
+    transform: translateY(0);
+  }
+}
+@keyframes blinkBot {
+  50% {
+    transform: translateY(0);
+  }
+}
+.blink .eye::before {
+  animation: blinkTop 0.11s linear;
+}
+.blink .eye::after {
+  animation: blinkBot 0.11s linear;
+}
+.eyes-caption {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
 
 /* Bottom links + legal */
-.links{
+.links {
   grid-column: 1/-1;
-  display:flex; justify-content:center; gap:18px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
   margin: 10px 0 2px;
 }
-.links a{
-  color: var(--fg); text-decoration: none;
-  font-weight: 700; font-size: 14px;
-  box-shadow: inset 0 -1px 0 rgba(255,255,255,.25);
+.links a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
 }
-.links a:hover{ box-shadow: inset 0 -2px 0 rgba(255,255,255,.45); }
+.links a:hover {
+  box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.45);
+}
 
-.legal{
+.legal {
   grid-column: 1/-1;
-  display:flex; justify-content:center; gap:8px;
-  color: var(--muted); font-size: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.cta-left {
+  height: 40vh;
 }
 
 /* Mobile layout */
-@media (max-width: 767px){
-  .footer-inner{ grid-template-columns: 1fr; text-align:center; }
-  .cta-right{ display:grid; justify-items:center; }
-  .email-cta{ width: max-content; }
+@media (max-width: 767px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .cta-right {
+    display: grid;
+    justify-items: center;
+    padding-bottom: 15vh;
+  }
+  .cta-left {
+    height: 16vh !important;
+  }
+  .email-cta {
+    width: max-content;
+  }
 }
 
+.email-cta{
+  background: transparent;
+  border: 2px solid var(--cta-hi);
+  color: #fff;
+  /* box-shadow: 0 8px 18px color-mix(in srgb, var(--cta-hi) 18%, transparent); */
+}
+.email-cta:hover{ background: var(--cta-hi); color:#1b102d; }
+.email-cta .arrow{ transition: transform .2s; }
+.email-cta:hover .arrow{ transform: translateX(4px); }
