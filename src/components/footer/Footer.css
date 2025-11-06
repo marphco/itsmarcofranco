@@ -309,7 +309,7 @@
   .cta-right {
     display: grid;
     justify-items: center;
-    padding-bottom: 15vh;
+    padding-bottom: 7vh;
   }
   .cta-left {
     height: 16vh !important;
@@ -343,3 +343,21 @@
 .site-footer.is-active .links a {
   pointer-events: auto; /* CTA e link restano cliccabili */
 }
+
+/* Blink sempre sincrono: durante il blink niente transition */
+.blink .eye::before,
+.blink .eye::after {
+  transition: none !important;
+}
+
+/* Transizioni palpebre (morbide) */
+.eye::before,
+.eye::after { transition: transform .18s ease; }
+
+/* Blink sempre sincrono (niente transition durante il blink) */
+.blink .eye::before,
+.blink .eye::after { transition: none !important; }
+
+/* Squint “standard” */
+.mood-squint .eye::before { transform: translateY(-40%); }
+.mood-squint .eye::after  { transform: translateY( 40%); }

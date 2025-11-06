@@ -36,7 +36,7 @@ function Eyes() {
     const fine = matchMedia("(pointer: fine)").matches;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const max = 8; // corsa pupilla (px) — piccolini
+    const max = 8; // corsa pupilla (px)
     const setLx = gsap.quickSetter(L.current, "x", "px");
     const setLy = gsap.quickSetter(L.current, "y", "px");
     const setRx = gsap.quickSetter(R.current, "x", "px");
@@ -52,37 +52,79 @@ function Eyes() {
         dy = ty - cy;
       const ang = Math.atan2(dy, dx);
       const dist = Math.min(max, Math.hypot(dx, dy) * 0.15);
-      setX(Math.cos(ang) * dist);
-      setY(Math.sin(ang) * dist);
-      return Math.cos(ang) * dist;
+      const x = Math.cos(ang) * dist;
+      const y = Math.sin(ang) * dist;
+      setX(x);
+      setY(y);
+      return { x, y };
     };
 
-    let rafId = 0,
-      lastEvt = null,
-      idleTl;
+    // Messaggistica prudente
+    const setMsgSafe = (next) =>
+      setMsg((prev) => (prev === next ? prev : next));
+
+    let rafId = 0;
+    let lastEvt = null;
+
+    // Locks per evitare sovrapposizioni tra blink e "mood"
+    let busy = false; // true = niente altre animazioni oculari
+    let blinkTO = null;
+    let moodTO = null;
+    let onTap = null;
+    let idleTl = null;
 
     const tick = () => {
-      if (!lastEvt) return;
-      const cL = centerOf(L.current.parentElement);
-      const cR = centerOf(R.current.parentElement);
-      const lx = moveTo(
-        cL.x,
-        cL.y,
-        setLx,
-        setLy,
-        lastEvt.clientX,
-        lastEvt.clientY
-      );
-      const rx = moveTo(
-        cR.x,
-        cR.y,
-        setRx,
-        setRy,
-        lastEvt.clientX,
-        lastEvt.clientY
-      );
-      const cross = lx > max * 0.6 && rx < -max * 0.6;
-      setMsg(cross ? "You're making me cross-eyed." : "I'm watching you.");
+      const lEl = L.current?.parentElement;
+      const rEl = R.current?.parentElement;
+      if (!lEl || !rEl) return;
+
+      if (lastEvt) {
+        const cL = centerOf(lEl);
+        const cR = centerOf(rEl);
+
+        const { x: lx } = moveTo(
+          cL.x,
+          cL.y,
+          setLx,
+          setLy,
+          lastEvt.clientX,
+          lastEvt.clientY
+        );
+        const { x: rx } = moveTo(
+          cR.x,
+          cR.y,
+          setRx,
+          setRy,
+          lastEvt.clientX,
+          lastEvt.clientY
+        );
+
+        // Solo messaggio quando davvero "strabici"
+        const opposing = Math.sign(lx) !== Math.sign(rx);
+        const between = lastEvt.clientX > cL.x && lastEvt.clientX < cR.x;
+        const someDeflection = Math.abs(lx) + Math.abs(rx) > max * 0.4;
+
+        if (fine) {
+          // Desktop: SOLO quando davvero strabici
+          setMsgSafe(
+            opposing && between && someDeflection
+              ? "You're making me cross-eyed."
+              : "I'm watching you."
+          );
+        } else {
+          // Mobile: left/right + cross-eyed
+          const eyeGap = Math.max(24, (cR.x - cL.x) * 0.25); // soglia adattiva
+          let next = "I'm watching you.";
+          if (opposing && between && someDeflection) {
+            next = "You're making me cross-eyed.";
+          } else if (lastEvt.clientX < cL.x - eyeGap) {
+            next = "Looking left…";
+          } else if (lastEvt.clientX > cR.x + eyeGap) {
+            next = "Looking right…";
+          }
+          setMsgSafe(next);
+        }
+      }
       rafId = requestAnimationFrame(tick);
     };
 
@@ -92,7 +134,7 @@ function Eyes() {
     };
 
     const onLeave = () => {
-      setMsg("Where did you go?");
+      setMsgSafe("Where did you go?");
       gsap.to([L.current, R.current], {
         x: 0,
         y: 0,
@@ -104,12 +146,12 @@ function Eyes() {
       lastEvt = null;
     };
 
+    // ─────────── Pointer handling ───────────
     if (fine) {
-      // ➜ LISTENER GLOBALI: seguono il mouse ovunque nel sito
       window.addEventListener("pointermove", onMove, { passive: true });
       window.addEventListener("pointerleave", onLeave);
     } else {
-      // Mobile: vagano + tap per guardare il dito per 1s
+      // Mobile: idle wander + tap per seguire il dito 1s
       idleTl = gsap
         .timeline({
           repeat: -1,
@@ -124,32 +166,73 @@ function Eyes() {
           x: gsap.utils.random(-max, max),
           y: gsap.utils.random(-max, max),
         });
-      const onTap = (e) => {
+
+      onTap = (e) => {
         idleTl.pause();
         lastEvt = e;
-        tick();
-        setTimeout(() => idleTl.resume(), 1000);
+        // Segui anche i movimenti del dito durante il secondo di "focus"
+        window.addEventListener("pointermove", onMove, { passive: true });
+        if (!rafId) rafId = requestAnimationFrame(tick);
+        setTimeout(() => {
+          window.removeEventListener("pointermove", onMove);
+          lastEvt = null;
+          onLeave();
+          idleTl.resume();
+        }, 1000);
       };
       window.addEventListener("pointerdown", onTap);
-      return () => window.removeEventListener("pointerdown", onTap);
     }
 
-    // Blink casuale
-    let t;
-    if (!reduced) {
-      const blink = () => {
+    // ─────────── Blink sincronizzato (no sovrapposizioni) ───────────
+    const scheduleBlink = () => {
+      if (reduced) return;
+      blinkTO = setTimeout(() => {
+        if (busy) {
+          scheduleBlink();
+          return;
+        } // rimanda se c'è un "mood" in corso
+        busy = true;
         root.classList.add("blink");
-        setTimeout(() => root.classList.remove("blink"), 110);
-        t = setTimeout(blink, gsap.utils.random(2400, 5200));
-      };
-      t = setTimeout(blink, 1600);
-    }
+        setTimeout(() => {
+          root.classList.remove("blink");
+          busy = false;
+          scheduleBlink();
+        }, 140);
+      }, gsap.utils.random(2400, 5200));
+    };
+    scheduleBlink();
 
+    // ─────────── MOOD: squint ───────────
+    const applySquint = (dur = 700) => {
+      if (busy || reduced) return;
+      busy = true;
+      root.classList.add("mood-squint");
+      setTimeout(() => {
+        root.classList.remove("mood-squint");
+        busy = false;
+      }, dur);
+    };
+
+    const scheduleMood = () => {
+      if (reduced) return;
+      moodTO = setTimeout(() => {
+        if (!busy) applySquint(); // unico stato: squint
+        scheduleMood();
+      }, gsap.utils.random(6000, 11000));
+    };
+    scheduleMood();
+
+    // Avvia il loop di track
+    if (!rafId) rafId = requestAnimationFrame(tick);
+
+    // Cleanup
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
-      t && clearTimeout(t);
+      if (onTap) window.removeEventListener("pointerdown", onTap);
+      if (blinkTO) clearTimeout(blinkTO);
+      if (moodTO) clearTimeout(moodTO);
       idleTl && idleTl.kill();
     };
   }, []);
