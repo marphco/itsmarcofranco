@@ -323,8 +323,23 @@
   background: transparent;
   border: 2px solid var(--cta-hi);
   color: #fff;
-  /* box-shadow: 0 8px 18px color-mix(in srgb, var(--cta-hi) 18%, transparent); */
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--cta-hi) 18%, transparent);
 }
 .email-cta:hover{ background: var(--cta-hi); color:#1b102d; }
 .email-cta .arrow{ transition: transform .2s; }
 .email-cta:hover .arrow{ transform: translateX(4px); }
+
+/* --- FIX mobile: non intrappolare il pan verticale sul footer --- */
+.site-footer.is-active{
+  /* consenti solo pan orizzontale/pinch sul footer; il pan verticale va al documento */
+  touch-action: pan-x pinch-zoom;
+}
+
+/* Rete di sicurezza: il footer non intercetta tap di sfondo, solo gli elementi cliccabili */
+.site-footer.is-active{
+  pointer-events: none; /* sovrascrive la tua regola precedente */
+}
+.site-footer.is-active .email-cta,
+.site-footer.is-active .links a {
+  pointer-events: auto; /* CTA e link restano cliccabili */
+}
