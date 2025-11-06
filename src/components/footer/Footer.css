@@ -206,18 +206,24 @@
 .eyes {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 7px;
 }
 .eye {
-  --eye: 22px;
+  /* proporzioni leggermente verticali, ma non “a uovo” */
+  --eye-w: 18px;
+  --eye-h: 22px;
   --pupil: 8px;
+
   position: relative;
-  width: var(--eye);
-  height: var(--eye);
-  border-radius: 50%;
+  width: var(--eye-w);
+  height: var(--eye-h);
   background: #fff;
   overflow: hidden;
+
+  /* ovale SIMMETRICO: stessa curvatura su tutti i lati */
+  border-radius: 50% / 58%;
 }
+
 .pupil {
   position: absolute;
   left: 50%;

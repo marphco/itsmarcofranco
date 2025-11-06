@@ -36,11 +36,14 @@ function Eyes() {
     const fine = matchMedia("(pointer: fine)").matches;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const max = 8; // corsa pupilla (px)
+    let max = 8;
     const setLx = gsap.quickSetter(L.current, "x", "px");
     const setLy = gsap.quickSetter(L.current, "y", "px");
     const setRx = gsap.quickSetter(R.current, "x", "px");
     const setRy = gsap.quickSetter(R.current, "y", "px");
+
+    const eyeBox = L.current.parentElement.getBoundingClientRect();
+max = Math.floor(Math.min(eyeBox.width, eyeBox.height) * 0.35);
 
     const centerOf = (el) => {
       const b = el.getBoundingClientRect();
