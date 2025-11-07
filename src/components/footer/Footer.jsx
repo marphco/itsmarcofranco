@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";           // ✅ IMPORT
 import gsap from "gsap";
 import "./Footer.css";
+import { GA_ID, updateAnalyticsConsent } from "../../lib/ga.js";
 
 /* ---------- Utils ---------- */
 function useNYTime() {
@@ -255,10 +257,52 @@ max = Math.floor(Math.min(eyeBox.width, eyeBox.height) * 0.35);
   );
 }
 
+function ConsentDialog({ open, onClose }) {
+  const [analytics, setAnalytics] = useState(
+    () => localStorage.getItem('consent.analytics') !== 'denied' // default ON
+  );
+
+  useEffect(() => {
+    if (!open) return;
+    updateAnalyticsConsent(analytics);
+  }, [analytics, open]);
+
+  return (
+    <dialog className="consent-dialog" open={open} onClose={onClose}>
+      <form method="dialog">
+        <h3 className="consent-title">Privacy preferences</h3>
+
+        <label className="consent-row">
+          <input
+            type="checkbox"
+            checked={analytics}
+            onChange={(e) => setAnalytics(e.target.checked)}
+          />
+          <span>Analytics (GA4)</span>
+        </label>
+
+        <p className="consent-note">
+          We use GA4 without ads or Google Signals. Toggle to opt-out.
+        </p>
+
+        <div className="consent-actions">
+          <Link to="/privacy" className="legal-link" onClick={onClose}>Privacy</Link>
+          <span>·</span>
+          <Link to="/cookies" className="legal-link" onClick={onClose}>Cookies</Link>
+          <button className="btn-primary">Close</button>
+        </div>
+      </form>
+    </dialog>
+  );
+}
+
+
 /* ---------- Footer ---------- */
 export default function Footer() {
   const nyTime = useNYTime();
   const year = new Date().getFullYear();
+  const [consentOpen, setConsentOpen] = useState(false);
+
 
   useEffect(() => {
     const footer = document.getElementById("site-footer");
@@ -329,10 +373,18 @@ export default function Footer() {
         </nav>
 
         <div className="legal">
-          <span>© {year} Marco Franco</span>
-          <span>·</span>
-          <span>No cookies. No trackers.</span>
-        </div>
+  <span>© {year} Marco Franco</span>
+  <span>·</span>
+  <Link to="/privacy" className="legal-link">Privacy</Link>
+  <span>·</span>
+  <Link to="/cookies" className="legal-link">Cookies</Link>
+  <span>·</span>
+  <button className="btn-link legal-link" onClick={() => setConsentOpen(true)}>
+    Manage cookies
+  </button>
+</div>
+<ConsentDialog open={consentOpen} onClose={() => setConsentOpen(false)} />
+
         <Eyes />
       </div>
     </footer>

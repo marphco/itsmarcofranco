@@ -1,31 +1,46 @@
-// /src/lib/ga.js
-export const GA_ID = 'G-46BNDCHH88'; // pubblico per natura, ok hard-coded
+export const GA_ID = 'G-46BNDCHH88';
 
 export function initGA() {
   if (window.__gaInit || !GA_ID) return;
   window.__gaInit = true;
 
-  // 1) carica gtag.js
+  // Leggi preferenza salvata (default: ON per traffico USA)
+  const analyticsGranted = localStorage.getItem('consent.analytics') !== 'denied';
+  window[`ga-disable-${GA_ID}`] = !analyticsGranted;
+
+  // Carica gtag
   const s = document.createElement('script');
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
   document.head.appendChild(s);
 
-  // 2) prepara dataLayer/gtag (safe anche se lo script non ha finito)
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ window.dataLayer.push(arguments); };
 
-  // 3) init + config
+  // Consent Mode (solo analytics)
+  window.gtag('consent', 'default', {
+    analytics_storage: analyticsGranted ? 'granted' : 'denied',
+    ad_storage: 'denied',            // niente ads/signals
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+
   window.gtag('js', new Date());
   window.gtag('config', GA_ID, {
-    send_page_view: true,        // se usi React Router metti false e invia tu i page_view
-    allow_google_signals: false, // opzionale: niente Signals/ads features
+    send_page_view: true,
+    allow_google_signals: false
   });
 }
 
-// facoltativi se poi ti servono
-export const pageview = (url) =>
-  window.gtag?.('event', 'page_view', { page_location: url, page_title: document.title });
+export const updateAnalyticsConsent = (granted) => {
+  localStorage.setItem('consent.analytics', granted ? 'granted' : 'denied');
+  window[`ga-disable-${GA_ID}`] = !granted;
+  window.gtag?.('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
+};
 
-export const gaEvent = (name, params={}) =>
-  window.gtag?.('event', name, params);
+export function trackPageview(path) {
+  if (!window.gtag || !GA_ID) return;
+  window.gtag("config", GA_ID, {
+    page_path: path,
+  });
+}

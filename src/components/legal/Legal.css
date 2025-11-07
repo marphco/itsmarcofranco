@@ -1,0 +1,72 @@
+.page-legal {
+  min-height: 100svh;
+  background: #010101;
+  color: #fff;
+  display: grid;
+  align-items: start;
+  padding: clamp(28px, 8vh, 96px) 0;
+}
+.page-legal .container {
+  width: min(920px, 90vw);
+  margin-inline: auto;
+}
+.lg-hero {
+  margin: 0 0 clamp(16px, 3vh, 28px);
+}
+.lg-title {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  line-height: .92;
+  font-size: clamp(36px, 6vw, 64px);
+}
+.lg-sub {
+  margin: 10px 0 0;
+  color: color-mix(in srgb, #a0a0a8 92%, transparent);
+  font: 500 13px/1.5 "IBM Plex Mono", ui-monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.lg-card {
+  margin-top: clamp(14px, 3vh, 24px);
+  padding: clamp(18px, 3vw, 26px);
+  border-radius: 16px;
+  background: radial-gradient(120% 160% at -10% -10%, rgba(255,255,255,.10), transparent 40%),
+              rgba(255,255,255,0.04);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.lg-card h2 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 3.2vw, 28px);
+}
+.lg-card h3 { margin: 18px 0 6px; font-size: 18px; }
+.lg-card p, .lg-card li {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: .96;
+}
+.lg-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.btn-ghost, .btn-primary {
+  font-weight: 800;
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-ghost {
+  color: #fff;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35);
+}
+.btn-ghost:hover { box-shadow: inset 0 0 0 2px rgba(255,255,255,.55); }
+.btn-primary {
+  background: var(--cta-hi, #e97d1e);
+  color: #1b102d;
+}
