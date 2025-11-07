@@ -11,7 +11,7 @@
     const link = document.createElement('link');
     link.rel = 'icon';
     link.type = 'image/svg+xml';
-    link.href = `${href}?v=${mq.matches ? 'd' : 'l'}`;
+    link.href = `/${href}?v=${mq.matches ? 'd' : 'l'}`;
     document.head.appendChild(link);
   }
 
