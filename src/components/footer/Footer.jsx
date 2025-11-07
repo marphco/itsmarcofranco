@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";           // ✅ IMPORT
+import { Link } from "react-router-dom"; // ✅ IMPORT
 import gsap from "gsap";
 import "./Footer.css";
 import { GA_ID, updateAnalyticsConsent } from "../../lib/ga.js";
@@ -45,7 +45,7 @@ function Eyes() {
     const setRy = gsap.quickSetter(R.current, "y", "px");
 
     const eyeBox = L.current.parentElement.getBoundingClientRect();
-max = Math.floor(Math.min(eyeBox.width, eyeBox.height) * 0.35);
+    max = Math.floor(Math.min(eyeBox.width, eyeBox.height) * 0.35);
 
     const centerOf = (el) => {
       const b = el.getBoundingClientRect();
@@ -259,7 +259,7 @@ max = Math.floor(Math.min(eyeBox.width, eyeBox.height) * 0.35);
 
 function ConsentDialog({ open, onClose }) {
   const [analytics, setAnalytics] = useState(
-    () => localStorage.getItem('consent.analytics') !== 'denied' // default ON
+    () => localStorage.getItem("consent.analytics") !== "denied" // default ON
   );
 
   useEffect(() => {
@@ -286,9 +286,13 @@ function ConsentDialog({ open, onClose }) {
         </p>
 
         <div className="consent-actions">
-          <Link to="/privacy" className="legal-link" onClick={onClose}>Privacy</Link>
+          <Link to="/privacy" className="legal-link" onClick={onClose}>
+            Privacy
+          </Link>
           <span>·</span>
-          <Link to="/cookies" className="legal-link" onClick={onClose}>Cookies</Link>
+          <Link to="/cookies" className="legal-link" onClick={onClose}>
+            Cookies
+          </Link>
           <button className="btn-primary">Close</button>
         </div>
       </form>
@@ -296,13 +300,11 @@ function ConsentDialog({ open, onClose }) {
   );
 }
 
-
 /* ---------- Footer ---------- */
 export default function Footer() {
   const nyTime = useNYTime();
   const year = new Date().getFullYear();
   const [consentOpen, setConsentOpen] = useState(false);
-
 
   useEffect(() => {
     const footer = document.getElementById("site-footer");
@@ -373,17 +375,36 @@ export default function Footer() {
         </nav>
 
         <div className="legal">
-  <span>© {year} Marco Franco</span>
-  <span>·</span>
-  <Link to="/privacy" className="legal-link">Privacy</Link>
-  <span>·</span>
-  <Link to="/cookies" className="legal-link">Cookies</Link>
-  <span>·</span>
-  <button className="btn-link legal-link" onClick={() => setConsentOpen(true)}>
-    Manage cookies
-  </button>
-</div>
-<ConsentDialog open={consentOpen} onClose={() => setConsentOpen(false)} />
+          <span className="copyright">© {year} Marco Franco</span>
+          <span className="sep sep-desktop" aria-hidden="true">
+            |
+          </span>{" "}
+          {/* NEW */}
+          <nav className="legal-links" aria-label="Legal">
+            <Link to="/privacy" className="legal-link">
+              Privacy
+            </Link>
+            <span className="sep" aria-hidden="true">
+              ·
+            </span>
+            <Link to="/cookies" className="legal-link">
+              Cookies
+            </Link>
+            <span className="sep" aria-hidden="true">
+              ·
+            </span>
+            <button
+              className="btn-link legal-link"
+              onClick={() => setConsentOpen(true)}
+            >
+              Manage cookies
+            </button>
+          </nav>
+        </div>
+        <ConsentDialog
+          open={consentOpen}
+          onClose={() => setConsentOpen(false)}
+        />
 
         <Eyes />
       </div>
