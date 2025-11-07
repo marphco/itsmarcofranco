@@ -38,9 +38,10 @@ export const updateAnalyticsConsent = (granted) => {
   window.gtag?.('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
 };
 
-export function trackPageview(path) {
-  if (!window.gtag || !GA_ID) return;
-  window.gtag("config", GA_ID, {
-    page_path: path,
+export function trackPageview(pathname) {
+  if (!window.gtag) return;
+  window.gtag('event', 'page_view', {
+    page_path: pathname,
+    page_title: document.title,
   });
 }
