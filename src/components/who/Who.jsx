@@ -7,8 +7,8 @@ import robot from "../../assets/robot.png";
 import pasta from "../../assets/pasta.png";
 import pizza from "../../assets/pizza.png";
 import openai from "../../assets/openai.svg";
-import react from "../../assets/react.png";
-import vite from "../../assets/vite.png";
+import notion from "../../assets/notion.svg";
+import slack from "../../assets/slack.svg";
 import liberty from "../../assets/liberty.svg";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -493,10 +493,9 @@ if (portfolio) {
           {/* P1 — xAI + robot head */}
           <section className="panel p1">
             <div className="panel-copy">
-              <h2 className="panel-hl">Half human, half algorithm.</h2>
+              <h2 className="panel-hl">Half operator, half builder.</h2>
               <p className="panel-sl">
-                Spent a year at <span className="brand">xAI</span> teaching
-                machines to behave. Kind of.
+                Spent a year at <span className="brand">xAI</span> evaluating AI at scale.<br/>Now I use that lens everywhere.
               </p>
             </div>
             <div className="stickers">
@@ -522,22 +521,21 @@ if (portfolio) {
             <div className="panel-copy">
               <h2 className="panel-hl">Structured chaos.</h2>
               <p className="panel-sl">
-                From prototype to production — web, APIs, and AI —
-                stack-agnostic by design.
+                From political campaigns to AI evaluation.<br/>I've built the systems that kept things moving.
               </p>
             </div>
             <div className="stickers">
               <img
                 className="sticker s1"
-                alt="React"
-                src={react}
+                alt="Notion"
+                src={notion}
                 loading="lazy"
                 decoding="async"
               />
               <img
                 className="sticker s2"
-                alt="Vite"
-                src={vite}
+                alt="Slack"
+                src={slack}
                 loading="lazy"
                 decoding="async"
               />
@@ -556,7 +554,7 @@ if (portfolio) {
             <div className="panel-copy">
               <h2 className="panel-hl">Born in Italy, built in New York.</h2>
               <p className="panel-sl">
-                I believe in good ideas, clean code, and better pasta.
+                I believe in good systems, clear thinking, and better pasta.
               </p>
             </div>
             <div className="stickers">

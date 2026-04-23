@@ -340,8 +340,8 @@ export default function Footer() {
       <div className="footer-inner container">
         <div className="cta-left">
           <h2 className="cta-title">
-            Let’s make your next thing{" "}
-            <span className="underline">unskippable</span>.
+            I turn complexity into{" "}
+            <span className="underline">structure</span>.
           </h2>
           <p className="meta">Based in New York — Working worldwide</p>
         </div>
@@ -351,7 +351,7 @@ export default function Footer() {
             className="email-cta"
             href="mailto:hello@itsmarcofranco.com?subject=Let%27s%20build%20something%20great"
           >
-            <span className="arrow">→</span> Pitch your idea
+            <span className="arrow">→</span> Let's talk
           </a>
           <div className="time">
             <span className="lab">Local time</span>
@@ -369,9 +369,9 @@ export default function Footer() {
           >
             LinkedIn
           </a>
-          <a href="https://github.com/marphco" target="_blank" rel="noreferrer">
+          {/* <a href="https://github.com/marphco" target="_blank" rel="noreferrer">
             GitHub
-          </a>
+          </a> */}
         </nav>
 
         <div className="legal">
