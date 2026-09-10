@@ -9,7 +9,7 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 
 /* The intake demo runs as its own app, so the target is configurable.
    Falls back to the local dev port used by demos/intake. */
-const INTAKE_URL = import.meta.env.VITE_INTAKE_URL || "http://localhost:5183";
+const INTAKE_URL = import.meta.env.VITE_INTAKE_URL || "http://localhost:5184";
 
 /* ---------- ICONS ---------- */
 const LiveIcon = () => (

@@ -17,7 +17,13 @@
  *   stack    muted line at the bottom of the card (optional)
  */
 
-import questionsShot from "../../assets/basic4.png";
+import questionsShot from "../../assets/basic4.webp";
+/* Captured from the standalone intake demo, which is the same flow the
+   "Try it" button opens. Swap for shots of the original agency install if
+   you would rather show the Italian interface. */
+import intakePick from "../../assets/intake1.webp";
+import intakeAsk from "../../assets/intake2.webp";
+import intakeBrief from "../../assets/intake3.webp";
 
 export const CASES = [
   {
@@ -53,9 +59,24 @@ export const CASES = [
       "More than fifty projects delivered in under two years. Today the agency is recognized nationally, with work for ENAV, the Italian air navigation authority, and the Ministry of Foreign Affairs.",
     ],
     shots: [
-      { pending: "Intake flow, screen 1 of 3" },
-      { pending: "Intake flow, screen 2 of 3" },
-      { pending: "Intake flow, screen 3 of 3" },
+      {
+        src: intakePick,
+        alt: "The intake asking the client to pick a service, with six options",
+        caption:
+          "The client picks a service. That choice is what the first question is generated from.",
+      },
+      {
+        src: intakeAsk,
+        alt: "One intake question with four options, and the scoring panel open below it",
+        caption:
+          "One question at a time. The panel below shows the candidates that were scored, and the one that survived.",
+      },
+      {
+        src: intakeBrief,
+        alt: "The brief the intake wrote, with sections for the ask, audience, scope, constraints and open questions",
+        caption:
+          "The brief, written from the answers. What the intake did not establish is listed as an open question instead of guessed.",
+      },
       { pending: "Editorial planner, month calendar" },
       { pending: "Editorial planner, client approval with version history" },
       {

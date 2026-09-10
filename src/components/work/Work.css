@@ -1,5 +1,5 @@
 /* =========================
-   WORK — tokens
+   WORK - tokens
    ========================= */
 .work {
   --wk-w: min(1080px, 90vw);
@@ -381,7 +381,9 @@
   object-position: 50% 0;
   border-radius: 12px;
   background: #0d0d0f;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  /* a ring, not an inset shadow: object-fit: cover paints over inset shadows,
+     and these screenshots are dark on a dark card */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.24);
 }
 .wk-shot figcaption {
   font-size: 12px;
@@ -415,6 +417,17 @@
   font-family: var(--wk-mono);
   font-size: 11px;
   opacity: 0.72;
+}
+
+/* =========================
+   TOUCH
+   ========================= */
+/* On a phone the buttons have to be worth aiming at. */
+@media (pointer: coarse) {
+  .wk-btn {
+    padding: 13px 16px;
+    min-height: 44px;
+  }
 }
 
 /* =========================
