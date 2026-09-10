@@ -679,3 +679,9 @@
 .wk-notes li .wk-btn {
   margin-top: 10px;
 }
+
+
+/* a strip that sits on the card, not inside a system, gets more room */
+.wk-card > .wk-shots {
+  grid-auto-columns: min(84%, 520px);
+}

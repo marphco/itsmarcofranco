@@ -29,6 +29,13 @@ import plannerCalendar from "../../assets/badv-planner.webp";
 import plannerPost from "../../assets/badv-post.webp";
 import plannerApproval from "../../assets/badv-approval.webp";
 
+/* The two live sites, captured as they are today. */
+import spinSite from "../../assets/spin-site.webp";
+import spinAI from "../../assets/spin-ai.webp";
+import eenveeHome from "../../assets/eenvee-home.webp";
+import eenveeHow from "../../assets/eenvee-how.webp";
+import eenveeMobile from "../../assets/eenvee-mobile.webp";
+
 export const CASES = [
   {
     id: "basic-adv",
@@ -167,6 +174,19 @@ export const CASES = [
       ],
     },
 
+    shots: [
+      {
+        src: spinSite,
+        alt: "The Spin Factor home page, seven colored sections around a central one",
+        caption: "The site as it is today. Every section is one way into the agency.",
+      },
+      {
+        src: spinAI,
+        alt: "Spinny, the AI assistant, answering a question about what the agency does",
+        caption:
+          "Spinny answering \u201cwhat does Spin Factor do?\u201d, then offering the sections that go deeper.",
+      },
+    ],
     stack: ["React", "Node", "OpenAI API"],
   },
 
@@ -189,12 +209,29 @@ export const CASES = [
       notes: [
         {
           text: "The product is live in production.",
-          action: { kind: "live", href: null, label: "Live", pending: "[MARCO: URL di eenvee]" },
+          action: { kind: "live", href: "https://eenvee.com", label: "Live" },
         },
         "[MARCO: una riga sullo stato attuale, con parole tue]",
       ],
     },
 
+    shots: [
+      {
+        src: eenveeHome,
+        alt: "The eenvee home page: an event invitation shown inside a phone",
+        caption: "One link carries the whole event: invitation, confirmations, map, gift list.",
+      },
+      {
+        src: eenveeHow,
+        alt: "The three steps: choose a design, personalize it, share the link",
+        caption: "Three steps, no install. Confirmations come back already sorted.",
+      },
+      {
+        src: eenveeMobile,
+        alt: "The eenvee site on a phone",
+        caption: "Built for the phone first, because that is where an invitation gets opened.",
+      },
+    ],
     stack: ["React", "Node", "Express", "MongoDB", "TypeScript", "Capacitor"],
   },
 ];

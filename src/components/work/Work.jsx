@@ -233,7 +233,7 @@ function Outcome({ item, caseTitle }) {
 }
 
 function CaseCard({ data }) {
-  const { kicker, title, meta, problem, built, changed, stack } = data;
+  const { kicker, title, meta, problem, built, changed, stack, shots } = data;
   const metrics = changed?.metrics || [];
   const notes = changed?.notes || [];
 
@@ -278,6 +278,8 @@ function CaseCard({ data }) {
           ))}
         </div>
       )}
+
+      {shots?.length > 0 && <Shots shots={shots} />}
 
       {/* the payoff: figures first, then the lines that need words */}
       <section className="wk-changed">
@@ -334,7 +336,7 @@ export default function Work() {
           const head = card.querySelector(".wk-head");
           const moments = card.querySelectorAll(".wk-moment");
           const rest = card.querySelectorAll(
-            ".wk-system, .wk-changed, .wk-stack"
+            ".wk-system, .wk-card > .wk-shots, .wk-changed, .wk-stack"
           );
 
           const tl = gsap.timeline({
