@@ -92,23 +92,26 @@
 }
 
 /* =========================
-   THE THREE MOMENTS
+   THE HOOK AND THE APPROACH
    ========================= */
-.wk-moments {
+/* Two columns, not three: the problem is short and leads, what I built
+   carries the weight. Three equal columns of body copy read as a wall. */
+.wk-top {
   display: grid;
   gap: clamp(20px, 3vw, 32px);
 }
-@media (min-width: 1000px) {
-  .wk-moments {
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(24px, 2.6vw, 40px);
+@media (min-width: 900px) {
+  .wk-top {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(28px, 4vw, 56px);
   }
 }
 
 .wk-moment {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   align-content: start;
+  min-width: 0;
 }
 
 .wk-label {
@@ -125,86 +128,60 @@
 .wk-text {
   margin: 0;
   font-size: clamp(14px, 1.9vw, 16px);
-  line-height: 1.55;
-  opacity: 0.96;
+  line-height: 1.6;
+  opacity: 0.94;
 }
 
-.wk-changed {
-  display: grid;
-  gap: 12px;
+/* the problem is the hook, so it gets read at a larger size */
+.wk-lede {
   margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.wk-changed li {
-  position: relative;
-  padding-left: 18px;
-  font-size: clamp(14px, 1.9vw, 16px);
-  line-height: 1.5;
-  opacity: 0.96;
-}
-.wk-changed li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 7px;
-  height: 7px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.62);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-@media (hover: hover) {
-  .wk-changed li:hover::before {
-    background: #fff;
-    transform: scale(1.3) rotate(45deg);
-  }
-}
-.wk-changed li .wk-btn {
-  margin-top: 10px;
+  font-size: clamp(16px, 2.4vw, 20px);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
 }
 
 /* =========================
    SUB-SYSTEMS (Basic ADV)
    ========================= */
+/* Each system shows itself: short copy on one side, its own screenshots on
+   the other. Nothing has to be explained in a paragraph the reader skips. */
 .wk-systems {
   display: grid;
-  gap: clamp(14px, 1.8vw, 20px);
-}
-@media (min-width: 1000px) {
-  .wk-systems {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  gap: clamp(14px, 2vw, 22px);
 }
 
 .wk-system {
   display: grid;
+  gap: clamp(16px, 2.4vw, 26px);
+  align-content: start;
+  padding: clamp(16px, 2.2vw, 26px);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .wk-system {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+}
+
+.wk-system-copy {
+  display: grid;
   gap: 10px;
   align-content: start;
-  padding: clamp(16px, 1.8vw, 22px);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.09);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.3s ease, box-shadow 0.3s ease;
-}
-@media (hover: hover) {
-  .wk-system:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.13);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.26);
-  }
+  min-width: 0;
 }
 .wk-system-head {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  justify-content: space-between;
 }
 .wk-system-title {
   margin: 0;
-  font-size: clamp(15px, 2vw, 18px);
+  font-size: clamp(16px, 2.2vw, 20px);
   line-height: 1.25;
   font-weight: 800;
   letter-spacing: -0.008em;
@@ -366,7 +343,7 @@
 .wk-shots {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: min(86%, 560px);
+  grid-auto-columns: min(82%, 420px);
   gap: clamp(12px, 1.6vw, 18px);
   overflow-x: auto;
   scroll-snap-type: x proximity;
@@ -376,6 +353,10 @@
   min-width: 0;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+.wk-shots--one {
+  grid-auto-columns: minmax(0, 1fr);
+  overflow: visible;
 }
 .wk-shots::-webkit-scrollbar {
   height: 8px;
@@ -428,8 +409,15 @@
     transform: translateY(0);
   }
 }
+/* on touch there is no hover to reveal it, so it stays, but quietly */
 @media (hover: none) {
-  .wk-shot-zoom { opacity: 0.9; transform: none; }
+  .wk-shot-zoom {
+    opacity: 0.75;
+    transform: none;
+    padding: 4px 8px;
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.8);
+  }
 }
 
 .wk-shot img {
@@ -501,11 +489,24 @@
 /* =========================
    STACK LINE
    ========================= */
+/* Anchored to the card with a rule, so it reads as a footnote to the case
+   rather than a line floating in the padding. */
 .wk-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   margin: 0;
-  font: 400 clamp(11px, 1.4vw, 13px) / 1.5 var(--wk-mono);
-  letter-spacing: 0.04em;
-  opacity: 0.6;
+  padding-top: clamp(14px, 2vw, 20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  list-style: none;
+}
+.wk-stack li {
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  font: 500 11px/1.4 var(--wk-mono);
+  letter-spacing: 0.06em;
+  opacity: 0.75;
 }
 
 
@@ -607,4 +608,74 @@
 @media (max-width: 640px) {
   .wk-lb-nav { width: 40px; height: 40px; font-size: 24px; }
   .wk-lb-fig img { max-height: calc(100svh - 210px); }
+}
+
+
+/* =========================
+   WHAT CHANGED
+   ========================= */
+.wk-changed {
+  display: grid;
+  gap: clamp(16px, 2.4vw, 24px);
+}
+
+/* the figures carry the payoff, so they are the biggest thing in the block */
+.wk-metrics {
+  display: grid;
+  gap: clamp(14px, 2.4vw, 28px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 620px) {
+  .wk-metrics {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+}
+.wk-metrics li {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+}
+.wk-metric-value {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.wk-metric-label {
+  font-size: clamp(12px, 1.6vw, 14px);
+  line-height: 1.35;
+  opacity: 0.72;
+  max-width: 24ch;
+}
+
+.wk-notes {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 92ch;
+}
+.wk-notes li {
+  position: relative;
+  padding-left: 18px;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.55;
+  opacity: 0.94;
+}
+.wk-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.62);
+}
+.wk-notes li .wk-btn {
+  margin-top: 10px;
 }

@@ -188,47 +188,32 @@ function Shots({ shots }) {
   const [open, setOpen] = useState(null);
   if (!shots?.length) return null;
 
-  const viewable = shots.filter((s) => !s.pending);
-  const indexIn = (s) => viewable.indexOf(s);
-
   return (
     <>
-      <div className="wk-shots">
-        {shots.map((s, i) =>
-          s.pending ? (
-            <figure className="wk-shot wk-shot--pending" key={i}>
-              <div className="wk-shot-slot">
-                <span className="wk-shot-slot-tag">Screenshot</span>
-                <span className="wk-shot-slot-note">{s.pending}</span>
-              </div>
-              <figcaption>[MARCO: screenshot da inserire]</figcaption>
-            </figure>
-          ) : (
-            <figure className="wk-shot" key={i}>
-              <button
-                className="wk-shot-btn"
-                onClick={() => setOpen(indexIn(s))}
-                aria-label={`Enlarge: ${s.alt}`}
-              >
-                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
-                <span className="wk-shot-zoom" aria-hidden="true">
-                  Enlarge
-                </span>
-              </button>
-              <figcaption>{s.caption}</figcaption>
-            </figure>
-          )
-        )}
+      <div className={`wk-shots ${shots.length === 1 ? "wk-shots--one" : ""}`}>
+        {shots.map((s, i) => (
+          <figure className="wk-shot" key={i}>
+            <button
+              className="wk-shot-btn"
+              onClick={() => setOpen(i)}
+              aria-label={`Enlarge: ${s.alt}`}
+            >
+              <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+              <span className="wk-shot-zoom" aria-hidden="true">
+                Enlarge
+              </span>
+            </button>
+            <figcaption>{s.caption}</figcaption>
+          </figure>
+        ))}
       </div>
 
       {open !== null && (
         <Lightbox
-          shots={viewable}
+          shots={shots}
           index={open}
           onClose={() => setOpen(null)}
-          onMove={(d) =>
-            setOpen((v) => (v + d + viewable.length) % viewable.length)
-          }
+          onMove={(d) => setOpen((v) => (v + d + shots.length) % shots.length)}
         />
       )}
     </>
@@ -236,9 +221,21 @@ function Shots({ shots }) {
 }
 
 /* ---------- ONE CASE ---------- */
+function Outcome({ item, caseTitle }) {
+  const text = typeof item === "string" ? item : item.text;
+  const action = typeof item === "string" ? null : item.action;
+  return (
+    <li>
+      <span>{text}</span>
+      {action && <ActionButton action={action} caseTitle={caseTitle} />}
+    </li>
+  );
+}
+
 function CaseCard({ data }) {
-  const { kicker, title, meta, problem, built, changed, note, shots, stack } =
-    data;
+  const { kicker, title, meta, problem, built, changed, stack } = data;
+  const metrics = changed?.metrics || [];
+  const notes = changed?.notes || [];
 
   return (
     <article className="wk-card" style={{ "--accent": data.accent }}>
@@ -248,59 +245,71 @@ function CaseCard({ data }) {
         <p className="wk-meta">{meta}</p>
       </header>
 
-      <div className="wk-moments">
-        <section className="wk-moment">
+      {/* the hook and the approach, side by side: two columns, not three */}
+      <div className="wk-top">
+        <section className="wk-moment wk-moment--problem">
           <h4 className="wk-label">The problem</h4>
-          <p className="wk-text">{problem}</p>
+          <p className="wk-lede">{problem}</p>
         </section>
 
         <section className="wk-moment">
           <h4 className="wk-label">What I built</h4>
           <p className="wk-text">{built.lead}</p>
-        </section>
-
-        <section className="wk-moment">
-          <h4 className="wk-label">What changed</h4>
-          <ul className="wk-changed">
-            {changed.map((c, i) => {
-              const text = typeof c === "string" ? c : c.text;
-              const action = typeof c === "string" ? null : c.action;
-              return (
-                <li key={i}>
-                  <span>{text}</span>
-                  {action && (
-                    <ActionButton action={action} caseTitle={title} />
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+          {data.diagram === "field-office" && <FieldOfficeDiagram />}
         </section>
       </div>
 
+      {/* each system shows itself, so the text never runs long */}
       {built.systems && (
         <div className="wk-systems">
-          {built.systems.map((s, i) => (
+          {built.systems.map((sys, i) => (
             <section className="wk-system" key={i}>
-              <div className="wk-system-head">
-                <h5 className="wk-system-title">{s.title}</h5>
-                {s.action && (
-                  <ActionButton action={s.action} caseTitle={s.title} />
-                )}
+              <div className="wk-system-copy">
+                <div className="wk-system-head">
+                  <h5 className="wk-system-title">{sys.title}</h5>
+                  {sys.action && (
+                    <ActionButton action={sys.action} caseTitle={sys.title} />
+                  )}
+                </div>
+                <p className="wk-text">{sys.body}</p>
               </div>
-              <p className="wk-text">{s.body}</p>
+              <Shots shots={sys.shots} />
             </section>
           ))}
         </div>
       )}
 
-      {data.diagram === "field-office" && <FieldOfficeDiagram />}
+      {/* the payoff: figures first, then the lines that need words */}
+      <section className="wk-changed">
+        <h4 className="wk-label">What changed</h4>
 
-      {note && <p className="wk-note">{note}</p>}
+        {metrics.length > 0 && (
+          <ul className="wk-metrics">
+            {metrics.map((m) => (
+              <li key={m.value}>
+                <span className="wk-metric-value">{m.value}</span>
+                <span className="wk-metric-label">{m.label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
-      <Shots shots={shots} />
+        {notes.length > 0 && (
+          <ul className="wk-notes">
+            {notes.map((n, i) => (
+              <Outcome item={n} caseTitle={title} key={i} />
+            ))}
+          </ul>
+        )}
+      </section>
 
-      {stack && <p className="wk-stack">{stack}</p>}
+      {stack?.length > 0 && (
+        <ul className="wk-stack" aria-label="Stack">
+          {stack.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+      )}
     </article>
   );
 }
@@ -325,7 +334,7 @@ export default function Work() {
           const head = card.querySelector(".wk-head");
           const moments = card.querySelectorAll(".wk-moment");
           const rest = card.querySelectorAll(
-            ".wk-system, .wk-diagram, .wk-note, .wk-shots, .wk-stack"
+            ".wk-system, .wk-changed, .wk-stack"
           );
 
           const tl = gsap.timeline({
@@ -360,27 +369,6 @@ export default function Work() {
             scrollTrigger: { trigger: card, start: "top 84%", once: true },
           });
 
-          /* the screenshot strip drifts as the card crosses the viewport,
-             so the cards read as moving rather than parked */
-          const strip = card.querySelector(".wk-shots");
-          if (strip && !isMobile) {
-            gsap.fromTo(
-              strip,
-              { scrollLeft: 0 },
-              {
-                scrollLeft: () =>
-                  Math.max(0, strip.scrollWidth - strip.clientWidth) * 0.55,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top 60%",
-                  end: "bottom 40%",
-                  scrub: 0.8,
-                  invalidateOnRefresh: true,
-                },
-              }
-            );
-          }
         });
 
         /* the whole stack breathes: each card lifts a little as it comes up */
