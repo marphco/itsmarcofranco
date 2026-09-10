@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Work.css";
@@ -112,28 +113,125 @@ function FieldOfficeDiagram() {
   );
 }
 
-/* ---------- SCREENSHOT STRIP ---------- */
-function Shots({ shots, caseTitle }) {
-  if (!shots?.length) return null;
-  return (
-    <div className="wk-shots">
-      {shots.map((s, i) =>
-        s.pending ? (
-          <figure className="wk-shot wk-shot--pending" key={i}>
-            <div className="wk-shot-slot">
-              <span className="wk-shot-slot-tag">Screenshot</span>
-              <span className="wk-shot-slot-note">{s.pending}</span>
-            </div>
-            <figcaption>[MARCO: screenshot da inserire]</figcaption>
-          </figure>
-        ) : (
-          <figure className="wk-shot" key={i}>
-            <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
-            <figcaption>{s.caption}</figcaption>
-          </figure>
-        )
+/* ---------- LIGHTBOX ----------
+   A dashboard shrunk to a thumbnail proves nothing. Clicking one opens it
+   at a size where you can actually read the thing. */
+function Lightbox({ shots, index, onClose, onMove }) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onMove(1);
+      if (e.key === "ArrowLeft") onMove(-1);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose, onMove]);
+
+  const shot = shots[index];
+  if (!shot) return null;
+
+  /* Rendered into <body>: the cards carry GSAP transforms, and a transformed
+     ancestor makes position: fixed resolve against the card instead of the
+     viewport, which pushes the overlay half off screen. */
+  return createPortal(
+    <div
+      className="wk-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label={shot.alt}
+      onClick={onClose}
+    >
+      <button className="wk-lb-close" onClick={onClose} aria-label="Close">
+        ×
+      </button>
+
+      {shots.length > 1 && (
+        <>
+          <button
+            className="wk-lb-nav wk-lb-nav--prev"
+            aria-label="Previous"
+            onClick={(e) => { e.stopPropagation(); onMove(-1); }}
+          >
+            ‹
+          </button>
+          <button
+            className="wk-lb-nav wk-lb-nav--next"
+            aria-label="Next"
+            onClick={(e) => { e.stopPropagation(); onMove(1); }}
+          >
+            ›
+          </button>
+        </>
       )}
-    </div>
+
+      <figure className="wk-lb-fig" onClick={(e) => e.stopPropagation()}>
+        <img src={shot.src} alt={shot.alt} />
+        <figcaption>
+          <span>{shot.caption}</span>
+          <em>
+            {index + 1} of {shots.length}
+          </em>
+        </figcaption>
+      </figure>
+    </div>,
+    document.body
+  );
+}
+
+/* ---------- SCREENSHOT STRIP ---------- */
+function Shots({ shots }) {
+  const [open, setOpen] = useState(null);
+  if (!shots?.length) return null;
+
+  const viewable = shots.filter((s) => !s.pending);
+  const indexIn = (s) => viewable.indexOf(s);
+
+  return (
+    <>
+      <div className="wk-shots">
+        {shots.map((s, i) =>
+          s.pending ? (
+            <figure className="wk-shot wk-shot--pending" key={i}>
+              <div className="wk-shot-slot">
+                <span className="wk-shot-slot-tag">Screenshot</span>
+                <span className="wk-shot-slot-note">{s.pending}</span>
+              </div>
+              <figcaption>[MARCO: screenshot da inserire]</figcaption>
+            </figure>
+          ) : (
+            <figure className="wk-shot" key={i}>
+              <button
+                className="wk-shot-btn"
+                onClick={() => setOpen(indexIn(s))}
+                aria-label={`Enlarge: ${s.alt}`}
+              >
+                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+                <span className="wk-shot-zoom" aria-hidden="true">
+                  Enlarge
+                </span>
+              </button>
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          )
+        )}
+      </div>
+
+      {open !== null && (
+        <Lightbox
+          shots={viewable}
+          index={open}
+          onClose={() => setOpen(null)}
+          onMove={(d) =>
+            setOpen((v) => (v + d + viewable.length) % viewable.length)
+          }
+        />
+      )}
+    </>
   );
 }
 
@@ -200,7 +298,7 @@ function CaseCard({ data }) {
 
       {note && <p className="wk-note">{note}</p>}
 
-      <Shots shots={shots} caseTitle={title} />
+      <Shots shots={shots} />
 
       {stack && <p className="wk-stack">{stack}</p>}
     </article>
@@ -218,20 +316,93 @@ export default function Work() {
     const gctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add("(prefers-reduced-motion: no-preference)", (ctx) => {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
         gsap.utils.toArray(".wk-card").forEach((card) => {
-          gsap.from(card, {
-            y: 48,
-            opacity: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-              once: true,
-            },
+          /* The card arrives as one slab, then its contents land in order:
+             kicker, title, the three moments, the rest. */
+          const head = card.querySelector(".wk-head");
+          const moments = card.querySelectorAll(".wk-moment");
+          const rest = card.querySelectorAll(
+            ".wk-system, .wk-diagram, .wk-note, .wk-shots, .wk-stack"
+          );
+
+          const tl = gsap.timeline({
+            scrollTrigger: { trigger: card, start: "top 86%", once: true },
+            defaults: { ease: "power3.out" },
           });
+
+          tl.from(card, { yPercent: 6, opacity: 0, scale: 0.985, duration: 0.75 })
+            .from(
+              head.children,
+              { y: 18, opacity: 0, duration: 0.5, stagger: 0.07 },
+              "-=0.42"
+            )
+            .from(
+              moments,
+              { y: 22, opacity: 0, duration: 0.55, stagger: 0.09 },
+              "-=0.3"
+            )
+            .from(
+              rest,
+              { y: 18, opacity: 0, duration: 0.5, stagger: 0.06 },
+              "-=0.32"
+            );
+
+          /* the rule under each label draws itself in */
+          gsap.from(card.querySelectorAll(".wk-label"), {
+            scaleX: 0,
+            transformOrigin: "0% 50%",
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.09,
+            scrollTrigger: { trigger: card, start: "top 84%", once: true },
+          });
+
+          /* the screenshot strip drifts as the card crosses the viewport,
+             so the cards read as moving rather than parked */
+          const strip = card.querySelector(".wk-shots");
+          if (strip && !isMobile) {
+            gsap.fromTo(
+              strip,
+              { scrollLeft: 0 },
+              {
+                scrollLeft: () =>
+                  Math.max(0, strip.scrollWidth - strip.clientWidth) * 0.55,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 60%",
+                  end: "bottom 40%",
+                  scrub: 0.8,
+                  invalidateOnRefresh: true,
+                },
+              }
+            );
+          }
         });
+
+        /* the whole stack breathes: each card lifts a little as it comes up */
+        gsap.utils.toArray(".wk-card").forEach((card, i) => {
+          if (i === 0) return;
+          gsap.fromTo(
+            card,
+            { y: 26 },
+            {
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "top 55%",
+                scrub: 0.6,
+              },
+            }
+          );
+        });
+
+        return () => ctx.revert();
       });
 
       return () => mm.revert();

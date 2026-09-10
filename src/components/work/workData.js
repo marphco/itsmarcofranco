@@ -17,13 +17,17 @@
  *   stack    muted line at the bottom of the card (optional)
  */
 
-import questionsShot from "../../assets/basic4.webp";
-/* Captured from the standalone intake demo, which is the same flow the
-   "Try it" button opens. Swap for shots of the original agency install if
-   you would rather show the Italian interface. */
-import intakePick from "../../assets/intake1.webp";
-import intakeAsk from "../../assets/intake2.webp";
-import intakeBrief from "../../assets/intake3.webp";
+/* Screenshots of the real thing. The site shots come straight from the
+   agency site; the dashboard and planner were captured from the app itself,
+   running on a local database seeded with the fictional demo clients that
+   ship in the repo, so no real client data appears anywhere. */
+import siteHero from "../../assets/badv-site-hero.webp";
+import siteServices from "../../assets/badv-site-services.webp";
+import siteDesktop from "../../assets/badv-site-desktop.webp";
+import intakeQuestions from "../../assets/badv-questions.webp";
+import plannerCalendar from "../../assets/badv-planner.webp";
+import plannerPost from "../../assets/badv-post.webp";
+import plannerApproval from "../../assets/badv-approval.webp";
 
 export const CASES = [
   {
@@ -60,30 +64,44 @@ export const CASES = [
     ],
     shots: [
       {
-        src: intakePick,
-        alt: "The intake asking the client to pick a service, with six options",
-        caption:
-          "The client picks a service. That choice is what the first question is generated from.",
+        src: siteHero,
+        alt: "The Basic ADV site, dark hero with the agency wordmark",
+        caption: "The agency site the intake sits inside.",
       },
       {
-        src: intakeAsk,
-        alt: "One intake question with four options, and the scoring panel open below it",
+        src: siteServices,
+        alt: "The service section of the agency site",
         caption:
-          "One question at a time. The panel below shows the candidates that were scored, and the one that survived.",
+          "Where a lead starts: the client picks a service, and that choice is what the first question is generated from.",
       },
       {
-        src: intakeBrief,
-        alt: "The brief the intake wrote, with sections for the ask, audience, scope, constraints and open questions",
-        caption:
-          "The brief, written from the answers. What the intake did not establish is listed as an open question instead of guessed.",
+        src: siteDesktop,
+        alt: "A section of the agency site laid out as a desktop with project folders",
+        caption: "The work section, built as a desktop you drag through.",
       },
-      { pending: "Editorial planner, month calendar" },
-      { pending: "Editorial planner, client approval with version history" },
       {
-        src: questionsShot,
-        alt: "Generated question set inside the agency dashboard, each question and each option rated with thumbs up or thumbs down",
+        src: intakeQuestions,
+        alt: "Generated question set in the dashboard, each question and option rated with thumbs up or down",
         caption:
-          "Generated question set, rated question by question. The interface is in Italian: each block is one question with its options, and the thumbs feed the next set.",
+          "The generated question set, rated question by question. Italian interface: each block is one question with its options, and the thumbs feed the next set.",
+      },
+      {
+        src: plannerCalendar,
+        alt: "Editorial planner month calendar, one row per client page, posts on their days",
+        caption:
+          "The planner. One row per page, one card per post. The green bar at the top reads: plan approved by the client, with the name and the timestamp.",
+      },
+      {
+        src: plannerPost,
+        alt: "Post editor with media, category, caption, page, date, sponsored toggle, status and notes",
+        caption:
+          "A post open. Notes split into client-facing and internal, so an internal comment can never reach the client.",
+      },
+      {
+        src: plannerApproval,
+        alt: "The client view of the plan, listing two approvals with dates and times",
+        caption:
+          "What the client sees. Approved twice, both on record with the timestamp, and a warning that the plan changed since the last approval.",
       },
     ],
     stack: "Built alone. React, Node, MongoDB, OpenAI API.",
