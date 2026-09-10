@@ -343,7 +343,7 @@ export default function Footer() {
             I turn complexity into{" "}
             <span className="underline">structure</span>.
           </h2>
-          <p className="meta">Based in New York — Working worldwide</p>
+          <p className="meta">Based in New York</p>
         </div>
 
         <div className="cta-right">
@@ -369,9 +369,6 @@ export default function Footer() {
           >
             LinkedIn
           </a>
-          {/* <a href="https://github.com/marphco" target="_blank" rel="noreferrer">
-            GitHub
-          </a> */}
         </nav>
 
         <div className="legal">

@@ -150,8 +150,8 @@ export default function Who() {
       );
     }
 
- // --- Smooth handoff Who -> Portfolio (#010101)
-const portfolio = document.querySelector(".portfolio");
+ // --- Smooth handoff Who -> Work (#010101)
+const portfolio = document.querySelector(".work");
 
 if (portfolio) {
   // Portfolio: entra “matchando” il colore corrente di Who e sfuma a #010101

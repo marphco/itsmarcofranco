@@ -1,0 +1,428 @@
+/* =========================
+   WORK — tokens
+   ========================= */
+.work {
+  --wk-w: min(1080px, 90vw);
+  --wk-radius: 18px;
+  --wk-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+
+  position: relative;
+  background: #010101;
+  color: #fff;
+  padding: clamp(48px, 12vh, 140px) 0 clamp(40px, 9vh, 110px);
+  overflow: clip;
+}
+@supports not (overflow: clip) {
+  .work {
+    overflow: hidden;
+  }
+}
+
+/* =========================
+   INTRO
+   ========================= */
+.wk-intro {
+  width: var(--wk-w);
+  margin: 0 auto clamp(28px, 5vh, 56px);
+}
+.wk-ih {
+  margin: 0 0 clamp(8px, 1.2vw, 12px);
+  font-weight: 900;
+  letter-spacing: -0.012em;
+  line-height: 0.92;
+  font-size: clamp(28px, 6.2vw, 56px);
+}
+.wk-id {
+  margin: 0;
+  max-width: 72ch;
+  line-height: 1.35;
+  font-size: clamp(14px, 2.1vw, 18px);
+  opacity: 0.9;
+}
+
+/* =========================
+   LIST / CARD
+   ========================= */
+.wk-list {
+  width: var(--wk-w);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(20px, 3.5vh, 40px);
+}
+
+.wk-card {
+  background: var(--accent, #222);
+  color: #fff;
+  border-radius: var(--wk-radius);
+  padding: clamp(22px, 3.6vw, 48px);
+  display: grid;
+  gap: clamp(20px, 3vw, 34px);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  /* keeps long words and URLs from pushing the card wider than the viewport */
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   HEAD
+   ========================= */
+.wk-head {
+  display: grid;
+  gap: clamp(6px, 1vw, 10px);
+}
+.wk-kicker {
+  margin: 0;
+  font: 500 clamp(11px, 1.5vw, 13px) / 1.4 var(--wk-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+.wk-title {
+  margin: 0;
+  font-size: clamp(30px, 6.4vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+  font-weight: 800;
+}
+.wk-meta {
+  margin: 0;
+  font: 400 clamp(12px, 1.6vw, 14px) / 1.5 var(--wk-mono);
+  opacity: 0.72;
+}
+
+/* =========================
+   THE THREE MOMENTS
+   ========================= */
+.wk-moments {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+}
+@media (min-width: 1000px) {
+  .wk-moments {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(24px, 2.6vw, 40px);
+  }
+}
+
+.wk-moment {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.wk-label {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  font: 600 clamp(11px, 1.5vw, 13px) / 1.2 var(--wk-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.wk-text {
+  margin: 0;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.55;
+  opacity: 0.96;
+}
+
+.wk-changed {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wk-changed li {
+  position: relative;
+  padding-left: 18px;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.5;
+  opacity: 0.96;
+}
+.wk-changed li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.62);
+}
+.wk-changed li .wk-btn {
+  margin-top: 10px;
+}
+
+/* =========================
+   SUB-SYSTEMS (Basic ADV)
+   ========================= */
+.wk-systems {
+  display: grid;
+  gap: clamp(14px, 1.8vw, 20px);
+}
+@media (min-width: 1000px) {
+  .wk-systems {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wk-system {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: clamp(16px, 1.8vw, 22px);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+.wk-system-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.wk-system-title {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.008em;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.wk-btn {
+  --btn-bg: rgba(255, 255, 255, 0.16);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 10px;
+  font: 700 14px/1 system-ui, sans-serif;
+  color: #fff;
+  background: var(--btn-bg);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+.wk-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  opacity: 0.95;
+}
+.wk-btn:hover {
+  transform: translateY(-1px);
+}
+.wk-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
+    0 0 0 4px rgba(255, 255, 255, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.wk-btn--try {
+  --btn-bg: #fff;
+  color: #0b0b10;
+  box-shadow: none;
+}
+.wk-btn--try:hover {
+  background: rgba(255, 255, 255, 0.88);
+}
+.wk-btn--live {
+  --btn-bg: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.4);
+}
+.wk-btn--live:hover {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.62);
+}
+
+/* a Live target with no URL yet: visible, clearly unfinished, not clickable */
+.wk-btn--pending {
+  --btn-bg: transparent;
+  cursor: default;
+  white-space: normal;
+  opacity: 0.85;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.28);
+}
+.wk-pending-tag {
+  font: 500 12px/1.3 var(--wk-mono);
+  font-style: normal;
+  opacity: 0.8;
+}
+
+/* =========================
+   NOTE
+   ========================= */
+.wk-note {
+  margin: 0;
+  padding: clamp(14px, 1.8vw, 18px) clamp(16px, 2vw, 20px);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  font-size: clamp(13px, 1.8vw, 15px);
+  line-height: 1.5;
+  opacity: 0.86;
+}
+
+/* =========================
+   DIAGRAM (Dynamic Windows)
+   ========================= */
+.wk-diagram {
+  border-radius: 14px;
+  padding: clamp(14px, 2.4vw, 28px);
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+.wk-diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  height: auto;
+}
+.wk-dg-spine {
+  stroke: rgba(255, 255, 255, 0.34);
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+  stroke-linecap: round;
+}
+.wk-dg-side rect {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 2;
+}
+.wk-dg-mark {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wk-dg-label {
+  fill: rgba(255, 255, 255, 0.72);
+  font: 600 15px var(--wk-mono);
+  letter-spacing: 0.16em;
+}
+.wk-dg-core rect {
+  fill: rgba(255, 255, 255, 0.14);
+  stroke: #fff;
+  stroke-width: 2;
+}
+.wk-dg-core line {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.wk-dg-flow circle {
+  fill: #fff;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wk-dg-flow circle {
+    animation: wk-pulse 2.6s ease-in-out infinite;
+  }
+  .wk-dg-flow circle:last-child {
+    animation-delay: 1.3s;
+  }
+}
+@keyframes wk-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(14px);
+  }
+}
+
+/* =========================
+   SCREENSHOT STRIP
+   ========================= */
+.wk-shots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78%, 340px);
+  gap: clamp(12px, 1.6vw, 18px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+  /* keeps the strip from widening the card */
+  min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+.wk-shots::-webkit-scrollbar {
+  height: 8px;
+}
+.wk-shots::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+
+.wk-shot {
+  margin: 0;
+  scroll-snap-align: start;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.wk-shot img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 0;
+  border-radius: 12px;
+  background: #0d0d0f;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.wk-shot figcaption {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.wk-shot-slot {
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  text-align: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.22);
+}
+.wk-shot-slot-tag {
+  font: 600 11px/1 var(--wk-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.wk-shot-slot-note {
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+.wk-shot--pending figcaption {
+  font-family: var(--wk-mono);
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+/* =========================
+   STACK LINE
+   ========================= */
+.wk-stack {
+  margin: 0;
+  font: 400 clamp(11px, 1.4vw, 13px) / 1.5 var(--wk-mono);
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
