@@ -6,6 +6,7 @@
   --wk-radius: 18px;
   --wk-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, "Liberation Mono", "Courier New", monospace;
+  --wk-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   position: relative;
   background: #010101;
@@ -67,28 +68,70 @@
 /* =========================
    HEAD
    ========================= */
+/* One typeface, three levels: what the role was, the name, then the line
+   that says what the thing was. The mono kicker and mono meta were two
+   competing voices around a third. */
 .wk-head {
   display: grid;
-  gap: clamp(6px, 1vw, 10px);
+  gap: clamp(8px, 1.1vw, 12px);
+  justify-items: start;
 }
-.wk-kicker {
+
+.wk-role {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
   margin: 0;
-  font: 500 clamp(11px, 1.5vw, 13px) / 1.4 var(--wk-mono);
-  letter-spacing: 0.08em;
+  font-size: clamp(11px, 1.4vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  opacity: 0.78;
+  opacity: 0.7;
 }
+.wk-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+/* when the line wraps, the separator is left dangling at the end of it */
+@media (max-width: 560px) {
+  .wk-role {
+    display: block;
+  }
+  .wk-role .wk-dot {
+    display: none;
+  }
+  .wk-role span + span {
+    display: block;
+    margin-top: 3px;
+  }
+}
+
 .wk-title {
   margin: 0;
-  font-size: clamp(30px, 6.4vw, 56px);
-  line-height: 0.98;
-  letter-spacing: -0.018em;
+  font-size: clamp(32px, 7vw, 62px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   font-weight: 800;
 }
-.wk-meta {
+
+.wk-tagline {
   margin: 0;
-  font: 400 clamp(12px, 1.6vw, 14px) / 1.5 var(--wk-mono);
-  opacity: 0.72;
+  max-width: 46ch;
+  font-size: clamp(15px, 2.1vw, 19px);
+  line-height: 1.35;
+  font-weight: 400;
+  opacity: 0.82;
+}
+
+.wk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(4px, 1vw, 8px);
 }
 
 /* =========================
@@ -191,64 +234,89 @@
    BUTTONS
    ========================= */
 .wk-btn {
-  --btn-bg: rgba(255, 255, 255, 0.16);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 13px;
-  border-radius: 10px;
-  font: 700 14px/1 system-ui, sans-serif;
-  color: #fff;
-  background: var(--btn-bg);
+  gap: 9px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font: 700 15px/1 var(--wk-sans);
+  letter-spacing: -0.005em;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-  transition: transform 0.15s ease, box-shadow 0.15s ease,
-    background-color 0.15s ease;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
 }
 .wk-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   flex: 0 0 auto;
-  opacity: 0.95;
 }
-.wk-btn:hover {
-  transform: translateY(-1px);
+.wk-btn:active {
+  transform: scale(0.98);
 }
 .wk-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
-    0 0 0 4px rgba(255, 255, 255, 0.25),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-}
-.wk-btn--try {
-  --btn-bg: #fff;
-  color: #0b0b10;
-  box-shadow: none;
-}
-.wk-btn--try:hover {
-  background: rgba(255, 255, 255, 0.88);
-}
-.wk-btn--live {
-  --btn-bg: transparent;
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.4);
-}
-.wk-btn--live:hover {
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.62);
+  outline: 2px solid #fff;
+  outline-offset: 3px;
 }
 
-/* a Live target with no URL yet: visible, clearly unfinished, not clickable */
+/* primary: the thing you want clicked */
+.wk-btn--try {
+  color: #0b0b10;
+  background: #fff;
+}
+.wk-btn--try:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* secondary: goes somewhere else, so it reads quieter but still solid */
+.wk-btn--live {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+.wk-btn--live:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-2px);
+}
+.wk-btn--live .wk-btn-arrow {
+  transition: transform 0.18s ease;
+}
+.wk-btn--live:hover .wk-btn-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* a target with no URL yet: visible, clearly unfinished, not clickable */
 .wk-btn--pending {
-  --btn-bg: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
   cursor: default;
   white-space: normal;
-  opacity: 0.85;
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.28);
 }
 .wk-pending-tag {
   font: 500 12px/1.3 var(--wk-mono);
   font-style: normal;
-  opacity: 0.8;
+  opacity: 0.75;
+}
+
+/* on a phone a button is aimed at, not clicked */
+@media (pointer: coarse) {
+  .wk-btn {
+    min-height: 46px;
+    padding: 13px 22px;
+  }
+}
+@media (max-width: 420px) {
+  .wk-actions {
+    width: 100%;
+  }
+  .wk-actions .wk-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 }
 
 /* =========================
@@ -387,36 +455,51 @@
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
+
+/* The word "Enlarge" sat on the image and said nothing a magnifier does not
+   say better. A small round control, always there on touch, lifting in on
+   hover, plus the zoom-in cursor on desktop. */
 .wk-shot-zoom {
   position: absolute;
   right: 10px;
   bottom: 10px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font: 600 11px/1 var(--wk-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   color: #0b0b10;
   background: rgba(255, 255, 255, 0.92);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
   pointer-events: none;
 }
+.wk-shot-zoom svg {
+  width: 17px;
+  height: 17px;
+}
 @media (hover: hover) {
-  .wk-shot-btn:hover .wk-shot-zoom {
+  .wk-shot-zoom {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .wk-shot-btn:hover .wk-shot-zoom,
+  .wk-shot-btn:focus-visible .wk-shot-zoom {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
-/* on touch there is no hover to reveal it, so it stays, but quietly */
+/* no hover on touch, so it stays put and stays small */
 @media (hover: none) {
   .wk-shot-zoom {
-    opacity: 0.75;
-    transform: none;
-    padding: 4px 8px;
-    font-size: 10px;
-    background: rgba(255, 255, 255, 0.8);
+    width: 30px;
+    height: 30px;
+    opacity: 0.94;
+  }
+  .wk-shot-zoom svg {
+    width: 15px;
+    height: 15px;
   }
 }
 

@@ -14,7 +14,7 @@ const INTAKE_URL = import.meta.env.VITE_INTAKE_URL || "http://localhost:5184";
 
 /* ---------- ICONS ---------- */
 const LiveIcon = () => (
-  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
+  <svg className="wk-btn-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
     <path
       d="M7 17L17 7M9 7h8v8"
       stroke="currentColor"
@@ -200,7 +200,11 @@ function Shots({ shots }) {
             >
               <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
               <span className="wk-shot-zoom" aria-hidden="true">
-                Enlarge
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" />
+                  <path d="M15.8 15.8 21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M11 8.6v4.8M8.6 11h4.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
               </span>
             </button>
             <figcaption>{s.caption}</figcaption>
@@ -221,28 +225,38 @@ function Shots({ shots }) {
 }
 
 /* ---------- ONE CASE ---------- */
-function Outcome({ item, caseTitle }) {
-  const text = typeof item === "string" ? item : item.text;
-  const action = typeof item === "string" ? null : item.action;
-  return (
-    <li>
-      <span>{text}</span>
-      {action && <ActionButton action={action} caseTitle={caseTitle} />}
-    </li>
-  );
+function Outcome({ item }) {
+  return <li>{typeof item === "string" ? item : item.text}</li>;
 }
 
 function CaseCard({ data }) {
-  const { kicker, title, meta, problem, built, changed, stack, shots } = data;
+  const { kicker, title, problem, built, changed, stack, shots } = data;
   const metrics = changed?.metrics || [];
   const notes = changed?.notes || [];
+
+  /* A button wrapped inside a sentence breaks the line badly, worse on a
+     phone. Every case-level action moves up into the header instead. */
+  const cardActions = notes
+    .filter((n) => typeof n !== "string" && n.action)
+    .map((n) => n.action);
 
   return (
     <article className="wk-card" style={{ "--accent": data.accent }}>
       <header className="wk-head">
-        <p className="wk-kicker">{kicker}</p>
+        <p className="wk-role">
+          <span>{data.role}</span>
+          <span className="wk-dot" aria-hidden="true" />
+          <span>{data.context}</span>
+        </p>
         <h3 className="wk-title">{title}</h3>
-        <p className="wk-meta">{meta}</p>
+        <p className="wk-tagline">{kicker}</p>
+        {cardActions.length > 0 && (
+          <div className="wk-actions">
+            {cardActions.map((a, i) => (
+              <ActionButton action={a} caseTitle={title} key={i} />
+            ))}
+          </div>
+        )}
       </header>
 
       {/* the hook and the approach, side by side: two columns, not three */}
@@ -299,7 +313,7 @@ function CaseCard({ data }) {
         {notes.length > 0 && (
           <ul className="wk-notes">
             {notes.map((n, i) => (
-              <Outcome item={n} caseTitle={title} key={i} />
+              <Outcome item={n} key={i} />
             ))}
           </ul>
         )}
@@ -336,7 +350,7 @@ export default function Work() {
           const head = card.querySelector(".wk-head");
           const moments = card.querySelectorAll(".wk-moment");
           const rest = card.querySelectorAll(
-            ".wk-system, .wk-card > .wk-shots, .wk-changed, .wk-stack"
+            ".wk-actions, .wk-system, .wk-card > .wk-shots, .wk-changed, .wk-stack"
           );
 
           const tl = gsap.timeline({
@@ -346,7 +360,7 @@ export default function Work() {
 
           tl.from(card, { yPercent: 6, opacity: 0, scale: 0.985, duration: 0.75 })
             .from(
-              head.children,
+              head.querySelectorAll(':scope > :not(.wk-actions)'),
               { y: 18, opacity: 0, duration: 0.5, stagger: 0.07 },
               "-=0.42"
             )

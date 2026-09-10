@@ -32,9 +32,9 @@ import plannerApproval from "../../assets/badv-approval.webp";
 /* The two live sites, captured as they are today. */
 import spinSite from "../../assets/spin-site.webp";
 import spinAI from "../../assets/spin-ai.webp";
-import eenveeHome from "../../assets/eenvee-home.webp";
-import eenveeHow from "../../assets/eenvee-how.webp";
-import eenveeMobile from "../../assets/eenvee-mobile.webp";
+import eenveeInvito from "../../assets/eenvee-editor-invito.webp";
+import eenveeBusta from "../../assets/eenvee-editor-busta.webp";
+import eenveePagina from "../../assets/eenvee-editor-pagina.webp";
 
 export const CASES = [
   {
@@ -42,7 +42,8 @@ export const CASES = [
     accent: "#3b2ecc",
     kicker: "A company built from zero, and the systems that ran it",
     title: "Basic ADV",
-    meta: "Digital agency. Naples, Italy. 2020 to 2021. Co-founder.",
+    role: "Co-founder",
+    context: "Digital agency, Naples",
 
     problem:
       "No clients, no processes, no team. I wrote the business plan, won a 100,000 euro launch grant from Invitalia, and incorporated the company on February 24, 2020. Eleven days later Italy went into lockdown.",
@@ -122,7 +123,8 @@ export const CASES = [
     accent: "#0d6152",
     kicker: "The field-to-office workflow",
     title: "Dynamic Windows System",
-    meta: "Glazing and facade contractor. New York. 2021 to 2024.",
+    role: "Operations",
+    context: "Glazing and facade contractor, New York",
 
     problem:
       "Fifteen or more sites at once, and no shared view between office and field. Updates moved by phone call. Schedules, manpower and job status lived wherever the person keeping them put them, so delays surfaced late, through whoever happened to ask.",
@@ -151,7 +153,8 @@ export const CASES = [
     accent: "#b0122b",
     kicker: "From three people to twenty",
     title: "Spin Factor",
-    meta: "Political communication agency. Rome, Italy. 2018 to 2020, and again in 2026.",
+    role: "Operational lead",
+    context: "Political communication agency, Rome",
 
     problem:
       "Italy's leading political communication agency at its founding stage: three people, national clients arriving faster than the structure could handle, and election deadlines that do not move.",
@@ -195,7 +198,8 @@ export const CASES = [
     accent: "#a34a00",
     kicker: "A product, from the first line to the app stores",
     title: "eenvee",
-    meta: "Event management SaaS. 2024 to present. Founder.",
+    role: "Founder",
+    context: "Event management SaaS",
 
     problem:
       "A gap in the Italian market: event invitations and guest management still ran on paper, PDFs and WhatsApp threads, with no tool built for how people there actually communicate.",
@@ -205,31 +209,32 @@ export const CASES = [
     },
 
     changed: {
-      metrics: [],
+      metrics: [
+        { value: "3", label: "live surfaces: web, iOS and Android" },
+        { value: "1st", label: "in Italy to carry the whole job in one place" },
+      ],
       notes: [
-        {
-          text: "The product is live in production.",
-          action: { kind: "live", href: "https://eenvee.com", label: "Live" },
-        },
-        "[MARCO: una riga sullo stato attuale, con parole tue]",
+        "Every other portal in the market covers a piece of it: the invitation, or the guest list, or the confirmations. eenvee carries all of it, and does each part faster.",
+        "Live in production on the web, with native apps on the App Store and Google Play.",
       ],
     },
 
     shots: [
       {
-        src: eenveeHome,
-        alt: "The eenvee home page: an event invitation shown inside a phone",
-        caption: "One link carries the whole event: invitation, confirmations, map, gift list.",
+        src: eenveeInvito,
+        alt: "The invitation editor: layers, text and image tools, background controls",
+        caption: "The invitation editor. Click any element to change it, no template locked in.",
       },
       {
-        src: eenveeHow,
-        alt: "The three steps: choose a design, personalize it, share the link",
-        caption: "Three steps, no install. Confirmations come back already sorted.",
+        src: eenveeBusta,
+        alt: "The envelope editor, with the envelope preview on the canvas",
+        caption: "The envelope is its own surface, because that is the first thing a guest sees.",
       },
       {
-        src: eenveeMobile,
-        alt: "The eenvee site on a phone",
-        caption: "Built for the phone first, because that is where an invitation gets opened.",
+        src: eenveePagina,
+        alt: "The event page editor: fonts, theme color, section management, mobile and desktop preview",
+        caption:
+          "The event page: fonts, theme color, sections, and a preview for both phone and desktop.",
       },
     ],
     stack: ["React", "Node", "Express", "MongoDB", "TypeScript", "Capacitor"],
