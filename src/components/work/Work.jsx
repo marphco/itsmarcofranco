@@ -13,42 +13,33 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 const INTAKE_URL = import.meta.env.VITE_INTAKE_URL || "http://localhost:5184";
 
 /* ---------- ICONS ---------- */
-const LiveIcon = () => (
-  <svg className="wk-btn-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M7 17L17 7M9 7h8v8"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+const ArrowOut = () => (
+  <svg className="wk-ico" aria-hidden="true" viewBox="0 0 16 16" fill="none">
+    <path d="M5 11 11 5M6 5h5v5" stroke="currentColor" strokeWidth="1.5"
+      strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const TryIcon = () => (
-  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M8 5.5v13l10-6.5-10-6.5Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinejoin="round"
-    />
+const ArrowRight = () => (
+  <svg className="wk-ico" aria-hidden="true" viewBox="0 0 16 16" fill="none">
+    <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" strokeWidth="1.5"
+      strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-/* ---------- BUTTON ---------- */
+/* ---------- BUTTON ----------
+   One shape everywhere: a hairline outline that fills on hover, the same
+   language as the contact button in the footer. Only the icon changes. */
 function ActionButton({ action, caseTitle }) {
   if (!action) return null;
 
   const isTry = action.kind === "try";
   const href = isTry ? INTAKE_URL : action.href;
 
-  // A live target with no URL yet stays visible as a placeholder, not a dead link.
   if (!href) {
     return (
       <span className="wk-btn wk-btn--pending" role="note">
-        <LiveIcon />
-        <span>{action.label}</span>
+        {action.label}
         <em className="wk-pending-tag">{action.pending}</em>
       </span>
     );
@@ -56,14 +47,14 @@ function ActionButton({ action, caseTitle }) {
 
   return (
     <a
-      className={`wk-btn ${isTry ? "wk-btn--try" : "wk-btn--live"}`}
+      className="wk-btn"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${caseTitle}: ${action.label}`}
     >
-      {isTry ? <TryIcon /> : <LiveIcon />}
       <span>{action.label}</span>
+      {isTry ? <ArrowRight /> : <ArrowOut />}
     </a>
   );
 }
@@ -147,7 +138,10 @@ function Lightbox({ shots, index, onClose, onMove }) {
       onClick={onClose}
     >
       <button className="wk-lb-close" onClick={onClose} aria-label="Close">
-        ×
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5"
+            strokeLinecap="round" />
+        </svg>
       </button>
 
       {shots.length > 1 && (
@@ -157,14 +151,20 @@ function Lightbox({ shots, index, onClose, onMove }) {
             aria-label="Previous"
             onClick={(e) => { e.stopPropagation(); onMove(-1); }}
           >
-            ‹
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14.5 5 8 12l6.5 7" stroke="currentColor" strokeWidth="1.5"
+                strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
           <button
             className="wk-lb-nav wk-lb-nav--next"
             aria-label="Next"
             onClick={(e) => { e.stopPropagation(); onMove(1); }}
           >
-            ›
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 5 16 12l-6.5 7" stroke="currentColor" strokeWidth="1.5"
+                strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
         </>
       )}
@@ -199,13 +199,6 @@ function Shots({ shots }) {
               aria-label={`Enlarge: ${s.alt}`}
             >
               <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
-              <span className="wk-shot-zoom" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" />
-                  <path d="M15.8 15.8 21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M11 8.6v4.8M8.6 11h4.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </span>
             </button>
             <figcaption>{s.caption}</figcaption>
           </figure>
@@ -298,6 +291,21 @@ function CaseCard({ data }) {
       {/* the payoff: figures first, then the lines that need words */}
       <section className="wk-changed">
         <h4 className="wk-label">What changed</h4>
+
+        {changed?.statement && (
+          <p className="wk-statement">{changed.statement}</p>
+        )}
+
+        {changed?.platforms?.length > 0 && (
+          <ul className="wk-platforms" aria-label="Live on">
+            {changed.platforms.map((t) => (
+              <li key={t}>
+                <span className="wk-live-dot" aria-hidden="true" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
 
         {metrics.length > 0 && (
           <ul className="wk-metrics">

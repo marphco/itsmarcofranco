@@ -209,13 +209,14 @@ export const CASES = [
     },
 
     changed: {
-      metrics: [
-        { value: "3", label: "live surfaces: web, iOS and Android" },
-        { value: "1st", label: "in Italy to carry the whole job in one place" },
-      ],
+      /* No honest figure to lead with here, so the claim itself does the
+         work, and the platforms show rather than count. */
+      statement: "The first in Italy to put the whole job in one place.",
+      platforms: ["Web", "iOS", "Android"],
+      metrics: [],
       notes: [
-        "Every other portal in the market covers a piece of it: the invitation, or the guest list, or the confirmations. eenvee carries all of it, and does each part faster.",
-        "Live in production on the web, with native apps on the App Store and Google Play.",
+        "Every other portal covers a piece of it: the invitation, or the guest list, or the confirmations. eenvee carries all of it, and does each part faster.",
+        "Live in production, with native apps on the App Store and Google Play.",
       ],
     },
 
