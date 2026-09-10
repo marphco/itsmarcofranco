@@ -16,7 +16,6 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
     "gsap": "^3.13.0",
-    "puppeteer-core": "^23.11.1",
     "vite": "^4.3.0"
   }
 }
