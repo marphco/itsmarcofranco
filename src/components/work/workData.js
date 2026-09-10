@@ -32,9 +32,11 @@ import plannerApproval from "../../assets/badv-approval.webp";
 /* The two live sites, captured as they are today. */
 import spinSite from "../../assets/spin-site.webp";
 import spinAI from "../../assets/spin-ai.webp";
-import eenveeInvito from "../../assets/eenvee-editor-invito.webp";
-import eenveeBusta from "../../assets/eenvee-editor-busta.webp";
-import eenveePagina from "../../assets/eenvee-editor-pagina.webp";
+import spinSiamo from "../../assets/spin-siamo.webp";
+import eenveeInvito from "../../assets/eenvee-invito.webp";
+import eenveeEditor from "../../assets/eenvee-editor.webp";
+import eenveeRsvp from "../../assets/eenvee-rsvp.webp";
+import eenveeDashboard from "../../assets/eenvee-dashboard.webp";
 
 export const CASES = [
   {
@@ -153,6 +155,7 @@ export const CASES = [
     accent: "#b0122b",
     kicker: "From three people to twenty",
     title: "Spin Factor",
+    actions: [{ kind: "live", href: "https://www.spinfactor.it", label: "Live" }],
     role: "Operational lead",
     context: "Political communication agency, Rome",
 
@@ -170,10 +173,7 @@ export const CASES = [
       ],
       notes: [
         "[MARCO: cosa reggeva il team prima dei sistemi e cosa dopo]",
-        {
-          text: "Years later they came back. In 2026 I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
-          action: { kind: "live", href: "https://www.spinfactor.it", label: "Live" },
-        },
+        "Years later they came back. In 2026 I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
       ],
     },
 
@@ -189,6 +189,11 @@ export const CASES = [
         caption:
           "Spinny answering \u201cwhat does Spin Factor do?\u201d, then offering the sections that go deeper.",
       },
+      {
+        src: spinSiamo,
+        alt: "An inner section of the site, with the team around a table and the agency positioning",
+        caption: "Inside a section: the team, the positioning, and the three lines the agency runs on.",
+      },
     ],
     stack: ["React", "Node", "OpenAI API"],
   },
@@ -198,6 +203,7 @@ export const CASES = [
     accent: "#a34a00",
     kicker: "A product, from the first line to the app stores",
     title: "eenvee",
+    actions: [{ kind: "live", href: "https://eenvee.com", label: "Live" }],
     role: "Founder",
     context: "Event management SaaS",
 
@@ -223,19 +229,26 @@ export const CASES = [
     shots: [
       {
         src: eenveeInvito,
-        alt: "The invitation editor: layers, text and image tools, background controls",
-        caption: "The invitation editor. Click any element to change it, no template locked in.",
-      },
-      {
-        src: eenveeBusta,
-        alt: "The envelope editor, with the envelope preview on the canvas",
-        caption: "The envelope is its own surface, because that is the first thing a guest sees.",
-      },
-      {
-        src: eenveePagina,
-        alt: "The event page editor: fonts, theme color, section management, mobile and desktop preview",
+        alt: "A wedding invitation sliding out of its envelope, using the Unione template",
         caption:
-          "The event page: fonts, theme color, sections, and a preview for both phone and desktop.",
+          "What a guest gets: the envelope opens and the invitation comes out. One link, no app to install.",
+      },
+      {
+        src: eenveeEditor,
+        alt: "The event page editor: fonts, theme color, section management, phone and desktop preview",
+        caption:
+          "The editor behind it. Invitation, envelope and event page are three surfaces, each editable.",
+      },
+      {
+        src: eenveeRsvp,
+        alt: "Guest management: confirmations, guest counts, filters, and export to PDF or CSV",
+        caption:
+          "Confirmations come back sorted: who is coming, how many, and an export for the caterer.",
+      },
+      {
+        src: eenveeDashboard,
+        alt: "The dashboard listing events with the invitation preview and a response summary",
+        caption: "Every event in one place, with the responses summarized on the card.",
       },
     ],
     stack: ["React", "Node", "Express", "MongoDB", "TypeScript", "Capacitor"],

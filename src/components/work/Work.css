@@ -247,11 +247,10 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 18px;
-  /* 12px, the radius the contact button in the footer already uses. A 999px
-     capsule on a two-word label turns into a blob. */
-  border-radius: 12px;
-  font: 600 14px/1 var(--wk-sans);
+  position: relative;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font: 600 13px/1 var(--wk-sans);
   letter-spacing: 0.01em;
   color: #fff;
   background: transparent;
@@ -263,8 +262,8 @@
     color 0.2s ease;
 }
 .wk-ico {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   flex: 0 0 auto;
   transition: transform 0.2s ease;
 }
@@ -302,14 +301,19 @@
 }
 
 /* a button is aimed at on a phone, but it should not become a slab */
-/* On touch the 44px target made a two-word label nearly square. A minimum
-   width keeps the proportion of a button rather than a box. */
+/* The 44px touch target belongs to the hit area, not to the drawing. The
+   button stays small; an invisible box around it takes the tap. */
+.wk-btn::after {
+  content: "";
+  position: absolute;
+  inset: 50% 50%;
+  width: max(100%, 88px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
 @media (pointer: coarse) {
   .wk-btn {
-    min-height: 44px;
-    min-width: 128px;
-    padding: 12px 20px;
-    justify-content: center;
+    padding: 9px 15px;
   }
 }
 
@@ -410,6 +414,9 @@
   overflow-x: auto;
   scroll-snap-type: x proximity;
   scroll-behavior: smooth;
+  /* the scroll container was clipping the shadow flat against its edge */
+  padding: 6px 6px 10px;
+  margin: -6px -6px -10px;
   padding-bottom: 6px;
   /* keeps the strip from widening the card */
   min-width: 0;
@@ -443,7 +450,7 @@
   border: 0;
   background: none;
   cursor: zoom-in;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 .wk-shot-btn:focus-visible {
   outline: 2px solid #fff;
@@ -460,19 +467,21 @@
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: 50% 0;
-  border-radius: 12px;
+  /* The app in these captures already draws its own rounded window. A second
+     radius on top of it fought the first, squaring one corner and warping the
+     others. Flat edges here, and the frame is a hairline instead of a shadow,
+     so nothing can be clipped by the scroll container. */
+  border-radius: 4px;
   background: #0d0d0f;
-  /* a ring, not an inset shadow: object-fit: cover paints over inset shadows,
-     and these screenshots are dark on a dark card */
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.24);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s ease;
 }
 @media (hover: hover) {
   .wk-shot-btn:hover img {
-    transform: translateY(-4px) scale(1.012);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45),
-      0 16px 34px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.42),
+      0 12px 26px rgba(0, 0, 0, 0.35);
   }
 }
 .wk-shot figcaption {

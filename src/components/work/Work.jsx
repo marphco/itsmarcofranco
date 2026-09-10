@@ -228,10 +228,12 @@ function CaseCard({ data }) {
   const notes = changed?.notes || [];
 
   /* A button wrapped inside a sentence breaks the line badly, worse on a
-     phone. Every case-level action moves up into the header instead. */
-  const cardActions = notes
-    .filter((n) => typeof n !== "string" && n.action)
-    .map((n) => n.action);
+     phone, so case-level actions are declared on the case and rendered in
+     the header. Anything still attached to a note is picked up too. */
+  const cardActions = [
+    ...(data.actions || []),
+    ...notes.filter((n) => typeof n !== "string" && n.action).map((n) => n.action),
+  ];
 
   return (
     <article className="wk-card" style={{ "--accent": data.accent }}>
