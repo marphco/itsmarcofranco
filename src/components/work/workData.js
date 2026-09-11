@@ -178,10 +178,10 @@ export const CASES = [
     context: "Political communication agency, Rome, Italy",
 
     problem:
-      "Italy's leading political communication agency at its founding stage: three people, national clients arriving faster than the structure could handle, and election deadlines that do not move.",
+      "When I joined, Italy's leading political communication agency was three people. National clients were arriving faster than the structure could absorb them, against election deadlines that do not move.",
 
     built: {
-      lead: "I built the workflows and template systems the agency ran on, from scratch, so a lean team could work at the speed the environment demanded. From there I grew into the de facto operational lead, trained the people who came in, and used campaign performance data to decide where people and budget went when everything was urgent at once.",
+      lead: "I built the workflows and template systems the agency ran on, from scratch, so a lean team could work at the speed the environment demanded. When everything was urgent at once, I used performance data to decide where the people and the budget went.",
     },
 
     diagram: "one-template",
@@ -192,7 +192,7 @@ export const CASES = [
         { value: "40+", label: "campaigns run on those systems" },
       ],
       notes: [
-        "Campaigns for national stakeholders, including major parliamentary parties, under hard election-driven deadlines.",
+        "The clients were national stakeholders, including major parliamentary parties.",
         "I moved from running campaigns to running the operation itself. The people I trained ran them.",
       ],
     },
