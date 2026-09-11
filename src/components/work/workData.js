@@ -148,10 +148,10 @@ export const CASES = [
     context: "Glazing and facade contractor, New York",
 
     problem:
-      "Fifteen sites running at once, with the office and the field keeping separate records. Schedules, manpower, job status and delivery dates each sat with whoever tracked them, so the office was always a step behind the site.",
+      "Fifteen sites ran at once. The office and the field each kept their own records, so whoever tracked a schedule, a delivery or a crew was the only one who knew where it stood. By the time the office heard, the site had already moved on.",
 
     built: {
-      lead: "One workflow and one dashboard both sides worked from. Field crews updated job status from the site, and every change on a project notified both sides, so an update reached the people it affected instead of waiting for someone to look. The office saw delivery dates, schedules, manpower and inventory in real time, with project finances visible to management only. I built it around the questions people were already calling each other to ask, and left everything else out.",
+      lead: "I put both sides on one workflow and one dashboard. Crews updated job status from the site, and every change went out as a notification, so the people it affected knew before they thought to ask. The office watched delivery dates, schedules, manpower and inventory move in real time, while project finances stayed visible to management alone. I only built what people were already calling each other about.",
     },
 
     changed: {
@@ -160,9 +160,9 @@ export const CASES = [
         { value: "15", label: "sites on one dashboard" },
       ],
       notes: [
-        "The office planned across every site at once, instead of one at a time.",
+        "The office planned across every site at once, not one at a time.",
         "Delays became visible while they were still small enough to fix.",
-        "Included a full-block storefront for Cadillac in Manhattan and the facade package for a 33-story tower in Hoboken.",
+        "Those sites included a full-block Cadillac storefront in Manhattan and the facade package for a 33-story tower in Hoboken.",
       ],
     },
 
