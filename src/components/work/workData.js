@@ -144,7 +144,7 @@ export const CASES = [
     accent: "#0d6152",
     kicker: "Field-to-office reporting, in real time",
     title: "Dynamic Windows System",
-    role: "Operations",
+    role: "Project and operations coordinator",
     context: "Glazing and facade contractor, New York",
 
     problem:
@@ -162,7 +162,7 @@ export const CASES = [
       notes: [
         "The office planned across every site at once, not one at a time.",
         "Delays became visible while they were still small enough to fix.",
-        "Those sites included a full-block Cadillac storefront in Manhattan and the facade package for a 33-story tower in Hoboken.",
+        "Those sites included a full-block Cadillac storefront in Manhattan and the complete facade package for The Wave, a 33-story tower in Hoboken.",
       ],
     },
 
