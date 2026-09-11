@@ -28,6 +28,7 @@ import formPlan from "../../assets/badv-action-plan.webp";
 import feedbackLoop from "../../assets/badv-questions.webp";
 import plannerCalendar from "../../assets/badv-planner.webp";
 import plannerPost from "../../assets/badv-post.webp";
+import plannerAccessLog from "../../assets/badv-access-log.webp";
 import plannerApproval from "../../assets/badv-approval.webp";
 
 /* The two live sites, captured as they are today. */
@@ -100,8 +101,15 @@ export const CASES = [
             },
             {
               src: plannerPost,
-              alt: "Post editor with media, category, caption, page, date, sponsored toggle, status and notes",
-              caption: "Notes split into client-facing and internal, so an internal comment can never reach the client.",
+              alt: "Post editor with media, category, caption, page, date, sponsored toggle, status, undo and redo, and notes",
+              caption:
+                "A post open, with undo, redo and its own history. Notes split into client-facing and internal, so an internal comment can never reach the client.",
+            },
+            {
+              src: plannerAccessLog,
+              alt: "The plan history panel, listing sends and the times the client opened the plan",
+              caption:
+                "The access log: who opened the plan and when. That is what settles an argument about whether the client saw it.",
             },
             {
               src: plannerApproval,
