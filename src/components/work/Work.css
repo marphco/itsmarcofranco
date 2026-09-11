@@ -875,13 +875,17 @@
    ========================= */
 /* Where there is no honest figure, the claim itself carries the block, at
    the weight a number would have had. */
+/* This stands where the other cases put their metrics, so it has to carry
+   the same weight. A sentence cannot take the full 52px of a three-character
+   figure without becoming a wall, so it gives back a little size and none of
+   the weight, and runs wider to keep the line count down. */
 .wk-statement {
   margin: 0;
-  max-width: 22ch;
-  font-size: clamp(26px, 4.6vw, 40px);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  font-weight: 800;
+  max-width: 28ch;
+  font-size: clamp(28px, 5.2vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 900;
   text-wrap: balance;
 }
 
