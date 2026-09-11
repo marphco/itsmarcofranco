@@ -1,0 +1,1075 @@
+/* =========================
+   WORK - tokens
+   ========================= */
+.work {
+  --wk-w: min(1080px, 90vw);
+  --wk-radius: 18px;
+  --wk-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  --wk-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  position: relative;
+  background: #010101;
+  color: #fff;
+  padding: clamp(48px, 12vh, 140px) 0 clamp(40px, 9vh, 110px);
+  overflow: clip;
+}
+@supports not (overflow: clip) {
+  .work {
+    overflow: hidden;
+  }
+}
+
+/* =========================
+   INTRO
+   ========================= */
+.wk-intro {
+  width: var(--wk-w);
+  margin: 0 auto clamp(28px, 5vh, 56px);
+}
+.wk-ih {
+  margin: 0 0 clamp(8px, 1.2vw, 12px);
+  font-weight: 900;
+  letter-spacing: -0.012em;
+  line-height: 0.92;
+  font-size: clamp(28px, 6.2vw, 56px);
+}
+.wk-id {
+  margin: 0;
+  max-width: 72ch;
+  line-height: 1.35;
+  font-size: clamp(14px, 2.1vw, 18px);
+  opacity: 0.9;
+}
+
+/* =========================
+   LIST / CARD
+   ========================= */
+.wk-list {
+  width: var(--wk-w);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(20px, 3.5vh, 40px);
+}
+
+.wk-card {
+  background: var(--accent, #222);
+  color: #fff;
+  border-radius: var(--wk-radius);
+  padding: clamp(22px, 3.6vw, 48px);
+  display: grid;
+  gap: clamp(20px, 3vw, 34px);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  /* keeps long words and URLs from pushing the card wider than the viewport */
+  overflow-wrap: anywhere;
+  will-change: transform;
+}
+
+/* =========================
+   HEAD
+   ========================= */
+/* Two levels: what the role was, then the name. A third line under the
+   title summarized the case before the reader reached the evidence for it,
+   which is the job the three moments below already do. */
+.wk-head {
+  display: grid;
+  gap: clamp(8px, 1.1vw, 12px);
+  justify-items: start;
+}
+
+.wk-role {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0;
+  font-size: clamp(11px, 1.4vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.wk-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+/* when the line wraps, the separator is left dangling at the end of it */
+@media (max-width: 560px) {
+  .wk-role {
+    display: block;
+  }
+  .wk-role .wk-dot {
+    display: none;
+  }
+  .wk-role span + span {
+    display: block;
+    margin-top: 3px;
+  }
+}
+
+.wk-title {
+  margin: 0;
+  font-size: clamp(32px, 7vw, 62px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.wk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(4px, 1vw, 8px);
+}
+
+/* =========================
+   THE HOOK AND THE APPROACH
+   ========================= */
+/* Two columns, not three: the problem is short and leads, what I built
+   carries the weight. Three equal columns of body copy read as a wall. */
+.wk-top {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+}
+@media (min-width: 900px) {
+  .wk-top {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(28px, 4vw, 56px);
+  }
+}
+
+.wk-moment {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.wk-label {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  font: 600 clamp(11px, 1.5vw, 13px) / 1.2 var(--wk-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  transform-origin: 0% 50%;
+}
+
+.wk-text {
+  margin: 0;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.6;
+  opacity: 0.94;
+}
+
+/* the problem is the hook, so it gets read at a larger size */
+.wk-lede {
+  margin: 0;
+  font-size: clamp(16px, 2.4vw, 20px);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
+/* =========================
+   SUB-SYSTEMS (Basic ADV)
+   ========================= */
+/* Each system shows itself: short copy on one side, its own screenshots on
+   the other. Nothing has to be explained in a paragraph the reader skips. */
+.wk-systems {
+  display: grid;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.wk-system {
+  display: grid;
+  gap: clamp(16px, 2.4vw, 26px);
+  align-content: start;
+  padding: clamp(16px, 2.2vw, 26px);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .wk-system {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+}
+
+.wk-system-copy {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+.wk-system-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+/* side by side the pill overpowered the title, so on a phone it sits under */
+@media (max-width: 700px) {
+  .wk-system-head {
+    display: grid;
+    justify-items: start;
+    align-items: start;
+    gap: 12px;
+  }
+}
+.wk-system-title {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.008em;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+/* One shape everywhere: a hairline outline on the card color that fills on
+   hover. Same language as the contact button in the footer. No white blob. */
+.wk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font: 600 13px/1 var(--wk-sans);
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+.wk-ico {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  transition: transform 0.2s ease;
+}
+@media (hover: hover) {
+  .wk-btn:hover {
+    color: var(--accent);
+    background: #fff;
+    border-color: #fff;
+  }
+  .wk-btn:hover .wk-ico {
+    transform: translateX(2px);
+  }
+}
+.wk-btn:active {
+  transform: translateY(1px);
+}
+.wk-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* a target with no URL yet: visible, clearly unfinished, not clickable */
+.wk-btn--pending {
+  cursor: default;
+  white-space: normal;
+  gap: 10px;
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.8);
+}
+.wk-pending-tag {
+  font: 500 12px/1.3 var(--wk-mono);
+  font-style: normal;
+  opacity: 0.75;
+}
+
+/* a button is aimed at on a phone, but it should not become a slab */
+/* The 44px touch target belongs to the hit area, not to the drawing. The
+   button stays small; an invisible box around it takes the tap. */
+.wk-btn::after {
+  content: "";
+  position: absolute;
+  inset: 50% 50%;
+  width: max(100%, 88px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+@media (pointer: coarse) {
+  .wk-btn {
+    padding: 9px 15px;
+  }
+}
+
+/* =========================
+   NOTE
+   ========================= */
+.wk-note {
+  margin: 0;
+  padding: clamp(14px, 1.8vw, 18px) clamp(16px, 2vw, 20px);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  font-size: clamp(13px, 1.8vw, 15px);
+  line-height: 1.5;
+  opacity: 0.86;
+}
+
+/* =========================
+   DIAGRAM (Dynamic Windows)
+   ========================= */
+/* One 7s loop, told in order: the site updates, the record takes it, the
+   office reads it. Everything is on the same clock so it reads as one
+   movement rather than three things blinking. */
+.wk-diagram {
+  --dg: 9s;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+  padding: clamp(16px, 2.6vw, 30px) clamp(14px, 2.4vw, 28px);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.13);
+}
+.wk-diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  height: auto;
+  overflow: visible;
+}
+.wk-diagram figcaption {
+  font-size: clamp(12px, 1.6vw, 13.5px);
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.68;
+  max-width: 58ch;
+  margin-inline: auto;
+}
+
+.wk-dg-track {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 2;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+
+.wk-dg-node rect {
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5;
+}
+.wk-dg-glyph {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wk-dg-label {
+  fill: rgba(255, 255, 255, 0.6);
+  font: 600 13px var(--wk-mono);
+  letter-spacing: 0.18em;
+}
+.wk-dg-label--mid {
+  fill: rgba(255, 255, 255, 0.75);
+}
+
+.wk-dg-record rect {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: #fff;
+  stroke-width: 1.8;
+}
+.wk-dg-row {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  /* drawn in, left to right, when the update lands */
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+}
+
+.wk-dg-bar {
+  fill: rgba(255, 255, 255, 0.75);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.wk-dg-ping {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5;
+  opacity: 0;
+}
+
+.wk-dg-packet {
+  fill: #fff;
+  opacity: 0;
+}
+
+/* the still frame: everything already happened, nothing is mid-flight */
+@media (prefers-reduced-motion: reduce) {
+  .wk-dg-row {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 9s loop, four beats:
+     1  the site registers a change and writes it in
+     2  the office writes its own side in
+     3  the record holds both
+     4  both sides read it back, and nobody phones anyone */
+  .wk-dg-ping--field { animation: dg-ping-f var(--dg) ease-out infinite; }
+  .wk-dg-ping--office { animation: dg-ping-o var(--dg) ease-out infinite; }
+
+  .wk-dg-node--field rect { animation: dg-wake-f var(--dg) ease-in-out infinite; }
+  .wk-dg-node--office rect { animation: dg-wake-o var(--dg) ease-in-out infinite; }
+
+  /* writing in */
+  .wk-dg-packet--fw { animation: dg-field-write var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+  .wk-dg-packet--ow { animation: dg-office-write var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+
+  .wk-dg-row--1 { animation: dg-write-a var(--dg) ease-out infinite; }
+  .wk-dg-row--2 { animation: dg-write-b var(--dg) ease-out infinite; }
+  .wk-dg-row--3 { animation: dg-write-b var(--dg) ease-out infinite; animation-delay: 0.14s; }
+
+  .wk-dg-record rect { animation: dg-hold var(--dg) ease-in-out infinite; }
+
+  /* reading back */
+  .wk-dg-packet--fr { animation: dg-read-field var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+  .wk-dg-packet--or { animation: dg-read-office var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+
+  .wk-dg-bar { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; }
+  .wk-dg-bar--2 { animation-delay: 0.08s; }
+  .wk-dg-bar--3 { animation-delay: 0.16s; }
+  .wk-dg-bar--4 { animation-delay: 0.24s; }
+}
+
+/* beat 1: the site */
+@keyframes dg-ping-f {
+  0%, 2% { opacity: 0; r: 8; }
+  6% { opacity: 0.5; }
+  18% { opacity: 0; r: 44; }
+  100% { opacity: 0; r: 44; }
+}
+@keyframes dg-wake-f {
+  0%, 3% { stroke: rgba(255, 255, 255, 0.4); }
+  8% { stroke: #fff; }
+  20% { stroke: rgba(255, 255, 255, 0.4); }
+  /* beat 4: reading back */
+  74% { stroke: rgba(255, 255, 255, 0.4); }
+  80% { stroke: #fff; }
+  92%, 100% { stroke: rgba(255, 255, 255, 0.4); }
+}
+@keyframes dg-field-write {
+  0%, 6% { opacity: 0; cx: 132px; }
+  10% { opacity: 1; }
+  24% { opacity: 1; cx: 266px; }
+  27%, 100% { opacity: 0; cx: 266px; }
+}
+@keyframes dg-write-a {
+  0%, 24% { stroke-dashoffset: 110; }
+  34% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* beat 2: the office writes its own side in */
+@keyframes dg-ping-o {
+  0%, 30% { opacity: 0; r: 8; }
+  34% { opacity: 0.5; }
+  46% { opacity: 0; r: 44; }
+  100% { opacity: 0; r: 44; }
+}
+@keyframes dg-wake-o {
+  0%, 31% { stroke: rgba(255, 255, 255, 0.4); }
+  36% { stroke: #fff; }
+  48% { stroke: rgba(255, 255, 255, 0.4); }
+  /* beat 4 */
+  74% { stroke: rgba(255, 255, 255, 0.4); }
+  80% { stroke: #fff; }
+  92%, 100% { stroke: rgba(255, 255, 255, 0.4); }
+}
+@keyframes dg-office-write {
+  0%, 34% { opacity: 0; cx: 548px; }
+  38% { opacity: 1; }
+  52% { opacity: 1; cx: 414px; }
+  55%, 100% { opacity: 0; cx: 414px; }
+}
+@keyframes dg-write-b {
+  0%, 52% { stroke-dashoffset: 110; }
+  62% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* beat 3: the record holds both */
+@keyframes dg-hold {
+  0%, 62% { stroke: #fff; fill: rgba(255, 255, 255, 0.1); }
+  68% { stroke: #fff; fill: rgba(255, 255, 255, 0.2); }
+  80%, 100% { stroke: #fff; fill: rgba(255, 255, 255, 0.1); }
+}
+
+/* beat 4: both sides read it back */
+@keyframes dg-read-field {
+  0%, 66% { opacity: 0; cx: 266px; }
+  70% { opacity: 0.9; }
+  82% { opacity: 0.9; cx: 132px; }
+  85%, 100% { opacity: 0; cx: 132px; }
+}
+@keyframes dg-read-office {
+  0%, 66% { opacity: 0; cx: 414px; }
+  70% { opacity: 0.9; }
+  82% { opacity: 0.9; cx: 548px; }
+  85%, 100% { opacity: 0; cx: 548px; }
+}
+@keyframes dg-rise {
+  0%, 80% { transform: scaleY(1); }
+  87% { transform: scaleY(1.32); }
+  96%, 100% { transform: scaleY(1); }
+}
+
+/* =========================
+   SCREENSHOT STRIP
+   ========================= */
+.wk-shots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(82%, 420px);
+  gap: clamp(12px, 1.6vw, 18px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  /* the scroll container was clipping the shadow flat against its edge */
+  padding: 6px 6px 10px;
+  margin: -6px -6px -10px;
+  padding-bottom: 6px;
+  /* keeps the strip from widening the card */
+  min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+.wk-shots--one {
+  grid-auto-columns: minmax(0, 1fr);
+  overflow: visible;
+}
+.wk-shots::-webkit-scrollbar {
+  height: 8px;
+}
+.wk-shots::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+
+.wk-shot {
+  margin: 0;
+  scroll-snap-align: start;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.wk-shot-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 4px;
+}
+.wk-shot-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* No badge on the image: the zoom-in cursor says it on desktop, and one
+   more chrome element repeated on every screenshot was pure noise. The
+   image itself answers instead, lifting under the pointer. */
+
+.wk-shot img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 0;
+  /* The app in these captures already draws its own rounded window. A second
+     radius on top of it fought the first, squaring one corner and warping the
+     others. Flat edges here, and the frame is a hairline instead of a shadow,
+     so nothing can be clipped by the scroll container. */
+  border-radius: 4px;
+  background: #0d0d0f;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+@media (hover: hover) {
+  /* A drop shadow here is clipped flat by the scrolling container, and the
+     first item sits right against its edge, so the cut is obvious. The lift
+     and a brighter frame carry the hover instead. */
+  .wk-shot-btn:hover img {
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+}
+.wk-shot figcaption {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.wk-shot-slot {
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  text-align: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.22);
+}
+.wk-shot-slot-tag {
+  font: 600 11px/1 var(--wk-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.wk-shot-slot-note {
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+.wk-shot--pending figcaption {
+  font-family: var(--wk-mono);
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+/* =========================
+   STACK LINE
+   ========================= */
+/* Anchored to the card with a rule, so it reads as a footnote to the case
+   rather than a line floating in the padding. */
+.wk-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding-top: clamp(14px, 2vw, 20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  list-style: none;
+}
+.wk-stack li {
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  font: 500 11px/1.4 var(--wk-mono);
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+}
+
+
+/* =========================
+   LIGHTBOX
+   ========================= */
+.wk-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(2, 2, 6, 0.93);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+  animation: wk-lb-in 0.22s ease-out;
+}
+@keyframes wk-lb-in {
+  from { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wk-lb { animation: none; }
+}
+
+.wk-lb-fig {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+  max-width: min(1280px, 100%);
+  max-height: 100%;
+  cursor: default;
+}
+.wk-lb-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 190px);
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 40px 100px rgba(0, 0, 0, 0.6);
+}
+.wk-lb-fig figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.wk-lb-fig figcaption span { max-width: 88ch; }
+.wk-lb-fig figcaption em {
+  font: 500 12px/1 var(--wk-mono);
+  font-style: normal;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+/* Discreet: no filled circles, just the mark. A generous invisible hit area
+   keeps them easy to reach. SVG rather than the × and ‹ › glyphs, whose
+   optical centres never sit where the box thinks they do. */
+.wk-lb-close,
+.wk-lb-nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+.wk-lb-close svg,
+.wk-lb-nav svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+@media (hover: hover) {
+  .wk-lb-close:hover,
+  .wk-lb-nav:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+.wk-lb-close:focus-visible,
+.wk-lb-nav:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+  color: #fff;
+}
+.wk-lb-close {
+  top: clamp(10px, 2.4vw, 22px);
+  right: clamp(10px, 2.4vw, 22px);
+  width: 44px;
+  height: 44px;
+}
+.wk-lb-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+}
+.wk-lb-nav--prev { left: clamp(4px, 1.6vw, 18px); }
+.wk-lb-nav--next { right: clamp(4px, 1.6vw, 18px); }
+
+@media (max-width: 640px) {
+  .wk-lb-nav { width: 44px; height: 44px; }
+  .wk-lb-nav svg, .wk-lb-close svg { width: 20px; height: 20px; }
+  .wk-lb-fig img { max-height: calc(100svh - 210px); }
+}
+
+
+/* =========================
+   WHAT CHANGED
+   ========================= */
+.wk-changed {
+  display: grid;
+  gap: clamp(16px, 2.4vw, 24px);
+}
+
+/* the figures carry the payoff, so they are the biggest thing in the block */
+.wk-metrics {
+  display: grid;
+  gap: clamp(14px, 2.4vw, 28px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 620px) {
+  .wk-metrics {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+}
+.wk-metrics li {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+}
+.wk-metric-value {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.wk-metric-label {
+  font-size: clamp(12px, 1.6vw, 14px);
+  line-height: 1.35;
+  opacity: 0.72;
+  max-width: 24ch;
+}
+
+.wk-notes {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 92ch;
+}
+.wk-notes li {
+  position: relative;
+  padding-left: 18px;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.55;
+  opacity: 0.94;
+}
+.wk-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.62);
+}
+.wk-notes li .wk-btn {
+  margin-top: 10px;
+}
+
+
+/* a strip that sits on the card, not inside a system, gets more room */
+.wk-card > .wk-shots {
+  grid-auto-columns: min(84%, 520px);
+}
+
+
+/* =========================
+   STATEMENT AND PLATFORMS
+   ========================= */
+/* Where there is no honest figure, the claim itself carries the block, at
+   the weight a number would have had. */
+.wk-statement {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(26px, 4.6vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.wk-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wk-platforms li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.wk-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6ee7a8;
+  box-shadow: 0 0 0 3px rgba(110, 231, 168, 0.18);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wk-live-dot { animation: wk-live 2.4s ease-in-out infinite; }
+}
+@keyframes wk-live {
+  50% { box-shadow: 0 0 0 5px rgba(110, 231, 168, 0.08); }
+}
+
+
+/* =========================
+   ONE TEMPLATE (Spin Factor)
+   ========================= */
+/* 8s loop: the template is defined, it feeds the lanes, and each campaign
+   fills along the same sequence, one after another. */
+.wk-diagram--tpl {
+  --tp: 8s;
+}
+.wk-diagram--tpl svg {
+  max-width: 660px;
+}
+
+.wk-tp-master rect {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: #fff;
+  stroke-width: 1.8;
+}
+.wk-tp-dot {
+  fill: #fff;
+}
+
+.wk-tp-rail {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 2;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+.wk-tp-step {
+  fill: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+}
+
+.wk-tp-feed {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1.5;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+
+/* the resting frame: everything already inherited the template */
+@media (prefers-reduced-motion: reduce) {
+  .wk-tp-step { opacity: 0.9; }
+  .wk-tp-feed { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wk-tp-master rect { animation: tp-define var(--tp) ease-in-out infinite; }
+  .wk-tp-feed { animation: tp-feed var(--tp) ease-out infinite; }
+
+  .wk-tp-step { animation: tp-fill var(--tp) ease-out infinite; }
+
+  /* each lane starts a beat after the one above it */
+  .wk-tp-lane--1 .wk-tp-step { animation-delay: 0s; }
+  .wk-tp-lane--2 .wk-tp-step { animation-delay: 0.32s; }
+  .wk-tp-lane--3 .wk-tp-step { animation-delay: 0.64s; }
+  .wk-tp-lane--4 .wk-tp-step { animation-delay: 0.96s; }
+  .wk-tp-lane--5 .wk-tp-step { animation-delay: 1.28s; }
+
+  /* and within a lane, the sequence runs left to right */
+  .wk-tp-lane .wk-tp-step:nth-of-type(2) { animation-delay: inherit; }
+}
+
+/* the per-step offset inside a lane, applied on top of the lane delay */
+@media (prefers-reduced-motion: no-preference) {
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(1) { animation-delay: 0.00s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(2) { animation-delay: 0.10s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(3) { animation-delay: 0.20s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(4) { animation-delay: 0.30s; }
+
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(1) { animation-delay: 0.32s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(2) { animation-delay: 0.42s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(3) { animation-delay: 0.52s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(4) { animation-delay: 0.62s; }
+
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(1) { animation-delay: 0.64s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(2) { animation-delay: 0.74s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(3) { animation-delay: 0.84s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(4) { animation-delay: 0.94s; }
+
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(1) { animation-delay: 0.96s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(2) { animation-delay: 1.06s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(3) { animation-delay: 1.16s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(4) { animation-delay: 1.26s; }
+
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(1) { animation-delay: 1.28s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(2) { animation-delay: 1.38s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(3) { animation-delay: 1.48s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(4) { animation-delay: 1.58s; }
+}
+
+@keyframes tp-define {
+  0%, 4% { fill: rgba(255, 255, 255, 0.12); }
+  9% { fill: rgba(255, 255, 255, 0.26); }
+  20%, 100% { fill: rgba(255, 255, 255, 0.12); }
+}
+@keyframes tp-feed {
+  0%, 8% { stroke-dashoffset: 300; }
+  26% { stroke-dashoffset: 0; }
+  86% { stroke-dashoffset: 0; opacity: 1; }
+  96%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes tp-fill {
+  0%, 22% { opacity: 0; r: 3; }
+  30% { opacity: 1; r: 6; }
+  86% { opacity: 1; r: 6; }
+  96%, 100% { opacity: 0; r: 6; }
+}
+
+
+/* =========================
+   POSTSCRIPT
+   ========================= */
+/* Separated by a rule and dropped back in contrast, so the eye reads it as
+   a note after the case rather than as part of it. */
+.wk-ps {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 16px);
+  padding-top: clamp(18px, 2.6vw, 26px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.wk-ps-label {
+  margin: 0;
+  font: 600 clamp(10px, 1.3vw, 12px) / 1.2 var(--wk-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.wk-ps-body {
+  display: grid;
+  gap: clamp(14px, 2.2vw, 24px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .wk-ps-body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.wk-ps-copy {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  /* without this the grid stretches the button across the whole column */
+  justify-items: start;
+  min-width: 0;
+}
+.wk-ps .wk-text {
+  opacity: 0.8;
+  font-size: clamp(13px, 1.8vw, 15px);
+}
+.wk-ps .wk-shots {
+  grid-auto-columns: minmax(0, 1fr);
+  overflow: visible;
+}

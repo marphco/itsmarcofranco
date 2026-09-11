@@ -3,13 +3,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Who.css";
 import xai from "../../assets/xai.svg";
-import robot from "../../assets/robot.png";
-import pasta from "../../assets/pasta.png";
-import pizza from "../../assets/pizza.png";
+import robot from "../../assets/robot.webp";
+import pasta from "../../assets/pasta.webp";
+import pizza from "../../assets/pizza.webp";
 import openai from "../../assets/openai.svg";
 import notion from "../../assets/notion.svg";
 import slack from "../../assets/slack.svg";
-import liberty from "../../assets/liberty.svg";
+import liberty from "../../assets/liberty.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 if (ScrollTrigger.isTouch) {
@@ -150,8 +150,8 @@ export default function Who() {
       );
     }
 
- // --- Smooth handoff Who -> Portfolio (#010101)
-const portfolio = document.querySelector(".portfolio");
+ // --- Smooth handoff Who -> Work (#010101)
+const portfolio = document.querySelector(".work");
 
 if (portfolio) {
   // Portfolio: entra “matchando” il colore corrente di Who e sfuma a #010101

@@ -1,6 +1,6 @@
 import Hero from "./components/hero/Hero";
 import Who from "./components/who/Who";
-import Portfolio from "./components/portfolio/Portfolio";
+import Work from "./components/work/Work";
 import Footer from "./components/footer/Footer";
 
 /**
@@ -12,7 +12,7 @@ export default function App() {
     <>
       <Hero />
       <Who />
-      <Portfolio />
+      <Work />
       <section className="footer-reveal">
         <Footer />
       </section>

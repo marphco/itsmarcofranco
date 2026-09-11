@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import profileImg from '../../assets/marco.png';
 import './Hero.css';
 
 export default function Hero() {
@@ -40,9 +39,13 @@ export default function Hero() {
       <h1 className="hero-word" aria-label="MARCO">{letters}</h1>
       <img
         ref={imgRef}
-        src={profileImg}
+        src="/marco.webp"
         alt="Portrait of Marco"
         className="hero-overlay-image"
+        width="1600"
+        height="1303"
+        decoding="async"
+        fetchpriority="high"
       />
     </section>
   );
