@@ -12,7 +12,9 @@
  *   kicker   small line above the title
  *   title    big title
  *   meta     muted one-liner (industry, place, years, role)
- *   problem  "The problem", one paragraph
+ *   problem  "The situation", one paragraph. The heading is deliberately
+ *            neutral: the site is public, and three of these four are
+ *            other people's companies. It describes a state, not a fault.
  *   built    "What I built" -> { lead, systems? }
  *              a system may carry its own shots, so each one shows itself
  *   changed  "What changed" -> { metrics: [{value,label}], notes: [] }
@@ -146,7 +148,7 @@ export const CASES = [
     context: "Glazing and facade contractor, New York",
 
     problem:
-      "Fifteen sites running at once, and no shared view between office and field. Updates moved by phone call. Schedules, manpower and job status lived wherever the person keeping them put them, so delays surfaced late, through whoever happened to ask.",
+      "Fifteen sites running at once, coordinated by phone, the way the trade has always run them. Schedules, manpower and job status lived with whoever was keeping them, so the office learned about a delay when someone called it in.",
 
     built: {
       lead: "One workflow and one dashboard both sides worked from. Field crews updated job status from the site. The office saw delivery dates, schedules, manpower and inventory in real time, with project finances visible to management only. I built it around the questions people were already calling each other to ask, and left everything else out.",

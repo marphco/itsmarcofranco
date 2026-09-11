@@ -365,7 +365,7 @@ function CaseCard({ data }) {
       {/* the hook and the approach, side by side: two columns, not three */}
       <div className="wk-top">
         <section className="wk-moment wk-moment--problem">
-          <h4 className="wk-label">The problem</h4>
+          <h4 className="wk-label">The situation</h4>
           <p className="wk-lede">{problem}</p>
         </section>
 
@@ -542,7 +542,7 @@ export default function Work() {
         <h2 className="wk-ih" id="work-heading">
           Work.
         </h2>
-        <p className="wk-id">Problems I found, and what I built to remove them.</p>
+        <p className="wk-id">What I found, what I built, what changed.</p>
       </div>
 
       <div className="wk-list">
