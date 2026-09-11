@@ -56,7 +56,7 @@ export const CASES = [
       /* The systems are not repairs for a bad start: they are what you build
          once there is enough volume to pay for them. Building them on day one
          would have been the mistake. */
-      lead: "The operation itself: how we took a brief, how we scoped and priced, how work moved from designer to developer to client. Then three systems, once the volume was there to justify building them.",
+      lead: "I designed the operation itself: how we took a brief, how we scoped and priced, how work moved from designer to developer to client. Once the volume justified it, I built three systems on top of that.",
       systems: [
         {
           title: "AI client intake",
@@ -181,7 +181,7 @@ export const CASES = [
       "Italy's leading political communication agency at its founding stage: three people, national clients arriving faster than the structure could handle, and election deadlines that do not move.",
 
     built: {
-      lead: "The workflows and template systems the agency ran on, from scratch, so a lean team could work at the speed the environment demanded. I grew into the de facto operational lead, trained the people who came in, and used campaign performance data to decide where people and budget went when everything was urgent at once.",
+      lead: "I built the workflows and template systems the agency ran on, from scratch, so a lean team could work at the speed the environment demanded. From there I grew into the de facto operational lead, trained the people who came in, and used campaign performance data to decide where people and budget went when everything was urgent at once.",
     },
 
     diagram: "one-template",
@@ -229,7 +229,7 @@ export const CASES = [
       "A gap in the Italian market: event invitations and guest management still ran on paper, PDFs and WhatsApp threads, with no tool built for how people there actually communicate.",
 
     built: {
-      lead: "The whole product, alone. Invitations and guest management delivered over WhatsApp, on Meta's Business Cloud API. A web app, a native mobile app on both stores, a reporting layer over the production database, and conversion tracking across the signup funnel.",
+      lead: "I built the whole product alone. Invitations and guest management are delivered over WhatsApp, on Meta's Business Cloud API, and around that sit a web app, a native mobile app on both stores, a reporting layer over the production database, and conversion tracking across the signup funnel.",
     },
 
     changed: {
