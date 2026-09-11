@@ -186,8 +186,8 @@ function OneTemplateDiagram() {
         </text>
       </svg>
       <figcaption>
-        The sequence was defined once, then every campaign ran on it. Adding
-        people added output, instead of adding coordination.
+        Every campaign ran on the same sequence, defined once. Someone new
+        learned that sequence and could work on any campaign.
       </figcaption>
     </figure>
   );
