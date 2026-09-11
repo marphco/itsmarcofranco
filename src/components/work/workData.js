@@ -160,7 +160,7 @@ export const CASES = [
         { value: "15", label: "sites on one dashboard" },
       ],
       notes: [
-        "Nobody had to assemble the picture any more: the office opened the dashboard and the week was there, site by site.",
+        "The office planned across every site at once, instead of one at a time.",
         "Delays became visible while they were still small enough to fix.",
         "Included a full-block storefront for Cadillac in Manhattan and the facade package for a 33-story tower in Hoboken.",
       ],
