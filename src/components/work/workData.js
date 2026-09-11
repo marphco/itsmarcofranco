@@ -230,11 +230,11 @@ export const CASES = [
     changed: {
       /* No honest figure to lead with here, so the claim itself does the
          work, and the platforms show rather than count. */
-      statement: "The first in Italy to put the whole job in one place.",
+      statement: "The first in Italy to carry an event from invitation to final headcount.",
       platforms: ["Web", "iOS", "Android"],
       metrics: [],
       notes: [
-        "Every other portal covers a piece of it: the invitation, or the guest list, or the confirmations. eenvee carries all of it, and does each part faster.",
+        "Every other portal covers one piece: the invitation, or the guest list, or the confirmations.",
         "Live in production, with native apps on the App Store and Google Play.",
       ],
     },
