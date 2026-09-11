@@ -148,10 +148,10 @@ export const CASES = [
     context: "Glazing and facade contractor, New York",
 
     problem:
-      "Fifteen sites running at once, coordinated by phone, the way the trade has always run them. Schedules, manpower and job status lived with whoever was keeping them, so the office learned about a delay when someone called it in.",
+      "Fifteen sites running at once, with the office and the field keeping separate records. Schedules, manpower, job status and delivery dates each sat with whoever tracked them, so the office was always a step behind the site.",
 
     built: {
-      lead: "One workflow and one dashboard both sides worked from. Field crews updated job status from the site. The office saw delivery dates, schedules, manpower and inventory in real time, with project finances visible to management only. I built it around the questions people were already calling each other to ask, and left everything else out.",
+      lead: "One workflow and one dashboard both sides worked from. Field crews updated job status from the site, and every change on a project notified both sides, so an update reached the people it affected instead of waiting for someone to look. The office saw delivery dates, schedules, manpower and inventory in real time, with project finances visible to management only. I built it around the questions people were already calling each other to ask, and left everything else out.",
     },
 
     changed: {

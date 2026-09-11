@@ -120,8 +120,8 @@ function FieldOfficeDiagram() {
       </svg>
       <figcaption>
         Both sides write to the same record: job status from the site, dates
-        and manpower from the office. Both sides read it there, so nobody has
-        to call and ask.
+        and manpower from the office. Each write notifies the other side, so
+        the update arrives instead of being asked for.
       </figcaption>
     </figure>
   );
