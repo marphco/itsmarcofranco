@@ -1070,27 +1070,13 @@
   display: grid;
   gap: 14px;
   align-content: start;
+  /* without this the grid stretches the button across the whole column */
+  justify-items: start;
   min-width: 0;
 }
 .wk-ps .wk-text {
   opacity: 0.8;
   font-size: clamp(13px, 1.8vw, 15px);
-}
-.wk-ps-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-}
-.wk-stack--inline {
-  padding-top: 0;
-  border-top: 0;
-  gap: 5px;
-}
-.wk-stack--inline li {
-  font-size: 10.5px;
-  padding: 3px 8px;
-  opacity: 0.6;
 }
 .wk-ps .wk-shots {
   grid-auto-columns: minmax(0, 1fr);

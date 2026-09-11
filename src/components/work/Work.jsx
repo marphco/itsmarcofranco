@@ -317,16 +317,7 @@ function Postscript({ data, caseTitle }) {
       <div className="wk-ps-body">
         <div className="wk-ps-copy">
           <p className="wk-text">{data.text}</p>
-          <div className="wk-ps-foot">
-            <ActionButton action={data.action} caseTitle={caseTitle} />
-            {data.stack?.length > 0 && (
-              <ul className="wk-stack wk-stack--inline" aria-label="Stack">
-                {data.stack.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
-            )}
-          </div>
+          <ActionButton action={data.action} caseTitle={caseTitle} />
         </div>
         {data.shot && <Shots shots={[data.shot]} />}
       </div>

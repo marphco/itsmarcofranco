@@ -188,8 +188,11 @@ export const CASES = [
         alt: "The Spin Factor site with Spinny, its AI assistant, answering a question about the agency",
         caption: "Spinny answering for the agency, on the site as it is today.",
       },
-      stack: ["React", "Node", "OpenAI API"],
     },
+
+    /* Same place as every other case: the footnote line at the bottom of
+       the card. It describes the postscript directly above it. */
+    stack: ["React", "Node", "OpenAI API"],
   },
 
   {
