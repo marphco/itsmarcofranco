@@ -224,7 +224,7 @@ export const CASES = [
       "A gap in the Italian market: event invitations and guest management still ran on paper, PDFs and WhatsApp threads, with no tool built for how people there actually communicate.",
 
     built: {
-      lead: "I built the whole product alone. Invitations and guest management are delivered over WhatsApp, on Meta's Business Cloud API, and around that sit a web app, a native mobile app on both stores, a reporting layer over the production database, and conversion tracking across the signup funnel.",
+      lead: "I built the whole product alone. Invitations and guest management are delivered over WhatsApp, on Meta's Business Cloud API, and around that sit a web app, a native mobile app on the App Store and Google Play, a reporting layer over the production database, and conversion tracking across the signup funnel.",
     },
 
     changed: {
@@ -235,7 +235,7 @@ export const CASES = [
       metrics: [],
       notes: [
         "Every other portal covers one piece: the invitation, or the guest list, or the confirmations.",
-        "Live in production, with native apps on the App Store and Google Play.",
+        "An organizer sends the invitation, watches the answers come back, and exports the final list. Nothing to reconcile afterwards.",
       ],
     },
 
