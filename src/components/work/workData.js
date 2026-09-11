@@ -74,7 +74,7 @@ export const CASES = [
               src: formPlan,
               alt: "The generated action plan in the dashboard: the client's answers read back, with what the intake could not establish listed separately",
               caption:
-                "What the team opens. Not a checklist of our own process, but the client's answers read back and turned into something to quote from, with what they did not say listed instead of guessed.",
+                "What the team opens: the client's own words on what they want and who has to be convinced, what the date is for, and the four things they never said that change the quote.",
             },
           ],
         },
