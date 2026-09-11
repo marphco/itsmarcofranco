@@ -72,9 +72,9 @@ export const CASES = [
             },
             {
               src: formPlan,
-              alt: "The generated action plan in the dashboard, four phases plus the open questions",
+              alt: "The generated action plan in the dashboard: the client's answers read back, with what the intake could not establish listed separately",
               caption:
-                "What the team opens: a first action plan in four phases, with what the intake could not establish listed as open questions rather than guessed.",
+                "What the team opens. Not a checklist of our own process, but the client's answers read back and turned into something to quote from, with what they did not say listed instead of guessed.",
             },
           ],
         },
