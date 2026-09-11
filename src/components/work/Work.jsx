@@ -71,7 +71,10 @@ function FieldOfficeDiagram() {
   return (
     <figure className="wk-diagram">
       <svg viewBox="0 0 680 220" aria-hidden="true" focusable="false">
-        <line className="wk-dg-track" x1="132" y1="104" x2="548" y2="104" />
+        {/* two segments, not one line behind the record: the record's fill is
+            semi-transparent, so a single track showed through it */}
+        <line className="wk-dg-track" x1="132" y1="104" x2="266" y2="104" />
+        <line className="wk-dg-track" x1="414" y1="104" x2="548" y2="104" />
 
         {/* FIELD: job status from the site */}
         <g className="wk-dg-node wk-dg-node--field">
