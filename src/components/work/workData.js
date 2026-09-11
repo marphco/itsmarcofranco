@@ -58,7 +58,7 @@ export const CASES = [
       systems: [
         {
           title: "AI client intake",
-          action: { kind: "try", label: "Try it" },
+          action: { kind: "try", label: "Try it", pending: "opening shortly" },
           body: "A discovery call costs an hour of senior time, and plenty of them go to leads nobody should be quoting. I replaced it with a conversational intake: one question at a time, each built on the answers already given. Weak leads filter themselves out before anyone is involved.",
           shots: [
             {

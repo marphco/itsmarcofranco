@@ -8,9 +8,13 @@ import { CASES } from "./workData.js";
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-/* The intake demo runs as its own app, so the target is configurable.
-   Falls back to the local dev port used by demos/intake. */
-const INTAKE_URL = import.meta.env.VITE_INTAKE_URL || "http://localhost:5184";
+/* The intake demo runs as its own app, so the target is configurable. The
+   localhost fallback is for development only: in a build with no target
+   configured the button has no href and renders as pending, rather than
+   sending a visitor to a port on their own machine. */
+const INTAKE_URL =
+  import.meta.env.VITE_INTAKE_URL ||
+  (import.meta.env.DEV ? "http://localhost:5184" : "");
 
 /* ---------- ICONS ---------- */
 const ArrowOut = () => (
