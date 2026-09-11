@@ -8,13 +8,15 @@ import { CASES } from "./workData.js";
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-/* The intake demo runs as its own app, so the target is configurable. The
-   localhost fallback is for development only: in a build with no target
-   configured the button has no href and renders as pending, rather than
-   sending a visitor to a port on their own machine. */
+/* The intake demo runs as its own app, on its own host, with its own env:
+   nothing about it is shared with this site. VITE_INTAKE_URL overrides the
+   target; in development it is the local server. With neither, the button
+   renders as pending rather than sending a visitor nowhere. */
 const INTAKE_URL =
   import.meta.env.VITE_INTAKE_URL ||
-  (import.meta.env.DEV ? "http://localhost:5184" : "");
+  (import.meta.env.DEV
+    ? "http://localhost:5184"
+    : "https://intake-demo-production-ae7f.up.railway.app");
 
 /* ---------- ICONS ---------- */
 const ArrowOut = () => (
