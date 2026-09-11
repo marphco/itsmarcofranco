@@ -182,7 +182,7 @@ export const CASES = [
     postscript: {
       label: "Postscript, 2026",
       text: "Years later they came back. I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
-      action: { kind: "live", href: "https://www.spinfactor.it", label: "Visit the site" },
+      action: { kind: "live", href: "https://www.spinfactor.it", label: "Live" },
       shot: {
         src: spinAI,
         alt: "The Spin Factor site with Spinny, its AI assistant, answering a question about the agency",
