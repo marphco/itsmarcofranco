@@ -24,6 +24,7 @@
    client data appears anywhere. */
 import formStart from "../../assets/badv-form-start.webp";
 import formQuestion from "../../assets/badv-form-question.webp";
+import formPlan from "../../assets/badv-action-plan.webp";
 import feedbackLoop from "../../assets/badv-questions.webp";
 import plannerCalendar from "../../assets/badv-planner.webp";
 import plannerPost from "../../assets/badv-post.webp";
@@ -49,12 +50,15 @@ export const CASES = [
       "No clients, no processes, no team. I wrote the business plan, won a 100,000 euro launch grant from Invitalia, and incorporated the company on February 24, 2020. Eleven days later Italy went into lockdown.",
 
     built: {
-      lead: "The operation itself, remotely: how we took a brief, how we scoped and priced, how work moved from designer to developer to client. Then three systems, because the bottlenecks kept showing up in the same places.",
+      /* The systems are not repairs for a bad start: they are what you build
+         once there is enough volume to pay for them. Building them on day one
+         would have been the mistake. */
+      lead: "The operation itself: how we took a brief, how we scoped and priced, how work moved from designer to developer to client. Then three systems, once the volume was there to justify building them.",
       systems: [
         {
           title: "AI client intake",
           action: { kind: "try", label: "Try it" },
-          body: "Every lead cost an hour of senior time on a discovery call, often for leads not worth pursuing. I replaced it with a conversational intake: one question at a time, each built on the answers already given. Weak leads filter themselves out.",
+          body: "A discovery call costs an hour of senior time, and plenty of them go to leads nobody should be quoting. I replaced it with a conversational intake: one question at a time, each built on the answers already given. Weak leads filter themselves out before anyone is involved.",
           shots: [
             {
               src: formStart,
@@ -64,13 +68,19 @@ export const CASES = [
             {
               src: formQuestion,
               alt: "One intake question with four options and a free text field",
-              caption: "One question at a time, then a brief and a first action plan the team quotes from.",
+              caption: "One question at a time, each built on what came before.",
+            },
+            {
+              src: formPlan,
+              alt: "The generated action plan in the dashboard, four phases plus the open questions",
+              caption:
+                "What the team opens: a first action plan in four phases, with what the intake could not establish listed as open questions rather than guessed.",
             },
           ],
         },
         {
           title: "Questions that get better with use",
-          body: "The engine behind the intake. It drafts a structured question set from a brief and the service docs, and improves from thumbs up and thumbs down, so the next set is sharper and less redundant.",
+          body: "The engine behind the intake. It drafts a structured question set from a brief and the service docs, and learns from thumbs up and thumbs down, so each set is sharper than the one before it.",
           shots: [
             {
               src: feedbackLoop,
@@ -81,7 +91,7 @@ export const CASES = [
         },
         {
           title: "Editorial planner with approvals on record",
-          body: "Monthly plans lived in Excel and email, and approvals happened by phone. Then someone would say “I never approved that.” Now every post sits on a calendar, every edit is a version, and the client approves the month on the record.",
+          body: "Agencies run monthly plans on spreadsheets and email, and take approvals over the phone. That holds until a client says \u201cI never approved that.\u201d I put every post on a calendar, every edit into a version you can restore, and the client's approval on the record, with the history kept.",
           shots: [
             {
               src: plannerCalendar,
@@ -106,11 +116,12 @@ export const CASES = [
     changed: {
       metrics: [
         { value: "50+", label: "projects in under two years" },
-        { value: "1 hour", label: "of senior time saved per lead" },
+        { value: "40", label: "clients running on the planner" },
+        { value: "400+", label: "posts a month through it" },
       ],
       notes: [
-        "The discovery call disappeared for standard requests. Every brief came out in the same structure, so quality stopped depending on who took the call.",
-        "Approvals, versions and delivery are on record for every client, every month. [MARCO: numero di clienti sul planner, post al mese]",
+        "The discovery call disappeared for standard requests, and with it about an hour of senior time per lead. Every brief came out in the same structure, whoever picked it up.",
+        "Every approval and every version on record, for every client, every month.",
         "The agency is recognized nationally today, with work for ENAV, the Italian air navigation authority, and the Ministry of Foreign Affairs.",
       ],
     },
