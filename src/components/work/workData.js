@@ -50,7 +50,7 @@ export const CASES = [
     context: "Digital agency, Naples, Italy",
 
     problem:
-      "No clients, no processes, no team. I wrote the business plan, won a 100,000 euro launch grant from Invitalia, the Italian agency for business development, and incorporated the company on February 24, 2020. Two weeks later Italy went into lockdown.",
+      "No clients, no processes, no team. I wrote the business plan, won a 100,000 euro launch grant from Invitalia, the Italian agency for business development, and incorporated the company two weeks before Italy went into lockdown.",
 
     built: {
       /* The systems are not repairs for a bad start: they are what you build
