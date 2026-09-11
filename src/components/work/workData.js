@@ -235,7 +235,7 @@ export const CASES = [
       metrics: [],
       notes: [
         "Every other portal covers one piece: the invitation, or the guest list, or the confirmations.",
-        "An organizer sends the invitation, watches the answers come back, and exports the final list. Nothing to reconcile afterwards.",
+        "An organizer builds the invitation, sends it, watches the answers come back, and exports the final list. Nobody is counting replies out of a WhatsApp thread.",
       ],
     },
 
