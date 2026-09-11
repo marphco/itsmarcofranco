@@ -32,7 +32,7 @@ import plannerApproval from "../../assets/badv-approval.webp";
 /* The two live sites, captured as they are today. */
 import spinSite from "../../assets/spin-site.webp";
 import spinAI from "../../assets/spin-ai.webp";
-import spinSiamo from "../../assets/spin-siamo.webp";
+import spinCapri from "../../assets/spin-capri.webp";
 import eenveeInvito from "../../assets/eenvee-invito.webp";
 import eenveeEditor from "../../assets/eenvee-editor.webp";
 import eenveeRsvp from "../../assets/eenvee-rsvp.webp";
@@ -190,9 +190,9 @@ export const CASES = [
           "Spinny answering \u201cwhat does Spin Factor do?\u201d, then offering the sections that go deeper.",
       },
       {
-        src: spinSiamo,
-        alt: "An inner section of the site, with the team around a table and the agency positioning",
-        caption: "Inside a section: the team, the positioning, and the three lines the agency runs on.",
+        src: spinCapri,
+        alt: "The Capri Talks section: the title over the Faraglioni, and the concept below",
+        caption: "Capri Talks, one of the agency's own formats, with its own section inside the site.",
       },
     ],
     stack: ["React", "Node", "OpenAI API"],

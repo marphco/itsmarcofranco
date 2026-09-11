@@ -227,6 +227,7 @@
   .wk-system-head {
     display: grid;
     justify-items: start;
+    align-items: start;
     gap: 12px;
   }
 }
@@ -478,10 +479,12 @@
     box-shadow 0.35s ease;
 }
 @media (hover: hover) {
+  /* A drop shadow here is clipped flat by the scrolling container, and the
+     first item sits right against its edge, so the cut is obvious. The lift
+     and a brighter frame carry the hover instead. */
   .wk-shot-btn:hover img {
     transform: translateY(-3px);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.42),
-      0 12px 26px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
   }
 }
 .wk-shot figcaption {
@@ -516,17 +519,6 @@
   font-family: var(--wk-mono);
   font-size: 11px;
   opacity: 0.72;
-}
-
-/* =========================
-   TOUCH
-   ========================= */
-/* On a phone the buttons have to be worth aiming at. */
-@media (pointer: coarse) {
-  .wk-btn {
-    padding: 13px 16px;
-    min-height: 44px;
-  }
 }
 
 /* =========================
