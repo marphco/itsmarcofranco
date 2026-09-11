@@ -60,47 +60,65 @@ function ActionButton({ action, caseTitle }) {
 }
 
 /* ---------- FIELD / OFFICE DIAGRAM ----------
-   Abstract, not a fake dashboard: two sides, one shared line of truth. */
+   Not decoration: it runs the loop the case describes. An update leaves the
+   site, lands in the one shared record, and the office reads it there. No
+   phone call anywhere in the picture. */
 function FieldOfficeDiagram() {
   return (
-    <div className="wk-diagram" aria-hidden="true">
-      <svg viewBox="20 72 600 144" preserveAspectRatio="xMidYMid meet">
-        {/* shared spine */}
-        <line className="wk-dg-spine" x1="70" y1="130" x2="570" y2="130" />
+    <figure className="wk-diagram">
+      <svg viewBox="0 0 680 220" role="img" aria-labelledby="dg-title">
+        <title id="dg-title">
+          A status update leaves the site, lands in one shared record, and the
+          office reads it there
+        </title>
 
-        {/* field side */}
-        <g className="wk-dg-side">
-          <rect x="40" y="86" width="120" height="88" rx="12" />
-          <path className="wk-dg-mark" d="M66 150 l24 -30 20 24 14 -18 20 24" />
+        {/* the line everything travels on */}
+        <line className="wk-dg-track" x1="132" y1="104" x2="548" y2="104" />
+
+        {/* FIELD */}
+        <g className="wk-dg-node wk-dg-node--field">
+          <rect x="16" y="62" width="116" height="84" rx="14" />
+          <path className="wk-dg-glyph" d="M42 124l20-26 17 21 12-15 17 20" />
+          <circle className="wk-dg-ping" cx="74" cy="104" r="40" />
         </g>
-        <text className="wk-dg-label" x="100" y="200" textAnchor="middle">
+        <text className="wk-dg-label" x="74" y="176" textAnchor="middle">
           FIELD
         </text>
 
-        {/* office side */}
-        <g className="wk-dg-side">
-          <rect x="480" y="86" width="120" height="88" rx="12" />
-          <path className="wk-dg-mark" d="M506 156 v-26 M528 156 v-42 M550 156 v-18 M572 156 v-34" />
+        {/* the shared record */}
+        <g className="wk-dg-record">
+          <rect x="266" y="56" width="148" height="96" rx="12" />
+          <line className="wk-dg-row wk-dg-row--1" x1="288" y1="84" x2="392" y2="84" />
+          <line className="wk-dg-row wk-dg-row--2" x1="288" y1="104" x2="368" y2="104" />
+          <line className="wk-dg-row wk-dg-row--3" x1="288" y1="124" x2="380" y2="124" />
         </g>
-        <text className="wk-dg-label" x="540" y="200" textAnchor="middle">
+        <text className="wk-dg-label wk-dg-label--mid" x="340" y="176" textAnchor="middle">
+          ONE RECORD
+        </text>
+
+        {/* OFFICE */}
+        <g className="wk-dg-node wk-dg-node--office">
+          <rect x="548" y="62" width="116" height="84" rx="14" />
+          <g className="wk-dg-bars">
+            <rect className="wk-dg-bar wk-dg-bar--1" x="576" y="96" width="10" height="28" rx="3" />
+            <rect className="wk-dg-bar wk-dg-bar--2" x="596" y="86" width="10" height="38" rx="3" />
+            <rect className="wk-dg-bar wk-dg-bar--3" x="616" y="104" width="10" height="20" rx="3" />
+            <rect className="wk-dg-bar wk-dg-bar--4" x="636" y="78" width="10" height="46" rx="3" />
+          </g>
+        </g>
+        <text className="wk-dg-label" x="606" y="176" textAnchor="middle">
           OFFICE
         </text>
 
-        {/* the shared record in the middle */}
-        <g className="wk-dg-core">
-          <rect x="250" y="94" width="140" height="72" rx="10" />
-          <line x1="272" y1="118" x2="368" y2="118" />
-          <line x1="272" y1="134" x2="344" y2="134" />
-          <line x1="272" y1="150" x2="356" y2="150" />
-        </g>
-
-        {/* status moving both ways */}
-        <g className="wk-dg-flow">
-          <circle cx="205" cy="130" r="5" />
-          <circle cx="435" cy="130" r="5" />
-        </g>
+        {/* the update itself */}
+        <circle className="wk-dg-packet wk-dg-packet--a" cy="104" r="6" />
+        <circle className="wk-dg-packet wk-dg-packet--b" cy="104" r="6" />
       </svg>
-    </div>
+      <figcaption>
+        A job status changes on site. It lands in the one record both sides
+        read, and the office sees it without asking.
+      </figcaption>
+    </figure>
   );
 }
 

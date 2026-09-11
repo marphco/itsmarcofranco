@@ -45,7 +45,7 @@ export const CASES = [
     kicker: "A company built from zero, and the systems that ran it",
     title: "Basic ADV",
     role: "Co-founder",
-    context: "Digital agency, Naples",
+    context: "Digital agency, Naples, Italy",
 
     problem:
       "No clients, no processes, no team. I wrote the business plan, won a 100,000 euro launch grant from Invitalia, and incorporated the company on February 24, 2020. Eleven days later Italy went into lockdown.",
@@ -129,7 +129,7 @@ export const CASES = [
     context: "Glazing and facade contractor, New York",
 
     problem:
-      "Fifteen or more sites at once, and no shared view between office and field. Updates moved by phone call. Schedules, manpower and job status lived wherever the person keeping them put them, so delays surfaced late, through whoever happened to ask.",
+      "Fifteen sites running at once, and no shared view between office and field. Updates moved by phone call. Schedules, manpower and job status lived wherever the person keeping them put them, so delays surfaced late, through whoever happened to ask.",
 
     built: {
       lead: "One workflow and one dashboard both sides worked from. Field crews updated job status from the site. The office saw delivery dates, schedules, manpower and inventory in real time, with project finances visible to management only. I built it around the questions people were already calling each other to ask, and left everything else out.",
@@ -157,7 +157,7 @@ export const CASES = [
     title: "Spin Factor",
     actions: [{ kind: "live", href: "https://www.spinfactor.it", label: "Live" }],
     role: "Operational lead",
-    context: "Political communication agency, Rome",
+    context: "Political communication agency, Rome, Italy",
 
     problem:
       "Italy's leading political communication agency at its founding stage: three people, national clients arriving faster than the structure could handle, and election deadlines that do not move.",
