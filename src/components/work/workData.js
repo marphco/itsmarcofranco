@@ -9,7 +9,6 @@
  * visible [MARCO: ...] placeholder that renders as-is.
  *
  * Shape of a case:
- *   kicker   small line above the title
  *   title    big title
  *   meta     muted one-liner (industry, place, years, role)
  *   problem  "The situation", one paragraph. The heading is deliberately
@@ -44,7 +43,6 @@ export const CASES = [
   {
     id: "basic-adv",
     accent: "#3b2ecc",
-    kicker: "A company built from zero, and the systems that ran it",
     title: "Basic ADV",
     role: "Co-founder, creative operations and project lead",
     context: "Digital agency, Naples, Italy",
@@ -142,7 +140,6 @@ export const CASES = [
   {
     id: "dynamic-windows",
     accent: "#0d6152",
-    kicker: "Field-to-office reporting, in real time",
     title: "Dynamic Windows System",
     role: "Project and operations coordinator",
     context: "Glazing and facade contractor, New York",
@@ -172,7 +169,6 @@ export const CASES = [
   {
     id: "spin-factor",
     accent: "#b0122b",
-    kicker: "From three people to twenty",
     title: "Spin Factor",
     role: "Campaign operations manager",
     context: "Political communication agency, Rome, Italy",
@@ -219,7 +215,6 @@ export const CASES = [
   {
     id: "eenvee",
     accent: "#a34a00",
-    kicker: "A product, from the first line to the app stores",
     title: "eenvee",
     actions: [{ kind: "live", href: "https://eenvee.com", label: "Live" }],
     role: "Founder",

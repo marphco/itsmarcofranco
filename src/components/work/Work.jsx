@@ -331,7 +331,7 @@ function Outcome({ item }) {
 }
 
 function CaseCard({ data }) {
-  const { kicker, title, problem, built, changed, stack, shots } = data;
+  const { title, problem, built, changed, stack, shots } = data;
   const metrics = changed?.metrics || [];
   const notes = changed?.notes || [];
 
@@ -352,7 +352,6 @@ function CaseCard({ data }) {
           <span>{data.context}</span>
         </p>
         <h3 className="wk-title">{title}</h3>
-        <p className="wk-tagline">{kicker}</p>
         {cardActions.length > 0 && (
           <div className="wk-actions">
             {cardActions.map((a, i) => (
@@ -467,7 +466,7 @@ export default function Work() {
 
         gsap.utils.toArray(".wk-card").forEach((card) => {
           /* The card arrives as one slab, then its contents land in order:
-             kicker, title, the three moments, the rest. */
+             title, the three moments, the rest. */
           const head = card.querySelector(".wk-head");
           const moments = card.querySelectorAll(".wk-moment");
           const rest = card.querySelectorAll(

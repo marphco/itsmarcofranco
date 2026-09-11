@@ -68,9 +68,9 @@
 /* =========================
    HEAD
    ========================= */
-/* One typeface, three levels: what the role was, the name, then the line
-   that says what the thing was. The mono kicker and mono meta were two
-   competing voices around a third. */
+/* Two levels: what the role was, then the name. A third line under the
+   title summarized the case before the reader reached the evidence for it,
+   which is the job the three moments below already do. */
 .wk-head {
   display: grid;
   gap: clamp(8px, 1.1vw, 12px);
@@ -116,15 +116,6 @@
   line-height: 0.95;
   letter-spacing: -0.03em;
   font-weight: 800;
-}
-
-.wk-tagline {
-  margin: 0;
-  max-width: 46ch;
-  font-size: clamp(15px, 2.1vw, 19px);
-  line-height: 1.35;
-  font-weight: 400;
-  opacity: 0.82;
 }
 
 .wk-actions {
