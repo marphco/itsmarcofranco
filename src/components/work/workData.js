@@ -151,7 +151,7 @@ export const CASES = [
       "Fifteen sites ran at once. The office and the field each kept their own records, so whoever tracked a schedule, a delivery or a crew was the only one who knew where it stood. By the time the office heard, the site had already moved on.",
 
     built: {
-      lead: "I put both sides on one workflow and one dashboard. Crews updated job status from the site, and every change went out as a notification, so the people it affected knew before they thought to ask. The office watched delivery dates, schedules, manpower and inventory move in real time, while project finances stayed visible to management alone. I only built what people were already calling each other about.",
+      lead: "I put both sides on one workflow and one dashboard. Crews updated job status from the site, and every change went out as a notification, so the people it affected knew before they thought to ask. The office watched delivery dates, schedules, manpower and inventory move in real time, while project finances stayed visible to management alone.",
     },
 
     changed: {
