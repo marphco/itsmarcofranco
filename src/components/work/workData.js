@@ -172,7 +172,7 @@ export const CASES = [
       ],
       notes: [
         "Campaigns for national stakeholders, including major parliamentary parties, under hard election-driven deadlines.",
-        "By the end I was not in the room for most campaigns. The people I trained were running them.",
+        "I moved from running campaigns to running the operation itself. The people I trained ran them.",
       ],
     },
 
