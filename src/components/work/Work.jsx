@@ -14,9 +14,7 @@ ScrollTrigger.config({ ignoreMobileResize: true });
    renders as pending rather than sending a visitor nowhere. */
 const INTAKE_URL =
   import.meta.env.VITE_INTAKE_URL ||
-  (import.meta.env.DEV
-    ? "http://localhost:5184"
-    : "https://intake-demo-production-ae7f.up.railway.app");
+  (import.meta.env.DEV ? "http://localhost:5184" : "/demo");
 
 /* ---------- ICONS ---------- */
 const ArrowOut = () => (

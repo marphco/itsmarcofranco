@@ -1,6 +1,13 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    {
+      "source": "/demo",
+      "destination": "https://intake-demo-production-ae7f.up.railway.app/"
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "https://intake-demo-production-ae7f.up.railway.app/:path*"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
