@@ -172,7 +172,7 @@ export const CASES = [
       ],
       notes: [
         "Campaigns for national stakeholders, including major parliamentary parties, under hard election-driven deadlines.",
-        "[MARCO: la riga piu forte di tutta la card, se il fatto regge: nessuna scadenza elettorale mancata]",
+        "By the end I was not in the room for most campaigns. The people I trained were running them.",
       ],
     },
 
