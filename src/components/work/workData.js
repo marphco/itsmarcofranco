@@ -142,7 +142,7 @@ export const CASES = [
   {
     id: "dynamic-windows",
     accent: "#0d6152",
-    kicker: "The field-to-office workflow",
+    kicker: "Field-to-office reporting, in real time",
     title: "Dynamic Windows System",
     role: "Operations",
     context: "Glazing and facade contractor, New York",
