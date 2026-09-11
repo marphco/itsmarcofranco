@@ -46,7 +46,7 @@ export const CASES = [
     accent: "#3b2ecc",
     kicker: "A company built from zero, and the systems that ran it",
     title: "Basic ADV",
-    role: "Co-founder",
+    role: "Co-founder, creative operations and project lead",
     context: "Digital agency, Naples, Italy",
 
     problem:
@@ -174,7 +174,7 @@ export const CASES = [
     accent: "#b0122b",
     kicker: "From three people to twenty",
     title: "Spin Factor",
-    role: "Operations lead",
+    role: "Campaign operations manager",
     context: "Political communication agency, Rome, Italy",
 
     problem:
