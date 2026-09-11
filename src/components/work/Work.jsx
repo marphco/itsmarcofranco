@@ -60,43 +60,41 @@ function ActionButton({ action, caseTitle }) {
 }
 
 /* ---------- FIELD / OFFICE DIAGRAM ----------
-   Not decoration: it runs the loop the case describes. An update leaves the
-   site, lands in the one shared record, and the office reads it there. No
-   phone call anywhere in the picture. */
+   Both sides write to the one record and both sides read it: the field puts
+   in job status, the office puts in dates, manpower and inventory. The loop
+   runs in both directions, which is the whole point of the case.
+
+   The svg is decorative: the figcaption below says the same thing in words,
+   visibly, so there is nothing for a screen reader to repeat, and no
+   browser tooltip on hover. */
 function FieldOfficeDiagram() {
   return (
     <figure className="wk-diagram">
-      <svg viewBox="0 0 680 220" role="img" aria-labelledby="dg-title">
-        <title id="dg-title">
-          A status update leaves the site, lands in one shared record, and the
-          office reads it there
-        </title>
-
-        {/* the line everything travels on */}
+      <svg viewBox="0 0 680 220" aria-hidden="true" focusable="false">
         <line className="wk-dg-track" x1="132" y1="104" x2="548" y2="104" />
 
-        {/* FIELD */}
+        {/* FIELD: job status from the site */}
         <g className="wk-dg-node wk-dg-node--field">
           <rect x="16" y="62" width="116" height="84" rx="14" />
           <path className="wk-dg-glyph" d="M42 124l20-26 17 21 12-15 17 20" />
-          <circle className="wk-dg-ping" cx="74" cy="104" r="40" />
+          <circle className="wk-dg-ping wk-dg-ping--field" cx="74" cy="104" r="40" />
         </g>
         <text className="wk-dg-label" x="74" y="176" textAnchor="middle">
           FIELD
         </text>
 
-        {/* the shared record */}
+        {/* the one record both sides write to */}
         <g className="wk-dg-record">
           <rect x="266" y="56" width="148" height="96" rx="12" />
-          <line className="wk-dg-row wk-dg-row--1" x1="288" y1="84" x2="392" y2="84" />
-          <line className="wk-dg-row wk-dg-row--2" x1="288" y1="104" x2="368" y2="104" />
-          <line className="wk-dg-row wk-dg-row--3" x1="288" y1="124" x2="380" y2="124" />
+          <line className="wk-dg-row wk-dg-row--1" x1="288" y1="80" x2="392" y2="80" />
+          <line className="wk-dg-row wk-dg-row--2" x1="288" y1="100" x2="366" y2="100" />
+          <line className="wk-dg-row wk-dg-row--3" x1="288" y1="120" x2="384" y2="120" />
         </g>
         <text className="wk-dg-label wk-dg-label--mid" x="340" y="176" textAnchor="middle">
           ONE RECORD
         </text>
 
-        {/* OFFICE */}
+        {/* OFFICE: dates, schedules, manpower, inventory */}
         <g className="wk-dg-node wk-dg-node--office">
           <rect x="548" y="62" width="116" height="84" rx="14" />
           <g className="wk-dg-bars">
@@ -105,18 +103,22 @@ function FieldOfficeDiagram() {
             <rect className="wk-dg-bar wk-dg-bar--3" x="616" y="104" width="10" height="20" rx="3" />
             <rect className="wk-dg-bar wk-dg-bar--4" x="636" y="78" width="10" height="46" rx="3" />
           </g>
+          <circle className="wk-dg-ping wk-dg-ping--office" cx="606" cy="104" r="40" />
         </g>
         <text className="wk-dg-label" x="606" y="176" textAnchor="middle">
           OFFICE
         </text>
 
-        {/* the update itself */}
-        <circle className="wk-dg-packet wk-dg-packet--a" cy="104" r="6" />
-        <circle className="wk-dg-packet wk-dg-packet--b" cy="104" r="6" />
+        {/* four packets: each side writes in, then each side reads back */}
+        <circle className="wk-dg-packet wk-dg-packet--fw" cy="104" r="6" />
+        <circle className="wk-dg-packet wk-dg-packet--ow" cy="104" r="6" />
+        <circle className="wk-dg-packet wk-dg-packet--fr" cy="104" r="5" />
+        <circle className="wk-dg-packet wk-dg-packet--or" cy="104" r="5" />
       </svg>
       <figcaption>
-        A job status changes on site. It lands in the one record both sides
-        read, and the office sees it without asking.
+        Both sides write to the same record: job status from the site, dates
+        and manpower from the office. Both sides read it there, so nobody has
+        to call and ask.
       </figcaption>
     </figure>
   );

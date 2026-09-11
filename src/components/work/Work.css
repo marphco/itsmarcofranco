@@ -339,7 +339,7 @@
    office reads it. Everything is on the same clock so it reads as one
    movement rather than three things blinking. */
 .wk-diagram {
-  --dg: 7s;
+  --dg: 9s;
   margin: 0;
   display: grid;
   gap: 14px;
@@ -433,73 +433,117 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* 1. the site registers the change */
-  .wk-dg-ping {
-    animation: dg-ping var(--dg) ease-out infinite;
-  }
-  .wk-dg-node--field rect {
-    animation: dg-wake var(--dg) ease-in-out infinite;
-  }
+  /* 9s loop, four beats:
+     1  the site registers a change and writes it in
+     2  the office writes its own side in
+     3  the record holds both
+     4  both sides read it back, and nobody phones anyone */
+  .wk-dg-ping--field { animation: dg-ping-f var(--dg) ease-out infinite; }
+  .wk-dg-ping--office { animation: dg-ping-o var(--dg) ease-out infinite; }
 
-  /* 2. it travels to the record */
-  .wk-dg-packet--a {
-    animation: dg-send var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite;
-  }
-  /* 3. the record takes it */
-  .wk-dg-row--1 { animation: dg-write var(--dg) ease-out infinite; }
-  .wk-dg-row--2 { animation: dg-write var(--dg) ease-out infinite; animation-delay: 0.12s; }
-  .wk-dg-row--3 { animation: dg-write var(--dg) ease-out infinite; animation-delay: 0.24s; }
-  .wk-dg-record rect {
-    animation: dg-wake var(--dg) ease-in-out infinite;
-    animation-delay: 1.5s;
-  }
+  .wk-dg-node--field rect { animation: dg-wake-f var(--dg) ease-in-out infinite; }
+  .wk-dg-node--office rect { animation: dg-wake-o var(--dg) ease-in-out infinite; }
 
-  /* 4. the office reads it, without asking */
-  .wk-dg-packet--b {
-    animation: dg-deliver var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite;
-  }
-  .wk-dg-node--office rect {
-    animation: dg-wake var(--dg) ease-in-out infinite;
-    animation-delay: 3.4s;
-  }
-  .wk-dg-bar--1 { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; animation-delay: 3.5s; }
-  .wk-dg-bar--2 { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; animation-delay: 3.6s; }
-  .wk-dg-bar--3 { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; animation-delay: 3.7s; }
-  .wk-dg-bar--4 { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; animation-delay: 3.8s; }
+  /* writing in */
+  .wk-dg-packet--fw { animation: dg-field-write var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+  .wk-dg-packet--ow { animation: dg-office-write var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+
+  .wk-dg-row--1 { animation: dg-write-a var(--dg) ease-out infinite; }
+  .wk-dg-row--2 { animation: dg-write-b var(--dg) ease-out infinite; }
+  .wk-dg-row--3 { animation: dg-write-b var(--dg) ease-out infinite; animation-delay: 0.14s; }
+
+  .wk-dg-record rect { animation: dg-hold var(--dg) ease-in-out infinite; }
+
+  /* reading back */
+  .wk-dg-packet--fr { animation: dg-read-field var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+  .wk-dg-packet--or { animation: dg-read-office var(--dg) cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+
+  .wk-dg-bar { animation: dg-rise var(--dg) cubic-bezier(0.3, 1.4, 0.4, 1) infinite; }
+  .wk-dg-bar--2 { animation-delay: 0.08s; }
+  .wk-dg-bar--3 { animation-delay: 0.16s; }
+  .wk-dg-bar--4 { animation-delay: 0.24s; }
 }
 
-@keyframes dg-ping {
-  0%, 4% { opacity: 0; r: 8; }
-  8% { opacity: 0.55; }
-  22% { opacity: 0; r: 44; }
+/* beat 1: the site */
+@keyframes dg-ping-f {
+  0%, 2% { opacity: 0; r: 8; }
+  6% { opacity: 0.5; }
+  18% { opacity: 0; r: 44; }
   100% { opacity: 0; r: 44; }
 }
-@keyframes dg-wake {
-  0%, 6% { stroke: rgba(255, 255, 255, 0.4); }
-  11% { stroke: #fff; }
-  26%, 100% { stroke: rgba(255, 255, 255, 0.4); }
+@keyframes dg-wake-f {
+  0%, 3% { stroke: rgba(255, 255, 255, 0.4); }
+  8% { stroke: #fff; }
+  20% { stroke: rgba(255, 255, 255, 0.4); }
+  /* beat 4: reading back */
+  74% { stroke: rgba(255, 255, 255, 0.4); }
+  80% { stroke: #fff; }
+  92%, 100% { stroke: rgba(255, 255, 255, 0.4); }
 }
-@keyframes dg-send {
-  0%, 8% { opacity: 0; cx: 132px; }
-  12% { opacity: 1; }
-  28% { opacity: 1; cx: 266px; }
-  32%, 100% { opacity: 0; cx: 266px; }
+@keyframes dg-field-write {
+  0%, 6% { opacity: 0; cx: 132px; }
+  10% { opacity: 1; }
+  24% { opacity: 1; cx: 266px; }
+  27%, 100% { opacity: 0; cx: 266px; }
 }
-@keyframes dg-write {
-  0%, 28% { stroke-dashoffset: 110; }
-  44% { stroke-dashoffset: 0; }
+@keyframes dg-write-a {
+  0%, 24% { stroke-dashoffset: 110; }
+  34% { stroke-dashoffset: 0; }
   100% { stroke-dashoffset: 0; }
 }
-@keyframes dg-deliver {
-  0%, 46% { opacity: 0; cx: 414px; }
-  50% { opacity: 1; }
-  66% { opacity: 1; cx: 548px; }
-  70%, 100% { opacity: 0; cx: 548px; }
+
+/* beat 2: the office writes its own side in */
+@keyframes dg-ping-o {
+  0%, 30% { opacity: 0; r: 8; }
+  34% { opacity: 0.5; }
+  46% { opacity: 0; r: 44; }
+  100% { opacity: 0; r: 44; }
+}
+@keyframes dg-wake-o {
+  0%, 31% { stroke: rgba(255, 255, 255, 0.4); }
+  36% { stroke: #fff; }
+  48% { stroke: rgba(255, 255, 255, 0.4); }
+  /* beat 4 */
+  74% { stroke: rgba(255, 255, 255, 0.4); }
+  80% { stroke: #fff; }
+  92%, 100% { stroke: rgba(255, 255, 255, 0.4); }
+}
+@keyframes dg-office-write {
+  0%, 34% { opacity: 0; cx: 548px; }
+  38% { opacity: 1; }
+  52% { opacity: 1; cx: 414px; }
+  55%, 100% { opacity: 0; cx: 414px; }
+}
+@keyframes dg-write-b {
+  0%, 52% { stroke-dashoffset: 110; }
+  62% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* beat 3: the record holds both */
+@keyframes dg-hold {
+  0%, 62% { stroke: #fff; fill: rgba(255, 255, 255, 0.1); }
+  68% { stroke: #fff; fill: rgba(255, 255, 255, 0.2); }
+  80%, 100% { stroke: #fff; fill: rgba(255, 255, 255, 0.1); }
+}
+
+/* beat 4: both sides read it back */
+@keyframes dg-read-field {
+  0%, 66% { opacity: 0; cx: 266px; }
+  70% { opacity: 0.9; }
+  82% { opacity: 0.9; cx: 132px; }
+  85%, 100% { opacity: 0; cx: 132px; }
+}
+@keyframes dg-read-office {
+  0%, 66% { opacity: 0; cx: 414px; }
+  70% { opacity: 0.9; }
+  82% { opacity: 0.9; cx: 548px; }
+  85%, 100% { opacity: 0; cx: 548px; }
 }
 @keyframes dg-rise {
-  0%, 48% { transform: scaleY(1); }
-  56% { transform: scaleY(1.35); }
-  70%, 100% { transform: scaleY(1); }
+  0%, 80% { transform: scaleY(1); }
+  87% { transform: scaleY(1.32); }
+  96%, 100% { transform: scaleY(1); }
 }
 
 /* =========================
