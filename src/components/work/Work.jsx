@@ -127,6 +127,72 @@ function FieldOfficeDiagram() {
   );
 }
 
+/* ---------- ONE TEMPLATE DIAGRAM ----------
+   The operations claim on the Spin Factor card, made visible: one sequence,
+   defined once, then stamped across every campaign. That is what let three
+   people become twenty without the coordination cost eating the gain.
+
+   Decorative: the figcaption carries the meaning in words. */
+function OneTemplateDiagram() {
+  const lanes = [0, 1, 2, 3, 4];
+  const steps = [0, 1, 2, 3];
+
+  return (
+    <figure className="wk-diagram wk-diagram--tpl">
+      <svg viewBox="0 0 680 250" aria-hidden="true" focusable="false">
+        {/* the template, defined once */}
+        <g className="wk-tp-master">
+          <rect x="16" y="28" width="150" height="46" rx="10" />
+          {steps.map((i) => (
+            <circle key={i} className="wk-tp-dot" cx={46 + i * 30} cy={51} r="6" />
+          ))}
+        </g>
+        <text className="wk-dg-label" x="91" y="96" textAnchor="middle">
+          ONE TEMPLATE
+        </text>
+
+        {/* every campaign inherits it */}
+        {lanes.map((l) => (
+          <g className={`wk-tp-lane wk-tp-lane--${l + 1}`} key={l}>
+            <line
+              className="wk-tp-rail"
+              x1="250"
+              y1={40 + l * 38}
+              x2="640"
+              y2={40 + l * 38}
+            />
+            {steps.map((i) => (
+              <circle
+                key={i}
+                className="wk-tp-step"
+                cx={280 + i * 118}
+                cy={40 + l * 38}
+                r="6"
+              />
+            ))}
+          </g>
+        ))}
+
+        {/* the feed from the template into the lanes */}
+        <path
+          className="wk-tp-feed"
+          d="M172 51 C210 51 210 40 250 40 M172 51 C210 51 210 78 250 78
+             M172 51 C210 51 210 116 250 116 M172 51 C210 51 210 154 250 154
+             M172 51 C210 51 210 192 250 192"
+        />
+
+        <text className="wk-dg-label wk-dg-label--mid" x="445" y="232" textAnchor="middle">
+          EVERY CAMPAIGN
+        </text>
+      </svg>
+      <figcaption>
+        The sequence was defined once, then every campaign ran on it. Adding
+        people added output, instead of adding coordination.
+      </figcaption>
+    </figure>
+  );
+}
+
 /* ---------- LIGHTBOX ----------
    A dashboard shrunk to a thumbnail proves nothing. Clicking one opens it
    at a size where you can actually read the thing. */
@@ -288,6 +354,7 @@ function CaseCard({ data }) {
           <h4 className="wk-label">What I built</h4>
           <p className="wk-text">{built.lead}</p>
           {data.diagram === "field-office" && <FieldOfficeDiagram />}
+      {data.diagram === "one-template" && <OneTemplateDiagram />}
         </section>
       </div>
 

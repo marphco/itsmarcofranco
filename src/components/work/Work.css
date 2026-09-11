@@ -926,3 +926,113 @@
 @keyframes wk-live {
   50% { box-shadow: 0 0 0 5px rgba(110, 231, 168, 0.08); }
 }
+
+
+/* =========================
+   ONE TEMPLATE (Spin Factor)
+   ========================= */
+/* 8s loop: the template is defined, it feeds the lanes, and each campaign
+   fills along the same sequence, one after another. */
+.wk-diagram--tpl {
+  --tp: 8s;
+}
+.wk-diagram--tpl svg {
+  max-width: 660px;
+}
+
+.wk-tp-master rect {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: #fff;
+  stroke-width: 1.8;
+}
+.wk-tp-dot {
+  fill: #fff;
+}
+
+.wk-tp-rail {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 2;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+.wk-tp-step {
+  fill: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+}
+
+.wk-tp-feed {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1.5;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+
+/* the resting frame: everything already inherited the template */
+@media (prefers-reduced-motion: reduce) {
+  .wk-tp-step { opacity: 0.9; }
+  .wk-tp-feed { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wk-tp-master rect { animation: tp-define var(--tp) ease-in-out infinite; }
+  .wk-tp-feed { animation: tp-feed var(--tp) ease-out infinite; }
+
+  .wk-tp-step { animation: tp-fill var(--tp) ease-out infinite; }
+
+  /* each lane starts a beat after the one above it */
+  .wk-tp-lane--1 .wk-tp-step { animation-delay: 0s; }
+  .wk-tp-lane--2 .wk-tp-step { animation-delay: 0.32s; }
+  .wk-tp-lane--3 .wk-tp-step { animation-delay: 0.64s; }
+  .wk-tp-lane--4 .wk-tp-step { animation-delay: 0.96s; }
+  .wk-tp-lane--5 .wk-tp-step { animation-delay: 1.28s; }
+
+  /* and within a lane, the sequence runs left to right */
+  .wk-tp-lane .wk-tp-step:nth-of-type(2) { animation-delay: inherit; }
+}
+
+/* the per-step offset inside a lane, applied on top of the lane delay */
+@media (prefers-reduced-motion: no-preference) {
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(1) { animation-delay: 0.00s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(2) { animation-delay: 0.10s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(3) { animation-delay: 0.20s; }
+  .wk-tp-lane--1 .wk-tp-step:nth-of-type(4) { animation-delay: 0.30s; }
+
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(1) { animation-delay: 0.32s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(2) { animation-delay: 0.42s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(3) { animation-delay: 0.52s; }
+  .wk-tp-lane--2 .wk-tp-step:nth-of-type(4) { animation-delay: 0.62s; }
+
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(1) { animation-delay: 0.64s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(2) { animation-delay: 0.74s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(3) { animation-delay: 0.84s; }
+  .wk-tp-lane--3 .wk-tp-step:nth-of-type(4) { animation-delay: 0.94s; }
+
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(1) { animation-delay: 0.96s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(2) { animation-delay: 1.06s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(3) { animation-delay: 1.16s; }
+  .wk-tp-lane--4 .wk-tp-step:nth-of-type(4) { animation-delay: 1.26s; }
+
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(1) { animation-delay: 1.28s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(2) { animation-delay: 1.38s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(3) { animation-delay: 1.48s; }
+  .wk-tp-lane--5 .wk-tp-step:nth-of-type(4) { animation-delay: 1.58s; }
+}
+
+@keyframes tp-define {
+  0%, 4% { fill: rgba(255, 255, 255, 0.12); }
+  9% { fill: rgba(255, 255, 255, 0.26); }
+  20%, 100% { fill: rgba(255, 255, 255, 0.12); }
+}
+@keyframes tp-feed {
+  0%, 8% { stroke-dashoffset: 300; }
+  26% { stroke-dashoffset: 0; }
+  86% { stroke-dashoffset: 0; opacity: 1; }
+  96%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes tp-fill {
+  0%, 22% { opacity: 0; r: 3; }
+  30% { opacity: 1; r: 6; }
+  86% { opacity: 1; r: 6; }
+  96%, 100% { opacity: 0; r: 6; }
+}

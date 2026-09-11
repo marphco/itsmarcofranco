@@ -30,9 +30,7 @@ import plannerPost from "../../assets/badv-post.webp";
 import plannerApproval from "../../assets/badv-approval.webp";
 
 /* The two live sites, captured as they are today. */
-import spinSite from "../../assets/spin-site.webp";
 import spinAI from "../../assets/spin-ai.webp";
-import spinCapri from "../../assets/spin-capri.webp";
 import eenveeInvito from "../../assets/eenvee-invito.webp";
 import eenveeEditor from "../../assets/eenvee-editor.webp";
 import eenveeRsvp from "../../assets/eenvee-rsvp.webp";
@@ -168,34 +166,24 @@ export const CASES = [
 
     changed: {
       metrics: [
-        { value: "3 → 20", label: "team size I helped scale" },
-        { value: "40+", label: "simultaneous national campaigns" },
+        { value: "3 \u2192 20", label: "team size I helped scale" },
+        { value: "40+", label: "campaigns for national stakeholders" },
       ],
       notes: [
-        "[MARCO: cosa reggeva il team prima dei sistemi e cosa dopo]",
+        "Before, every campaign was assembled from scratch by whoever was free, and the ceiling was whatever three people could personally hold. After, one started from a template and a known sequence, so each person hired added output instead of adding coordination.",
         "Years later they came back. In 2026 I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
       ],
     },
 
+    diagram: "one-template",
     shots: [
       {
-        src: spinSite,
-        alt: "The Spin Factor home page, seven colored sections around a central one",
-        caption: "The site as it is today. Every section is one way into the agency.",
-      },
-      {
         src: spinAI,
-        alt: "Spinny, the AI assistant, answering a question about what the agency does",
+        alt: "The Spin Factor site with Spinny, its AI assistant, answering a question about the agency",
         caption:
-          "Spinny answering \u201cwhat does Spin Factor do?\u201d, then offering the sections that go deeper.",
-      },
-      {
-        src: spinCapri,
-        alt: "The Capri Talks section: the title over the Faraglioni, and the concept below",
-        caption: "Capri Talks, one of the agency's own formats, with its own section inside the site.",
+          "The postscript: the site I rebuilt for them in 2026, with an assistant that answers for the agency.",
       },
     ],
-    stack: ["React", "Node", "OpenAI API"],
   },
 
   {
