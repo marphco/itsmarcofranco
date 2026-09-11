@@ -157,10 +157,10 @@ export const CASES = [
     changed: {
       metrics: [
         { value: "95%+", label: "on-time delivery across three years" },
-        { value: "15", label: "concurrent sites" },
+        { value: "15", label: "sites on one dashboard" },
       ],
       notes: [
-        "Status calls stopped, because the answer was already on screen. [MARCO: stima delle telefonate al giorno prima]",
+        "Nobody had to assemble the picture any more: the office opened the dashboard and the week was there, site by site.",
         "Delays became visible while they were still small enough to fix.",
         "Included a full-block storefront for Cadillac in Manhattan and the facade package for a 33-story tower in Hoboken.",
       ],
