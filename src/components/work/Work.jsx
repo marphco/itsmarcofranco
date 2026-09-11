@@ -306,6 +306,34 @@ function Shots({ shots }) {
   );
 }
 
+/* ---------- POSTSCRIPT ----------
+   A separate engagement, years after the case. Set apart so the card does
+   not swing back and forth between two stories. */
+function Postscript({ data, caseTitle }) {
+  if (!data) return null;
+  return (
+    <aside className="wk-ps">
+      <p className="wk-ps-label">{data.label}</p>
+      <div className="wk-ps-body">
+        <div className="wk-ps-copy">
+          <p className="wk-text">{data.text}</p>
+          <div className="wk-ps-foot">
+            <ActionButton action={data.action} caseTitle={caseTitle} />
+            {data.stack?.length > 0 && (
+              <ul className="wk-stack wk-stack--inline" aria-label="Stack">
+                {data.stack.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+        {data.shot && <Shots shots={[data.shot]} />}
+      </div>
+    </aside>
+  );
+}
+
 /* ---------- ONE CASE ---------- */
 function Outcome({ item }) {
   return <li>{typeof item === "string" ? item : item.text}</li>;
@@ -419,6 +447,8 @@ function CaseCard({ data }) {
         )}
       </section>
 
+      <Postscript data={data.postscript} caseTitle={title} />
+
       {stack?.length > 0 && (
         <ul className="wk-stack" aria-label="Stack">
           {stack.map((t) => (
@@ -450,7 +480,7 @@ export default function Work() {
           const head = card.querySelector(".wk-head");
           const moments = card.querySelectorAll(".wk-moment");
           const rest = card.querySelectorAll(
-            ".wk-actions, .wk-system, .wk-card > .wk-shots, .wk-changed, .wk-stack"
+            ".wk-actions, .wk-system, .wk-card > .wk-shots, .wk-changed, .wk-ps, .wk-stack"
           );
 
           const tl = gsap.timeline({

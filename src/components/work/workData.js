@@ -153,8 +153,7 @@ export const CASES = [
     accent: "#b0122b",
     kicker: "From three people to twenty",
     title: "Spin Factor",
-    actions: [{ kind: "live", href: "https://www.spinfactor.it", label: "Live" }],
-    role: "Operational lead",
+    role: "Operations lead",
     context: "Political communication agency, Rome, Italy",
 
     problem:
@@ -164,26 +163,33 @@ export const CASES = [
       lead: "The workflows and template systems the agency ran on, from scratch, so a lean team could work at the speed the environment demanded. I grew into the de facto operational lead, trained the people who came in, and used campaign performance data to decide where people and budget went when everything was urgent at once.",
     },
 
+    diagram: "one-template",
+
     changed: {
       metrics: [
         { value: "3 \u2192 20", label: "team size I helped scale" },
-        { value: "40+", label: "campaigns for national stakeholders" },
+        { value: "40+", label: "campaigns run on those systems" },
       ],
       notes: [
-        "Before, every campaign was assembled from scratch by whoever was free, and the ceiling was whatever three people could personally hold. After, one started from a template and a known sequence, so each person hired added output instead of adding coordination.",
-        "Years later they came back. In 2026 I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
+        "Campaigns for national stakeholders, including major parliamentary parties, under hard election-driven deadlines.",
+        "[MARCO: la riga piu forte di tutta la card, se il fatto regge: nessuna scadenza elettorale mancata]",
       ],
     },
 
-    diagram: "one-template",
-    shots: [
-      {
+    /* A separate engagement, six years later. It belongs at the end, set
+       apart, not woven through the operations story it has nothing to do
+       with. */
+    postscript: {
+      label: "Postscript, 2026",
+      text: "Years later they came back. I rebuilt their website, now live, with an AI assistant that answers questions about the agency and its services.",
+      action: { kind: "live", href: "https://www.spinfactor.it", label: "Visit the site" },
+      shot: {
         src: spinAI,
         alt: "The Spin Factor site with Spinny, its AI assistant, answering a question about the agency",
-        caption:
-          "The postscript: the site I rebuilt for them in 2026, with an assistant that answers for the agency.",
+        caption: "Spinny answering for the agency, on the site as it is today.",
       },
-    ],
+      stack: ["React", "Node", "OpenAI API"],
+    },
   },
 
   {

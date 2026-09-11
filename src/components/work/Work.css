@@ -1036,3 +1036,63 @@
   86% { opacity: 1; r: 6; }
   96%, 100% { opacity: 0; r: 6; }
 }
+
+
+/* =========================
+   POSTSCRIPT
+   ========================= */
+/* Separated by a rule and dropped back in contrast, so the eye reads it as
+   a note after the case rather than as part of it. */
+.wk-ps {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 16px);
+  padding-top: clamp(18px, 2.6vw, 26px);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.wk-ps-label {
+  margin: 0;
+  font: 600 clamp(10px, 1.3vw, 12px) / 1.2 var(--wk-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.wk-ps-body {
+  display: grid;
+  gap: clamp(14px, 2.2vw, 24px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .wk-ps-body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.wk-ps-copy {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.wk-ps .wk-text {
+  opacity: 0.8;
+  font-size: clamp(13px, 1.8vw, 15px);
+}
+.wk-ps-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.wk-stack--inline {
+  padding-top: 0;
+  border-top: 0;
+  gap: 5px;
+}
+.wk-stack--inline li {
+  font-size: 10.5px;
+  padding: 3px 8px;
+  opacity: 0.6;
+}
+.wk-ps .wk-shots {
+  grid-auto-columns: minmax(0, 1fr);
+  overflow: visible;
+}
